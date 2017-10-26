@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        React之PropTypes｜syymo&#39;s blog
+        JavaScript内置对象类｜syymo&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://syymo.github.io/2017/10/06/React之PropTypes/">
+    <link rel="canonical" href="http://syymo.github.io/2017/09/29/JavaScript内置对象类/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -153,18 +153,18 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>React之PropTypes</h1>
+                    <h1>JavaScript内置对象类</h1>
                     
                     <span class="meta">
                          作者 syymo
                         <span>
-                          日期 2017-10-06
+                          日期 2017-09-29
                          </span>
                     </span>
                     <div class="tags text-center">
                         
-                        <a class="tag" href="/tags/#React"
-                           title="React">React</a>
+                        <a class="tag" href="/tags/#JavaScript"
+                           title="JavaScript">JavaScript</a>
                         
                     </div>
                 </div>
@@ -173,7 +173,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            React之PropTypes
+            JavaScript内置对象类
         </span>
     </div>
 </header>
@@ -184,16 +184,39 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="this-props"><a href="#this-props" class="headerlink" title="this.props"></a>this.props</h2><p>对象的属性与组件的属性一一对应，但是有一个例外this.props.children属性。</p>
-<h2 id="this-props-children"><a href="#this-props-children" class="headerlink" title="this.props.children"></a>this.props.children</h2><p> this.props.children 表示组件的所有子节点。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var NodeList = React.createClass(&#123;</div><div class="line">	render: function()&#123;</div><div class="line">		return (</div><div class="line">			&lt;ol&gt;</div><div class="line">			&#123;	</div><div class="line">			    //this.props.children表示组件的所有字节点</div><div class="line">			    React.Children.map(this.props.children, function(child)&#123;</div><div class="line">				    return &lt;li&gt;&#123;child&#125;&lt;/li&gt;</div><div class="line">			    &#125;)</div><div class="line">			&#125;</div><div class="line">			&lt;/ol&gt;</div><div class="line">		);</div><div class="line">	&#125;			</div><div class="line">&#125;);</div><div class="line">ReactDOM.render(</div><div class="line">	&lt;NodeList&gt;</div><div class="line">		&lt;span&gt;hello&lt;/span&gt;</div><div class="line">		&lt;span&gt;React&lt;/span&gt;</div><div class="line">		&lt;h1&gt;JavaScript&lt;/h1&gt;</div><div class="line">	&lt;/NodeList&gt;,</div><div class="line">	document.body</div><div class="line">)</div></pre></td></tr></table></figure></p>
-<h2 id="this-props-children的值有三种可能："><a href="#this-props-children的值有三种可能：" class="headerlink" title="this.props.children的值有三种可能："></a>this.props.children的值有三种可能：</h2><ul>
-<li>如果当前组件没有子节点，它返回undefined</li>
-<li>如果有一个子节点，数据类型是object</li>
-<li>如果有多个子节点，数组类型是array</li>
+                <h2 id="内置对象"><a href="#内置对象" class="headerlink" title="内置对象"></a>内置对象</h2><p>什么是内置对象？</p>
+<ul>
+<li>内置对象就是ECMAScript标准中已经定义好的，由浏览器厂商已经实现的标准对象！</li>
+<li>内置对象中封装了专门的数据和操作数据常用的API</li>
+<li>JavaScript中内置对象列表：<ul>
+<li>String、Boolean、Nmuber、Array、Date、Math、Error、Function、Object、Global</li>
 </ul>
-<h2 id="PropTypes"><a href="#PropTypes" class="headerlink" title="PropTypes"></a>PropTypes</h2><p>组件的属性可以接受任意值，字符串、对象、函数等等都可以。用于验证别人使用组件时，提供的参数是否符合要求。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var MyTitle = React.createClass(&#123;</div><div class="line">  /* getDefaultProps 方法可以用来设置组件属性的默认值。当组件有值时getDefaultProps值不会显示</div><div class="line"> getDefaultProps : function () &#123;</div><div class="line">    return &#123;</div><div class="line">      title : &apos;Hello World&apos;</div><div class="line">    &#125;;</div><div class="line">  &#125;,</div><div class="line">  */</div><div class="line">  propTypes: &#123;</div><div class="line">    title: React.PropTypes.string.isRequired,</div><div class="line">  &#125;,</div><div class="line">  render: function() &#123;</div><div class="line">     return &lt;h1&gt; &#123;this.props.title&#125; &lt;/h1&gt;;</div><div class="line">   &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>其中PropTypes告诉React，MyTitle组件有一个title属性，而且title属性是一个string。<br>如果没有title为string的值则会报错</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2088736-218f2757cc84f4f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="报错信息"></p>
+</li>
+</ul>
+<h2 id="包装类型"><a href="#包装类型" class="headerlink" title="包装类型"></a>包装类型</h2><p>什么是包装类型？</p>
+<ul>
+<li>专门封装原始类型的数据，并提供数据常用操作的内置类型。<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var str = &quot;Hello&quot;;//原始类型数据，存栈</div><div class="line">// strObj = new String(str);//包装类型</div><div class="line">str += &quot;world!&quot;;</div><div class="line">// strObj = null; //帮助拼接完成后js自动释放</div><div class="line"></div><div class="line">var num = 5.5;</div><div class="line">//var numObj = new Number(num);</div><div class="line">num = num.toFixed(2);</div><div class="line">//numObj = null;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>为什么要有包装类型？</p>
+<ul>
+<li>让原始类型的数据也可以像引用类型一样，拥有方法和属性。</li>
+<li>JavaScript中的包装类型：<ul>
+<li>String类型、Number类型、Boolean类型</li>
+</ul>
+</li>
+</ul>
+<p>何时使用包装类型？</p>
+<ul>
+<li>只要有原始类型的数据调用方法或访问属性，js引擎都会自动创建对应的包装类型对象。</li>
+</ul>
+<h4 id="包装类型是内置对象的一个子集。"><a href="#包装类型是内置对象的一个子集。" class="headerlink" title="包装类型是内置对象的一个子集。"></a>包装类型是内置对象的一个子集。</h4><p>方法调用完，包装类型对象自动释放。</p>
+<h2 id="原始类型"><a href="#原始类型" class="headerlink" title="原始类型"></a>原始类型</h2><p>ECMAScript 有 5 种原始类型（primitive type），即</p>
+<ul>
+<li><h4 id="Undefined、Null、Boolean、Number-和-String。"><a href="#Undefined、Null、Boolean、Number-和-String。" class="headerlink" title="Undefined、Null、Boolean、Number 和 String。"></a>Undefined、Null、Boolean、Number 和 String。</h4></li>
+</ul>
+<p>创建<font color="red">原始类型</font>字符串变量：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//直接创建</div><div class="line">var stuN = &apos;Syymo&apos;;</div><div class="line">var sex = &apos;男&apos;;</div><div class="line"></div><div class="line">var priceString = String(150.5); //可能放置栈中</div></pre></td></tr></table></figure></p>
+<p>创建<font color="red">引用类型</font>字符串对象：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var carType = new String(&apos;BMW528Li&apos;); //可能放置堆中</div></pre></td></tr></table></figure></p>
 
                 <hr>
                 
@@ -201,14 +224,14 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/10/08/React组件/" data-toggle="tooltip" data-placement="top"
-                           title="React组件">&larr; Previous Post</a>
+                        <a href="/2017/10/06/React之PropTypes/" data-toggle="tooltip" data-placement="top"
+                           title="React之PropTypes">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2017/09/29/JavaScript内置对象类/" data-toggle="tooltip" data-placement="top"
-                           title="JavaScript内置对象类">Next Post &rarr;</a>
+                        <a href="/2017/09/26/JavaScript保存对象的两种类型/" data-toggle="tooltip" data-placement="top"
+                           title="JavaScript保存对象的两种类型">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -224,7 +247,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#this-props"><span class="toc-text">this.props</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#this-props-children"><span class="toc-text">this.props.children</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#this-props-children的值有三种可能："><span class="toc-text">this.props.children的值有三种可能：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PropTypes"><span class="toc-text">PropTypes</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#内置对象"><span class="toc-text">内置对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#包装类型"><span class="toc-text">包装类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#包装类型是内置对象的一个子集。"><span class="toc-text">包装类型是内置对象的一个子集。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原始类型"><span class="toc-text">原始类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Undefined、Null、Boolean、Number-和-String。"><span class="toc-text">Undefined、Null、Boolean、Number 和 String。</span></a></li></ol></li></ol></li></ol>
                 </div>
             </div>
         </div>
@@ -246,8 +269,8 @@
                     </h5>
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#React"
-                           title="React">React</a>
+                        <a class="tag" href="/tags/#JavaScript"
+                           title="JavaScript">JavaScript</a>
                         
                     </div>
                 </section>

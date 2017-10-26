@@ -187,7 +187,7 @@
                 <h2 id="什么是正则表达式？"><a href="#什么是正则表达式？" class="headerlink" title="什么是正则表达式？"></a>什么是正则表达式？</h2><p>正则：规则、模式<br>字符串中字符出现的规律<br>正则表达式是强大的字符串匹配工具<br>也是一种难以读懂的文字</p>
 <h2 id="正则能做什么？"><a href="#正则能做什么？" class="headerlink" title="正则能做什么？"></a>正则能做什么？</h2><p>正则只能操作字符串</p>
 <h2 id="何时使用字正则表达式？"><a href="#何时使用字正则表达式？" class="headerlink" title="何时使用字正则表达式？"></a>何时使用字正则表达式？</h2><p>验证字符串格式，查找关键字，替换关键字</p>
-<h2 id="使用正则"><a href="#使用正则" class="headerlink" title="使用正则"></a>使用正则</h2><p>var re = new RegExp( );<br>var re = /正则表达式/;<br>例如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var str = &quot;hello world&quot;;</div><div class="line">//js风格</div><div class="line">var re = new RegExp(&apos;H&apos;);//参数区分大小写</div><div class="line">alert(re.text(str));//检验str中是否有a  false</div><div class="line">// var re = new RegExp(&apos;H&apos;,&apos;i&apos;);//加上i忽略大小写</div><div class="line"> /*</div><div class="line">perl风格</div><div class="line">正则简写</div><div class="line">var re = /H/;</div><div class="line">var re = /H/i;</div><div class="line">*/</div></pre></td></tr></table></figure></p>
+<h2 id="使用正则"><a href="#使用正则" class="headerlink" title="使用正则"></a>使用正则</h2><p>RegExp对象：专门封装一条正则表达式，提供使用正则表达式的常用API<br>    先创建然后调用API<br>API：var boolean = regExp.test(“被检查的字符串”);<br>    如果验证通过返回true；否则返回false<br>var re = new RegExp();<br>var re = /正则表达式/;<br>例如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var str = &quot;hello world&quot;;</div><div class="line">//js风格</div><div class="line">var re = new RegExp(&apos;H&apos;);//参数区分大小写</div><div class="line">alert(re.text(str));//检验str中是否有a  false</div><div class="line">// var re = new RegExp(&apos;H&apos;,&apos;i&apos;);//加上i忽略大小写</div><div class="line"> /*</div><div class="line">perl风格</div><div class="line">正则简写</div><div class="line">var re = /H/;</div><div class="line">var re = /H/i;</div><div class="line">*/</div></pre></td></tr></table></figure></p>
 <h2 id="正则表达式字母符号"><a href="#正则表达式字母符号" class="headerlink" title="正则表达式字母符号"></a>正则表达式字母符号</h2><table>
 <thead>
 <tr>
@@ -215,6 +215,10 @@
 <tr>
 <td style="text-align:left">{}</td>
 <td style="text-align:left">一般用来表示匹配的长度</td>
+</tr>
+<tr>
+<td style="text-align:left">()</td>
+<td style="text-align:left">分组</td>
 </tr>
 <tr>
 <td style="text-align:left">[^]</td>
@@ -324,12 +328,12 @@
 </tr>
 <tr>
 <td style="text-align:left">?</td>
-<td style="text-align:left">{0,1}0次或1次 可以出现可以不出现</td>
+<td style="text-align:left">{0,1}0次或1次 可有可无</td>
 <td style="text-align:left">/n?/</td>
 </tr>
 <tr>
 <td style="text-align:left">*</td>
-<td style="text-align:left">{0, }可以没有</td>
+<td style="text-align:left">{0, }可有可无，不限制次数</td>
 <td style="text-align:left">/n*/</td>
 </tr>
 <tr>
@@ -339,7 +343,56 @@
 </tr>
 </tbody>
 </table>
-<h2 id="常用正则的例子："><a href="#常用正则的例子：" class="headerlink" title="常用正则的例子："></a>常用正则的例子：</h2><p>校验邮箱：  <strong>/^\w+@[a-z0-9]+.[a-z]{2,4}$/</strong><br>去除空格：  <strong>/^\s+|\s+$/g</strong><br>匹配中文：  <strong>[\u4e00-\u9fa5]</strong><br>单词边界：  <strong>\b</strong></p>
+<h2 id="常用正则的例子："><a href="#常用正则的例子：" class="headerlink" title="常用正则的例子："></a>常用正则的例子：</h2><p>校验邮箱：  <strong>/^\w+@[a-z0-9]+.[a-z]{2,4}$/</strong> 或 <strong>\w+@\w+([-]\w+)*(\.\w+)+</strong><br>去除空格：  <strong>/^\s+|\s+$/g</strong><br>匹配中文：  <strong>[\u4e00-\u9fa5]</strong><br>中文姓名：  <strong>[\u4e00-\u9fa5]{2-6}</strong><br>单词边界：  <strong>\b</strong><br>检验手机：  <strong>\d{15}(\d{2}[0-9xX])?</strong><br>检验身份证： <strong>(+86)?\s*1[34578]\d{9}</strong></p>
+<h2 id="指定匹配位置"><a href="#指定匹配位置" class="headerlink" title="指定匹配位置"></a>指定匹配位置</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">重复字符</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">^</td>
+<td style="text-align:left">匹配字符串的开头</td>
+<td style="text-align:left">/^a/</td>
+</tr>
+<tr>
+<td style="text-align:left">$</td>
+<td style="text-align:left">匹配字符串的结尾</td>
+<td style="text-align:left">/a$/</td>
+</tr>
+<tr>
+<td style="text-align:left">\b</td>
+<td style="text-align:left">匹配单词的边界</td>
+<td style="text-align:left">/\bhis\b/</td>
+</tr>
+<tr>
+<td style="text-align:left">\B</td>
+<td style="text-align:left">匹配单词的非边界</td>
+<td style="text-align:left">/\Bhis\B/</td>
+</tr>
+<tr>
+<td style="text-align:left">?=X</td>
+<td style="text-align:left">匹配其后紧接x的字符串</td>
+<td style="text-align:left">/do(?=not)/</td>
+</tr>
+<tr>
+<td style="text-align:left">?!X</td>
+<td style="text-align:left">匹配其后没有紧接x的字符串</td>
+<td style="text-align:left">/do(?not)/</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong> ?=:预判，前一个字符之后，必须紧跟xx </strong></li>
+<li><strong> ?!:预判，前一个字符之后，必须不能跟xx </strong></li>
+</ul>
+<h2 id="JavaScript中regExp的test方法"><a href="#JavaScript中regExp的test方法" class="headerlink" title="JavaScript中regExp的test方法"></a>JavaScript中regExp的test方法</h2><p>test方法默认：只要找到就返回true<br>var boolean = regExp.test(“被检查的字符串”); 如果验证通过返回true；否则返回false<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//var regExp = /\w+@\w+([-]\w+)*(\.\w+)+/;</div><div class="line">var regExp = /^\w+@\w+([-]\w+)*(\.\w+)+$/;</div><div class="line">while(true)&#123;</div><div class="line">  var input = prompt(&quot;输入邮箱：&quot;);</div><div class="line">    if(regExp.test(input))&#123;</div><div class="line">      document.write(&quot;注册成功！&quot;)</div><div class="line">      break;</div><div class="line">    &#125;else&#123;</div><div class="line">      alert(&quot;邮箱格式有误！&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>正则表达式前加^，后加$</strong>解决test默认匹配</p>
+<h2 id="JavaScript中regExp的exec-查找方法"><a href="#JavaScript中regExp的exec-查找方法" class="headerlink" title="JavaScript中regExp的exec()查找方法"></a>JavaScript中regExp的exec()查找方法</h2><p>var arr= regExp.exec(“被查找的内容”);<br>返回数组，但是有两个额外的属性：index、input;<br>在没有找到或者找完后返回<code>null</code>;<br><strong>arr[0]:找到的关键字内容</strong><br><strong>arr.index表示匹配项在字符串的位置</strong><br><strong>arr.input表示应用正则表达式的字符串</strong><br><strong>每次只能找一个，但是每次自动修改regExp的lastIndex属性！</strong><br><strong>regExp对象的lastIndex属性：表示下次开始匹配的位置！</strong><br><strong>regExp设置与不设置全局标志(g),每次也只会返回一个匹配项</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var str = &quot;cat, bat, sat, fat&quot;;</div><div class="line">var regExp = /.at/;</div><div class="line">var arr = regExp.exec(str);</div><div class="line">console.log(arr);</div><div class="line">console.log(regExp.lastIndex);</div><div class="line"></div><div class="line">var arr1 = regExp.exec(str);</div><div class="line">console.log(arr1);</div><div class="line">console.log(regExp.lastIndex);</div><div class="line">//增加全局变量并且需要多次调用，可放在循环中实现</div><div class="line">var regExp = /.at/g;</div><div class="line">var arr2 = regExp.exec(str);</div><div class="line">console.log(arr2);</div><div class="line">console.log(regExp.lastIndex);</div><div class="line"></div><div class="line">var arr3 = regExp.exec(str);</div><div class="line">console.log(arr3);</div><div class="line">console.log(regExp.lastIndex);</div></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2088736-3d8048d881ad00f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="输出结果"><br>使用循环：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var str = &quot;有时重要的东西总是迟来一步,但却一定会到,生活和爱情都是如此,程序当然也不例外.&quot;</div><div class="line">var regExp = /生活|程序/g;</div><div class="line">var arr = [];</div><div class="line">while((arr=regExp.exec(str))!=null)&#123;</div><div class="line">    //arr[0]:关键字的内容</div><div class="line">    //arr.index:关键字的位置</div><div class="line">    document.write(&quot;在位置&quot;+arr.index+&quot;发现：&quot;+arr[0]+&quot;&lt;br&gt;&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
                 <hr>
                 
@@ -370,7 +423,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是正则表达式？"><span class="toc-text">什么是正则表达式？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则能做什么？"><span class="toc-text">正则能做什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#何时使用字正则表达式？"><span class="toc-text">何时使用字正则表达式？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用正则"><span class="toc-text">使用正则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则表达式字母符号"><span class="toc-text">正则表达式字母符号</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#预定义字符集：使用简化的字符，定义常用字符集"><span class="toc-text">预定义字符集：使用简化的字符，定义常用字符集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如果规则正文中出现特殊符号，用-转为原文"><span class="toc-text">如果规则正文中出现特殊符号，用\转为原文</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#量词"><span class="toc-text">量词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用正则的例子："><span class="toc-text">常用正则的例子：</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是正则表达式？"><span class="toc-text">什么是正则表达式？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则能做什么？"><span class="toc-text">正则能做什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#何时使用字正则表达式？"><span class="toc-text">何时使用字正则表达式？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用正则"><span class="toc-text">使用正则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则表达式字母符号"><span class="toc-text">正则表达式字母符号</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#预定义字符集：使用简化的字符，定义常用字符集"><span class="toc-text">预定义字符集：使用简化的字符，定义常用字符集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如果规则正文中出现特殊符号，用-转为原文"><span class="toc-text">如果规则正文中出现特殊符号，用\转为原文</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#量词"><span class="toc-text">量词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用正则的例子："><span class="toc-text">常用正则的例子：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指定匹配位置"><span class="toc-text">指定匹配位置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript中regExp的test方法"><span class="toc-text">JavaScript中regExp的test方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript中regExp的exec-查找方法"><span class="toc-text">JavaScript中regExp的exec()查找方法</span></a></li></ol>
                 </div>
             </div>
         </div>

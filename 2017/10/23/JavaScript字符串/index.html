@@ -196,7 +196,7 @@
 </li>
 </ul>
 <h3 id="字符串三大操作："><a href="#字符串三大操作：" class="headerlink" title="字符串三大操作："></a>字符串三大操作：</h3><ol>
-<li>查找关键字    var index=str.index(“关键字”);//返回位置没有找到返回-1<h4 id="indexOf-只找第一个关键词位置-默认从0开始找"><a href="#indexOf-只找第一个关键词位置-默认从0开始找" class="headerlink" title="indexOf 只找第一个关键词位置  默认从0开始找"></a>indexOf 只找第一个关键词位置  默认从0开始找</h4>var index=str.indexOf(“关键字”,from);<br> from：开始查找位置<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var str = &quot;朋友说要来，我急忙去车站。结果她又说车在车站已经停了！&quot;;</div><div class="line">//var index = -1;</div><div class="line">//index+1从上次找的位置之后开始</div><div class="line">//while((index = str.indexOf(&quot;车站&quot;,index+1)) != -1)&#123;</div><div class="line">var index = str.length;</div><div class="line">while((index = str.lastIndexOf(&quot;车站&quot;,index-1)) != -1)&#123; //从后往前找</div><div class="line">	console.log(&quot;位置：&quot;+index+&quot;发现关键字&quot;);</div><div class="line">        if(index==0)&#123;//防止字符出现在第一个出现死循环</div><div class="line">            break</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<li>查找关键字    var index=str.index(“关键字”);//返回位置没有找到返回-1<br><strong>indexOf 只找第一个关键词位置  默认从0开始找</strong><br>var index=str.indexOf(“关键字”,from);<br> from：开始查找位置<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var str = &quot;朋友说要来，我急忙去车站。结果她又说车在车站已经停了！&quot;;</div><div class="line">//var index = -1;</div><div class="line">//index+1从上次找的位置之后开始</div><div class="line">//while((index = str.indexOf(&quot;车站&quot;,index+1)) != -1)&#123;</div><div class="line">var index = str.length;</div><div class="line">while((index = str.lastIndexOf(&quot;车站&quot;,index-1)) != -1)&#123; //从后往前找</div><div class="line">	console.log(&quot;位置：&quot;+index+&quot;发现关键字&quot;);</div><div class="line">        if(index==0)&#123;//防止字符出现在第一个出现死循环</div><div class="line">            break</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <h4 id="lastIndexOf-value-fromIndex-返回最后一次出现指定子串的下标"><a href="#lastIndexOf-value-fromIndex-返回最后一次出现指定子串的下标" class="headerlink" title="lastIndexOf(value,[fromIndex])    返回最后一次出现指定子串的下标"></a>lastIndexOf(value,[fromIndex])    返回最后一次出现指定子串的下标</h4><ol>
@@ -254,7 +254,9 @@
 </ul>
 <h4 id="match"><a href="#match" class="headerlink" title="match"></a>match</h4><p>按模式<em>替换</em>关键字的<em>内容</em><br>var arr = str.match(reg);<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var str = &quot;You can you up&quot;;</div><div class="line">var reg = /You/ig; //i不区分大消息g全局匹配</div><div class="line">console.log(str.match(reg)); //打印出数组含有You和you</div></pre></td></tr></table></figure></p>
 <h5 id="只能取得关键字的内容，无法确定每个关键字的位置！"><a href="#只能取得关键字的内容，无法确定每个关键字的位置！" class="headerlink" title="只能取得关键字的内容，无法确定每个关键字的位置！"></a>只能取得关键字的内容，无法确定每个关键字的位置！</h5><p><em>如果未找到返回null</em>  只要有可能返回null 都要先判断!=null,再处理</p>
-<h4 id="search"><a href="#search" class="headerlink" title="search"></a>search</h4><p>var index=str.search(reg); 和indexOf完全相同！<br>但是indexOf不支持模式匹配</p>
+<h3 id="search"><a href="#search" class="headerlink" title="search"></a>search</h3><p>var index=str.search(reg); 和indexOf完全相同！<br>但是indexOf不支持模式匹配</p>
+<p>infdexOf不支持正则<br>search支持正则，但是每次只能找一个<br>match所有内容但是得不到位置！</p>
+<h3 id="查找："><a href="#查找：" class="headerlink" title="查找："></a>查找：</h3><p>仅判断有没有，或者仅查找位置：indexOf() 支持正则：search()<br>仅找所有关键字的内容：match()<br>又找位置又找内容：<a href="http://www.syymo.cn/2017/09/23/JavaScript之正则表达式#JavaScript中regExp的exec-查找方法" target="_blank" rel="external">exec()</a></p>
 
                 <hr>
                 
@@ -263,8 +265,8 @@
                     
                     
                     <li class="next">
-                        <a href="/2017/10/06/React之PropTypes/" data-toggle="tooltip" data-placement="top"
-                           title="React之PropTypes">Next Post &rarr;</a>
+                        <a href="/2017/10/10/React基本组件/" data-toggle="tooltip" data-placement="top"
+                           title="React基本组件">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -280,7 +282,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串的使用"><span class="toc-text">字符串的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串类型底层其实都是用字符字符数组实现的"><span class="toc-text">字符串类型底层其实都是用字符字符数组实现的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取指定位置的字符"><span class="toc-text">获取指定位置的字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串三大操作："><span class="toc-text">字符串三大操作：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#indexOf-只找第一个关键词位置-默认从0开始找"><span class="toc-text">indexOf 只找第一个关键词位置  默认从0开始找</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lastIndexOf-value-fromIndex-返回最后一次出现指定子串的下标"><span class="toc-text">lastIndexOf(value,[fromIndex])    返回最后一次出现指定子串的下标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注意"><span class="toc-text">注意</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#replace"><span class="toc-text">replace</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#match"><span class="toc-text">match</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#只能取得关键字的内容，无法确定每个关键字的位置！"><span class="toc-text">只能取得关键字的内容，无法确定每个关键字的位置！</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#search"><span class="toc-text">search</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串的使用"><span class="toc-text">字符串的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串类型底层其实都是用字符字符数组实现的"><span class="toc-text">字符串类型底层其实都是用字符字符数组实现的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取指定位置的字符"><span class="toc-text">获取指定位置的字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串三大操作："><span class="toc-text">字符串三大操作：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#lastIndexOf-value-fromIndex-返回最后一次出现指定子串的下标"><span class="toc-text">lastIndexOf(value,[fromIndex])    返回最后一次出现指定子串的下标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注意"><span class="toc-text">注意</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#replace"><span class="toc-text">replace</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#match"><span class="toc-text">match</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#只能取得关键字的内容，无法确定每个关键字的位置！"><span class="toc-text">只能取得关键字的内容，无法确定每个关键字的位置！</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#search"><span class="toc-text">search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查找："><span class="toc-text">查找：</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>

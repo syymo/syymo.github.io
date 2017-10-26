@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        React之PropTypes｜syymo&#39;s blog
+        React基本组件｜syymo&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://syymo.github.io/2017/10/06/React之PropTypes/">
+    <link rel="canonical" href="http://syymo.github.io/2017/10/10/React基本组件/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -153,12 +153,12 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>React之PropTypes</h1>
+                    <h1>React基本组件</h1>
                     
                     <span class="meta">
                          作者 syymo
                         <span>
-                          日期 2017-10-06
+                          日期 2017-10-10
                          </span>
                     </span>
                     <div class="tags text-center">
@@ -173,7 +173,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            React之PropTypes
+            React基本组件
         </span>
     </div>
 </header>
@@ -185,13 +185,13 @@
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
                 <h2 id="this-props"><a href="#this-props" class="headerlink" title="this.props"></a>this.props</h2><p>对象的属性与组件的属性一一对应，但是有一个例外this.props.children属性。</p>
-<h2 id="this-props-children"><a href="#this-props-children" class="headerlink" title="this.props.children"></a>this.props.children</h2><p> this.props.children 表示组件的所有子节点。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var NodeList = React.createClass(&#123;</div><div class="line">	render: function()&#123;</div><div class="line">		return (</div><div class="line">			&lt;ol&gt;</div><div class="line">			&#123;	</div><div class="line">			    //this.props.children表示组件的所有字节点</div><div class="line">			    React.Children.map(this.props.children, function(child)&#123;</div><div class="line">				    return &lt;li&gt;&#123;child&#125;&lt;/li&gt;</div><div class="line">			    &#125;)</div><div class="line">			&#125;</div><div class="line">			&lt;/ol&gt;</div><div class="line">		);</div><div class="line">	&#125;			</div><div class="line">&#125;);</div><div class="line">ReactDOM.render(</div><div class="line">	&lt;NodeList&gt;</div><div class="line">		&lt;span&gt;hello&lt;/span&gt;</div><div class="line">		&lt;span&gt;React&lt;/span&gt;</div><div class="line">		&lt;h1&gt;JavaScript&lt;/h1&gt;</div><div class="line">	&lt;/NodeList&gt;,</div><div class="line">	document.body</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<h2 id="this-props-children"><a href="#this-props-children" class="headerlink" title="this.props.children"></a>this.props.children</h2><p> this.props.children 表示组件的所有子节点。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var NodeList = React.createClass(&#123;</div><div class="line">    render: function()&#123;</div><div class="line">        return (</div><div class="line">            &lt;ol&gt;</div><div class="line">            &#123;   </div><div class="line">                //this.props.children表示组件的所有字节点</div><div class="line">                React.Children.map(this.props.children, function(child)&#123;</div><div class="line">                    return &lt;li&gt;&#123;child&#125;&lt;/li&gt;</div><div class="line">                &#125;)</div><div class="line">            &#125;</div><div class="line">            &lt;/ol&gt;</div><div class="line">        );</div><div class="line">    &#125;           </div><div class="line">&#125;);</div><div class="line">ReactDOM.render(</div><div class="line">    &lt;NodeList&gt;</div><div class="line">        &lt;span&gt;hello&lt;/span&gt;</div><div class="line">        &lt;span&gt;React&lt;/span&gt;</div><div class="line">        &lt;h1&gt;JavaScript&lt;/h1&gt;</div><div class="line">    &lt;/NodeList&gt;,</div><div class="line">    document.body</div><div class="line">)</div></pre></td></tr></table></figure></p>
 <h2 id="this-props-children的值有三种可能："><a href="#this-props-children的值有三种可能：" class="headerlink" title="this.props.children的值有三种可能："></a>this.props.children的值有三种可能：</h2><ul>
 <li>如果当前组件没有子节点，它返回undefined</li>
 <li>如果有一个子节点，数据类型是object</li>
 <li>如果有多个子节点，数组类型是array</li>
 </ul>
-<h2 id="PropTypes"><a href="#PropTypes" class="headerlink" title="PropTypes"></a>PropTypes</h2><p>组件的属性可以接受任意值，字符串、对象、函数等等都可以。用于验证别人使用组件时，提供的参数是否符合要求。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var MyTitle = React.createClass(&#123;</div><div class="line">  /* getDefaultProps 方法可以用来设置组件属性的默认值。当组件有值时getDefaultProps值不会显示</div><div class="line"> getDefaultProps : function () &#123;</div><div class="line">    return &#123;</div><div class="line">      title : &apos;Hello World&apos;</div><div class="line">    &#125;;</div><div class="line">  &#125;,</div><div class="line">  */</div><div class="line">  propTypes: &#123;</div><div class="line">    title: React.PropTypes.string.isRequired,</div><div class="line">  &#125;,</div><div class="line">  render: function() &#123;</div><div class="line">     return &lt;h1&gt; &#123;this.props.title&#125; &lt;/h1&gt;;</div><div class="line">   &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>##PropTypes<br>组件的属性可以接受任意值，字符串、对象、函数等等都可以。用于验证别人使用组件时，提供的参数是否符合要求。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var MyTitle = React.createClass(&#123;</div><div class="line">  /* getDefaultProps 方法可以用来设置组件属性的默认值。当组件有值时getDefaultProps值不会显示</div><div class="line"> getDefaultProps : function () &#123;</div><div class="line">    return &#123;</div><div class="line">      title : &apos;Hello World&apos;</div><div class="line">    &#125;;</div><div class="line">  &#125;,</div><div class="line">  */</div><div class="line">  propTypes: &#123;</div><div class="line">    title: React.PropTypes.string.isRequired,</div><div class="line">  &#125;,</div><div class="line">  render: function() &#123;</div><div class="line">     return &lt;h1&gt; &#123;this.props.title&#125; &lt;/h1&gt;;</div><div class="line">   &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
 <p>其中PropTypes告诉React，MyTitle组件有一个title属性，而且title属性是一个string。<br>如果没有title为string的值则会报错</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/2088736-218f2757cc84f4f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="报错信息"></p>
 
@@ -201,14 +201,14 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/10/08/React组件/" data-toggle="tooltip" data-placement="top"
-                           title="React组件">&larr; Previous Post</a>
+                        <a href="/2017/10/23/JavaScript字符串/" data-toggle="tooltip" data-placement="top"
+                           title="JavaScript字符串">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2017/09/29/JavaScript内置对象类/" data-toggle="tooltip" data-placement="top"
-                           title="JavaScript内置对象类">Next Post &rarr;</a>
+                        <a href="/2017/10/08/React组件/" data-toggle="tooltip" data-placement="top"
+                           title="React组件">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -224,7 +224,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#this-props"><span class="toc-text">this.props</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#this-props-children"><span class="toc-text">this.props.children</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#this-props-children的值有三种可能："><span class="toc-text">this.props.children的值有三种可能：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PropTypes"><span class="toc-text">PropTypes</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#this-props"><span class="toc-text">this.props</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#this-props-children"><span class="toc-text">this.props.children</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#this-props-children的值有三种可能："><span class="toc-text">this.props.children的值有三种可能：</span></a></li></ol>
                 </div>
             </div>
         </div>
