@@ -16,11 +16,11 @@
     <link rel="alternate" type="application/atom+xml" title="syymo" href="/atom.xml">
     <title>
         
-        JavaScript内置对象类｜syymo&#39;s blog
+        JavaScript Math对象｜syymo&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://syymo.github.io/2017/09/29/JavaScript内置对象类/">
+    <link rel="canonical" href="http://syymo.github.io/2017/10/29/JavaScript-Math对象/">
 
     <!-- Font-awesome Core CSS -->
     <link rel="stylesheet" href="/css/font-awesome.min.css">
@@ -156,12 +156,12 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>JavaScript内置对象类</h1>
+                    <h1>JavaScript Math对象</h1>
                     
                     <span class="meta">
                          作者 syymo
                         <span>
-                          日期 2017-09-29
+                          日期 2017-10-29
                          </span>
                     </span>
                     <div class="tags text-center">
@@ -176,7 +176,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            JavaScript内置对象类
+            JavaScript Math对象
         </span>
     </div>
 </header>
@@ -187,54 +187,140 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="内置对象"><a href="#内置对象" class="headerlink" title="内置对象"></a>内置对象</h2><p>什么是内置对象？</p>
-<ul>
-<li>内置对象就是ECMAScript标准中已经定义好的，由浏览器厂商已经实现的标准对象！</li>
-<li>内置对象中封装了专门的数据和操作数据常用的API</li>
-<li>JavaScript中内置对象列表：<ul>
-<li>String、Boolean、Nmuber、Array、Date、Math、Error、Function、Object、Global</li>
-</ul>
-</li>
-</ul>
-<h2 id="包装类型"><a href="#包装类型" class="headerlink" title="包装类型"></a>包装类型</h2><p>什么是包装类型？</p>
-<ul>
-<li>专门封装原始类型的数据，并提供数据常用操作的内置类型。<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var str = &quot;Hello&quot;;//原始类型数据，存栈</div><div class="line">// strObj = new String(str);//包装类型</div><div class="line">str += &quot;world!&quot;;</div><div class="line">// strObj = null; //帮助拼接完成后js自动释放</div><div class="line"></div><div class="line">var num = 5.5;</div><div class="line">//var numObj = new Number(num);</div><div class="line">num = num.toFixed(2);</div><div class="line">//numObj = null;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>为什么要有包装类型？</p>
-<ul>
-<li>让原始类型的数据也可以像引用类型一样，拥有方法和属性。</li>
-<li>JavaScript中的包装类型：<ul>
-<li>String类型、Number类型、Boolean类型</li>
-</ul>
-</li>
-</ul>
-<p>何时使用包装类型？</p>
-<ul>
-<li>只要有原始类型的数据调用方法或访问属性，js引擎都会自动创建对应的包装类型对象。</li>
-</ul>
-<h4 id="包装类型是内置对象的一个子集。"><a href="#包装类型是内置对象的一个子集。" class="headerlink" title="包装类型是内置对象的一个子集。"></a>包装类型是内置对象的一个子集。</h4><p>方法调用完，包装类型对象自动释放。</p>
-<h2 id="原始类型"><a href="#原始类型" class="headerlink" title="原始类型"></a>原始类型</h2><p>ECMAScript 有 5 种原始类型（primitive type），即</p>
-<ul>
-<li><h4 id="Undefined、Null、Boolean、Number-和-String。"><a href="#Undefined、Null、Boolean、Number-和-String。" class="headerlink" title="Undefined、Null、Boolean、Number 和 String。"></a>Undefined、Null、Boolean、Number 和 String。</h4></li>
-</ul>
-<p>创建<font color="red">原始类型</font>字符串变量：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//直接创建</div><div class="line">var stuN = &apos;Syymo&apos;;</div><div class="line">var sex = &apos;男&apos;;</div><div class="line"></div><div class="line">var priceString = String(150.5); //可能放置栈中</div></pre></td></tr></table></figure></p>
-<p>创建<font color="red">引用类型</font>字符串对象：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var carType = new String(&apos;BMW528Li&apos;); //可能放置堆中</div></pre></td></tr></table></figure></p>
+                <h2 id="Math对象：封装了所有数学计算的API"><a href="#Math对象：封装了所有数学计算的API" class="headerlink" title="Math对象：封装了所有数学计算的API"></a>Math对象：封装了所有数学计算的API</h2><h2 id="对象的属性"><a href="#对象的属性" class="headerlink" title="对象的属性"></a>对象的属性</h2><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Math.E</td>
+<td>自然数对数的底数，即常量e的值</td>
+</tr>
+<tr>
+<td>Math.LN10</td>
+<td>10的自然对数</td>
+</tr>
+<tr>
+<td>Math.LN2</td>
+<td>2的自然数对数</td>
+</tr>
+<tr>
+<td>Math.LOG2E</td>
+<td>以2为底e的对数</td>
+</tr>
+<tr>
+<td>Math.LOG10E</td>
+<td>以10为底e的对数</td>
+</tr>
+<tr>
+<td>Math.PI</td>
+<td>π的值</td>
+</tr>
+<tr>
+<td>Math.SQRT1_2</td>
+<td>1/2的平方根(2的平方根的倒数)</td>
+</tr>
+<tr>
+<td>Math.SQRT2</td>
+<td>2的平方根</td>
+</tr>
+</tbody>
+</table>
+<h2 id="min-和max-方法"><a href="#min-和max-方法" class="headerlink" title="min()和max()方法"></a>min()和max()方法</h2><p>Math.min();  返回一组数的最小值<br>Math.min();  返回一组数的最大值<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var arr = [2,4,1,7,6,3,8,9];</div><div class="line">var max = Math.max.apply(Math,arr); </div><div class="line">console.log(max);</div></pre></td></tr></table></figure></p>
+<h2 id="舍入方法"><a href="#舍入方法" class="headerlink" title="舍入方法"></a>舍入方法</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Math.ceil(num)</td>
+<td>向上取整</td>
+</tr>
+<tr>
+<td>Math.floor(num)</td>
+<td>向下取整</td>
+</tr>
+<tr>
+<td>Math.round(num)</td>
+<td>四舍五入取整</td>
+</tr>
+</tbody>
+</table>
+<h2 id="random-方法"><a href="#random-方法" class="headerlink" title="random()方法"></a>random()方法</h2><p>Math.random();     方法返回大于等于0小于1的一个随机数 。<br>任意min-max：Math.floor(Math.random()*(max-min+1)+min)<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//随机生成4位验证码 </div><div class="line">//strp1:将所有数字，字母装入一个数组备用 </div><div class="line">var codes = []; </div><div class="line">//数字：48-57 </div><div class="line">for(var i = 48; i &lt;=5 7; codes.push(i), i++); </div><div class="line">//大写字母：65-90 </div><div class="line">for(var i=6 5; i &lt;=9 0; codes.push(i), i++); </div><div class="line">//小写字母：65-90 </div><div class="line">for(var i=9 7; i &lt;=1 22; codes.push(i), i++); </div><div class="line">//从0-61之间取4位随机 </div><div class="line">function getCode()&#123; </div><div class="line">    var arr=[ ]; </div><div class="line">    for(var i=0 ; i &lt; 4; i++)&#123; </div><div class="line">        var index=Math.floor(Math.random()*(61-0+1)+0); </div><div class="line">        var char=String.fromCharCode(codes[index]); </div><div class="line">        arr.push(char); </div><div class="line">    &#125; </div><div class="line">    return arr.join( &quot;&quot;); </div><div class="line">&#125; </div><div class="line">function trim(str)&#123; </div><div class="line">    var reg=/(^\s+)|(\s+$)/g; </div><div class="line">    return str.replace(reg, &quot;&quot;); </div><div class="line">&#125; </div><div class="line">while(true)&#123; </div><div class="line">    var code=g etCode(); </div><div class="line">    var input=p rompt( &quot;输入验证码：&quot;+code); </div><div class="line">    var reg=/ ^[a-zA-Z0-9]&#123;4&#125;$/; </div><div class="line">    input=t rim(input); </div><div class="line">    if(reg.test(input))&#123; </div><div class="line">        if(input.toLowerCase()==c ode.toLowerCase())&#123; </div><div class="line">            alert( &quot;验证成功！&quot;); </div><div class="line">            break; </div><div class="line">        &#125;else&#123; </div><div class="line">            alert( &quot;验证码错误！&quot;); </div><div class="line">        &#125; </div><div class="line">    &#125;else&#123; </div><div class="line">        alert( &quot;验证码格式错误！&quot;); </div><div class="line">    &#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Math.abs(num)</td>
+<td>返回num的绝对值</td>
+</tr>
+<tr>
+<td>Math.exp(num)</td>
+<td>返回Math.E的num次幂</td>
+</tr>
+<tr>
+<td>Math.log(num)</td>
+<td>返回num的自然对数</td>
+</tr>
+<tr>
+<td>Math.pow(num,power)</td>
+<td>返回num的power次幂</td>
+</tr>
+<tr>
+<td>Math.sqrt(num)</td>
+<td>返回num的平方根</td>
+</tr>
+<tr>
+<td>Math.acos(x)</td>
+<td>返回x的反余弦值</td>
+</tr>
+<tr>
+<td>Math.asin(x)</td>
+<td>返回x的反正弦值</td>
+</tr>
+<tr>
+<td>Math.atan(x)</td>
+<td>返回x的反正切值</td>
+</tr>
+<tr>
+<td>Math.atan2(y,x)</td>
+<td>返回y/x的反正切值</td>
+</tr>
+<tr>
+<td>Math.cos(x)</td>
+<td>返回x的余弦值</td>
+</tr>
+<tr>
+<td>Math.sin(x)</td>
+<td>返回x的正余弦值</td>
+</tr>
+<tr>
+<td>Math.tan(x)</td>
+<td>返回x的正切值</td>
+</tr>
+</tbody>
+</table>
 
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2017/10/06/React之PropTypes/" data-toggle="tooltip" data-placement="top"
-                           title="React之PropTypes">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2017/09/26/JavaScript保存对象的两种类型/" data-toggle="tooltip" data-placement="top"
-                           title="JavaScript保存对象的两种类型">Next Post &rarr;</a>
+                        <a href="/2017/10/23/JavaScript字符串/" data-toggle="tooltip" data-placement="top"
+                           title="JavaScript字符串">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -250,7 +336,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#内置对象"><span class="toc-text">内置对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#包装类型"><span class="toc-text">包装类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#包装类型是内置对象的一个子集。"><span class="toc-text">包装类型是内置对象的一个子集。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原始类型"><span class="toc-text">原始类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Undefined、Null、Boolean、Number-和-String。"><span class="toc-text">Undefined、Null、Boolean、Number 和 String。</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Math对象：封装了所有数学计算的API"><span class="toc-text">Math对象：封装了所有数学计算的API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象的属性"><span class="toc-text">对象的属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#min-和max-方法"><span class="toc-text">min()和max()方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#舍入方法"><span class="toc-text">舍入方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#random-方法"><span class="toc-text">random()方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他方法"><span class="toc-text">其他方法</span></a></li></ol>
                 </div>
             </div>
         </div>
