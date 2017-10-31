@@ -83,7 +83,7 @@
                         
 							
                         <li>
-                            <a href="/tags/">tags</a>
+                            <a href="/archives/">archives</a>
                         </li>
 							
 						
@@ -91,7 +91,7 @@
                         
 							
                         <li>
-                            <a href="/archives/">archives</a>
+                            <a href="/tags/">tags</a>
                         </li>
 							
 						
@@ -199,7 +199,17 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//GMT时间2017年1月1日午夜零时</div><div class="line">var now = new Date(Date.UTC(2017, 0));</div><div class="line">//GMT时间2017年10月30日下午18:25:30</div><div class="line">var nowtime = new Date(Date.UTC(2017, 9, 30, 18, 25, 30));</div></pre></td></tr></table></figure>
 <h3 id="Date-now"><a href="#Date-now" class="headerlink" title="Date.now()"></a>Date.now()</h3><p>var start = Date.now();<br>该方法表示调用这个方法时的日期和和时间的毫秒数。</p>
 <h2 id="ValueOf"><a href="#ValueOf" class="headerlink" title="ValueOf()"></a>ValueOf()</h2><p>Date的ValueOf方法，根本不返回字符串，而是返回日期的毫秒表示。因此可以用来比较日期值。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var date1 = new Date(2017, 10, 30);</div><div class="line">var date2 = new Date(2017, 11, 11);</div><div class="line">alert(date1 &lt; date2);  //true</div><div class="line">alert(date1 &gt; date2);  //false</div></pre></td></tr></table></figure></p>
-<h2 id="日期格式化方法"><a href="#日期格式化方法" class="headerlink" title="日期格式化方法"></a>日期格式化方法</h2><p>Date类型一些专门用于将日期格式化为字符串的方法：</p>
+<h2 id="日期常用方法"><a href="#日期常用方法" class="headerlink" title="日期常用方法"></a>日期常用方法</h2><blockquote>
+<p>1.每个分量都有一对<strong> get/set </strong>方法，获取/设置该分量的值<br>2.命名：年月日 没有s,<strong> 时分秒 有s </strong><br>3.取值/赋值：除了每月中的日之外，其余都是从0开始到-1结束<br>         每月中的日从1开始，到31结束<br>         月份：<strong> 取值时要+1修正，赋值时-1修正 </strong><br>         星期：日 一 二 三 四 五 六 对应 0  1  2  3  4  5  6</p>
+</blockquote>
+<h2 id="日期计算："><a href="#日期计算：" class="headerlink" title="日期计算："></a>日期计算：</h2><blockquote>
+<p>1.两日期对象相减，得到毫秒<br>2.时间+-：var nowMs = date.getTime() 返回时间毫秒数<br>    var nextMs = mowMs +/- 5<em>60</em>1000;<br>    var next = new Date(nextMs);<br>使用毫秒做计算，不改变原时间对象！需要重新封装时间对象<br>最大仅能算到“天数”。再算“月数”无法确定没有天数<br>3.任意分量的计算<br>  先取出分量值，做计算，再set回去<br>  setXXX()：</p>
+<ul>
+<li>1.自动调整进制</li>
+<li>2.<strong> 直接修改原日期对象 </strong><br>如何保留原日期对象呢？先new出新Date对象，再set<br>var newDate = new Date(oldDate.getTime());<br>使用毫秒做计算，不改变原时间对象！需要重新封装时间对象<br>最大仅能算到“天数”。再算“月数”无法确定没有天数</li>
+</ul>
+</blockquote>
+<h2 id="日期格式化方法"><a href="#日期格式化方法" class="headerlink" title="日期格式化方法"></a>日期格式化方法</h2><p><strong> 一般自定义format(date)方法 </strong><br>Date类型一些专门用于将日期格式化为字符串的方法：</p>
 <table>
 <thead>
 <tr>
@@ -424,7 +434,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#new-Date"><span class="toc-text">new Date()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Date-parse"><span class="toc-text">Date.parse()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Date-UTC"><span class="toc-text">Date.UTC()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Date-now"><span class="toc-text">Date.now()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ValueOf"><span class="toc-text">ValueOf()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期格式化方法"><span class="toc-text">日期格式化方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期-时间组件方法"><span class="toc-text">日期/时间组件方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小案例"><span class="toc-text">小案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间选择器"><span class="toc-text">时间选择器</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#new-Date"><span class="toc-text">new Date()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Date-parse"><span class="toc-text">Date.parse()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Date-UTC"><span class="toc-text">Date.UTC()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Date-now"><span class="toc-text">Date.now()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ValueOf"><span class="toc-text">ValueOf()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期常用方法"><span class="toc-text">日期常用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期计算："><span class="toc-text">日期计算：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期格式化方法"><span class="toc-text">日期格式化方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期-时间组件方法"><span class="toc-text">日期/时间组件方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小案例"><span class="toc-text">小案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间选择器"><span class="toc-text">时间选择器</span></a></li></ol>
                 </div>
             </div>
         </div>
