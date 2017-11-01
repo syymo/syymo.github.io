@@ -203,7 +203,7 @@
 <p>1.每个分量都有一对<strong> get/set </strong>方法，获取/设置该分量的值<br>2.命名：年月日 没有s,<strong> 时分秒 有s </strong><br>3.取值/赋值：除了每月中的日之外，其余都是从0开始到-1结束<br>         每月中的日从1开始，到31结束<br>         月份：<strong> 取值时要+1修正，赋值时-1修正 </strong><br>         星期：日 一 二 三 四 五 六 对应 0  1  2  3  4  5  6</p>
 </blockquote>
 <h2 id="日期计算："><a href="#日期计算：" class="headerlink" title="日期计算："></a>日期计算：</h2><blockquote>
-<p>1.两日期对象相减，得到毫秒<br>2.时间+-：var nowMs = date.getTime() 返回时间毫秒数<br>    var nextMs = mowMs +/- 5<em>60</em>1000;<br>    var next = new Date(nextMs);<br>使用毫秒做计算，不改变原时间对象！需要重新封装时间对象<br>最大仅能算到“天数”。再算“月数”无法确定没有天数<br>3.任意分量的计算<br>  先取出分量值，做计算，再set回去<br>  setXXX()：</p>
+<p>1.两日期对象相减，得到毫秒<br>2.时间+-：var nowMs = date.getTime() 返回时间毫秒数<br>    var nextMs = mowMs +/- 5*60*1000;<br>    var next = new Date(nextMs);<br>使用毫秒做计算，不改变原时间对象！需要重新封装时间对象<br>最大仅能算到“天数”。再算“月数”无法确定没有天数<br>3.任意分量的计算<br>  先取出分量值，做计算，再set回去<br>  setXXX()：</p>
 <ul>
 <li>1.自动调整进制</li>
 <li>2.<strong> 直接修改原日期对象 </strong><br>如何保留原日期对象呢？先new出新Date对象，再set<br>var newDate = new Date(oldDate.getTime());<br>使用毫秒做计算，不改变原时间对象！需要重新封装时间对象<br>最大仅能算到“天数”。再算“月数”无法确定没有天数</li>
@@ -414,6 +414,11 @@
                 
 
                 <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/10/31/JavaScript-Error对象/" data-toggle="tooltip" data-placement="top"
+                           title="JavaScript Error对象">&larr; Previous Post</a>
+                    </li>
                     
                     
                     <li class="next">

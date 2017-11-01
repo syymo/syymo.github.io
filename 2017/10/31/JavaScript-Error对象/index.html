@@ -16,11 +16,11 @@
     <link rel="alternate" type="application/atom+xml" title="syymo" href="/atom.xml">
     <title>
         
-        syymo&#39;s blog
+        JavaScript Error对象｜syymo&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://syymo.github.io/archives/page/2/">
+    <link rel="canonical" href="http://syymo.github.io/2017/10/31/JavaScript-Error对象/">
 
     <!-- Font-awesome Core CSS -->
     <link rel="stylesheet" href="/css/font-awesome.min.css">
@@ -46,7 +46,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
 " data-ishome = "false" >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -134,288 +134,149 @@
 </script>
 
 <!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://avatars2.githubusercontent.com/u/26571594?s=460&v=4">
+
+
 <style>
-    .intro-header .site-heading {
-        margin: 50px;
-    }
     
     header.intro-header {
         background-image: url('https://avatars2.githubusercontent.com/u/26571594?s=460&v=4')
     }
+
     
 </style>
 
-<!-- Page Header -->
 <header class="intro-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading text-center">
-                    <h1>Archives</h1>
-                    <span class="subheading">有时重要的东西总是迟来一步,但却一定会到,生活和爱情都是如此,程序当然也不例外.</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>JavaScript Error对象</h1>
+                    
+                    <span class="meta">
+                         作者 syymo
+                        <span>
+                          日期 2017-10-31
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#JavaScript"
+                           title="JavaScript">JavaScript</a>
+                        
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="post-title-haojen">
+        <span>
+            JavaScript Error对象
+        </span>
+    </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- archive list -->
-            
-				
-				
-				
-					
-					
-					<div class="archive archive-year" data-date="2017">
-						<h2 class="archive-title">
-						<span class="fa fa-archive">
-							<a href="/archives/2017">2017</a>
-						</span>
-						</h2>
-				
-				
-					
-					
-					<div class="archive archive-month" data-date="201710">
-						<h3 class="archive-title">
-							<a href="/archives/2017/10">10</a>
-						</h3>
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/10/31/JavaScript-Error对象/">
-                        <h4 class="post-title">
-                            JavaScript Error对象
-                        </h4>
-                        
-                    </a>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="Error错误："><a href="#Error错误：" class="headerlink" title="Error错误："></a>Error错误：</h2><p>什么是错误：导致程序运行停止的运行时异常状态<br>什么是错误处理：在出现异常状态时，保证程序不停止的机制</p>
+<h2 id="错误类型："><a href="#错误类型：" class="headerlink" title="错误类型："></a>错误类型：</h2><p>Error类型：所有错误对象的父类型<br>6种子类型：EvalError，RangeError，ReferenceError，SyntaxError，TypeError，URIError</p>
+<h3 id="EvalError"><a href="#EvalError" class="headerlink" title="EvalError"></a>EvalError</h3><p>EvalError类型的错误会在使用eval()函数发生异常时抛出。<br>简单的说：<strong>如果没有吧eval()当函数调用，就会抛出错误。</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">new eval();  //抛出EvalError</div><div class="line">eval = foo;  //抛出EvalError</div></pre></td></tr></table></figure></p>
+<h3 id="RangeError"><a href="#RangeError" class="headerlink" title="RangeError"></a>RangeError</h3><p>RangeError类型错误会在参数超出范围触发。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">num.toFixed(-5);  //抛出RangeError</div><div class="line">var arr = new Array(-10);  //抛出RangeError</div></pre></td></tr></table></figure></p>
+<h3 id="ReferenceError"><a href="#ReferenceError" class="headerlink" title="ReferenceError"></a>ReferenceError</h3><p>ReferenceError类型错误会在访问不存在的变量时触发。<br>比如：只要使用未声明的变量时，都抛出ReferenceError<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var obj = x;  //在x并未声明的情况抛出ReferenceError</div></pre></td></tr></table></figure></p>
+<h3 id="SyntaxError"><a href="#SyntaxError" class="headerlink" title="SyntaxError"></a>SyntaxError</h3><p>SyntaxError类型错误还在语法错误时触发，需要修改源代码。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">eval(&quot;a+b&quot;);  //抛出SyntaxError</div></pre></td></tr></table></figure></p>
+<h3 id="TypeError"><a href="#TypeError" class="headerlink" title="TypeError"></a>TypeError</h3><p>TypeError类型错误会在错误的使用了类型和类型的方法！<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var o = new 10;  //抛出TypeError</div><div class="line">alert(&quot;name&quot; in true);  //抛出TypeError</div><div class="line">Function.prototype.toString,call(&quot;name&quot;);  //抛出TypeError</div></pre></td></tr></table></figure></p>
+<h3 id="URIError"><a href="#URIError" class="headerlink" title="URIError"></a>URIError</h3><p>URIError错误类型会在URI错误时触发。<br>这种错误类型很少见。</p>
+<h2 id="错误处理try-catch-finally"><a href="#错误处理try-catch-finally" class="headerlink" title="错误处理try-catch-[finally]"></a>错误处理try-catch-[finally]</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">try&#123;</div><div class="line">    可能出错的代码</div><div class="line">&#125;catch(error)&#123;  //只要抛出错误都会创建一个Error对象</div><div class="line">    错误处理的代码</div><div class="line">    1.获得错误的信息：err.name类型err.message</div><div class="line">    2.根据错误的类型，执行不同的处理</div><div class="line">&#125;[finally&#123; 可有可无，程序中使用了大对象！一定要在finally中主动释放</div><div class="line">    无论是否出错都必须执行的代码</div><div class="line">&#125;]</div></pre></td></tr></table></figure>
+<p>当然也可以这样使用<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">try&#123;</div><div class="line">    someFunction()</div><div class="line">&#125;catch(error)&#123;  </div><div class="line">    if(error instanceof TypeError)&#123;</div><div class="line">      //处理错误类型</div><div class="line">    &#125;else if(error instanceof ReferenceError)&#123;</div><div class="line">      //处理引用错误</div><div class="line">    &#125;else&#123;</div><div class="line">      //处理其他类型错误</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>能用if…else解决的问题，就不用try catch！</strong><br><strong>何时使用：try catch处理的是无法预料的问题</strong></p>
+<p>主动抛出异常：告知方法调用者出错<br>throw new Error(“自定义的错误信息”)</p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/10/30/JavaScript-Date类型/" data-toggle="tooltip" data-placement="top"
+                           title="JavaScript Date类型">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Error错误："><span class="toc-text">Error错误：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#错误类型："><span class="toc-text">错误类型：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#EvalError"><span class="toc-text">EvalError</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RangeError"><span class="toc-text">RangeError</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ReferenceError"><span class="toc-text">ReferenceError</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SyntaxError"><span class="toc-text">SyntaxError</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TypeError"><span class="toc-text">TypeError</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#URIError"><span class="toc-text">URIError</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#错误处理try-catch-finally"><span class="toc-text">错误处理try-catch-[finally]</span></a></li></ol>
                 </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/10/30/JavaScript-Date类型/">
-                        <h4 class="post-title">
-                            JavaScript Date类型
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/10/29/JavaScript-Math对象/">
-                        <h4 class="post-title">
-                            JavaScript Math对象
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/10/23/JavaScript字符串/">
-                        <h4 class="post-title">
-                            JavaScript字符串
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/10/10/React基本组件/">
-                        <h4 class="post-title">
-                            React基本组件
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/10/08/React组件/">
-                        <h4 class="post-title">
-                            React组件
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/10/06/React之PropTypes/">
-                        <h4 class="post-title">
-                            React之PropTypes
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-					
-					</div><!--month-->
-					
-					
-					<div class="archive archive-month" data-date="201709">
-						<h3 class="archive-title">
-							<a href="/archives/2017/09">09</a>
-						</h3>
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/09/29/JavaScript内置对象类/">
-                        <h4 class="post-title">
-                            JavaScript内置对象类
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/09/26/JavaScript保存对象的两种类型/">
-                        <h4 class="post-title">
-                            JavaScript保存对象的两种类型
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/09/25/Github基本用法/">
-                        <h4 class="post-title">
-                            Github基本用法
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/09/24/React-Webpack实现热加载环境/">
-                        <h4 class="post-title">
-                            React+Webpack实现热加载环境
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/09/24/React入门之JSX用法/">
-                        <h4 class="post-title">
-                            React入门之JSX用法
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/09/23/JavaScript之正则表达式/">
-                        <h4 class="post-title">
-                            JavaScript之正则表达式
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/09/23/hello-world/">
-                        <h4 class="post-title">
-                            Hello World
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
+            </div>
         </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#JavaScript"
+                           title="JavaScript">JavaScript</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.bugbo.xyz/">BugBo</a></li>
+                        
+                        <li><a href="http://dragonblog.club/">Dragon</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
     </div>
+</article>
+
+
+
+
+
+
 
 <!-- Footer -->
 <!-- Footer -->
