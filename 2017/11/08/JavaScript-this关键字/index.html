@@ -16,11 +16,11 @@
     <link rel="alternate" type="application/atom+xml" title="syymo" href="/atom.xml">
     <title>
         
-        React组件｜syymo&#39;s blog
+        JavaScript this关键字｜syymo&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://syymo.github.io/2017/10/08/React组件/">
+    <link rel="canonical" href="http://syymo.github.io/2017/11/08/JavaScript-this关键字/">
 
     <!-- Font-awesome Core CSS -->
     <link rel="stylesheet" href="/css/font-awesome.min.css">
@@ -156,18 +156,18 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>React组件</h1>
+                    <h1>JavaScript this关键字</h1>
                     
                     <span class="meta">
                          作者 syymo
                         <span>
-                          日期 2017-10-08
+                          日期 2017-11-08
                          </span>
                     </span>
                     <div class="tags text-center">
                         
-                        <a class="tag" href="/tags/#React"
-                           title="React">React</a>
+                        <a class="tag" href="/tags/#JavaScript"
+                           title="JavaScript">JavaScript</a>
                         
                     </div>
                 </div>
@@ -176,7 +176,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            React组件
+            JavaScript this关键字
         </span>
     </div>
 </header>
@@ -187,15 +187,14 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="使用React-createClass方法生成一个组件类并输出。"><a href="#使用React-createClass方法生成一个组件类并输出。" class="headerlink" title="使用React.createClass方法生成一个组件类并输出。"></a>使用React.createClass方法生成一个组件类并输出。</h2><p>例如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//生成组件</div><div class="line">var HelloMessage = React.createClass(&#123;</div><div class="line">  render: function() &#123;</div><div class="line">    return &lt;h1&gt;Hello React! &lt;/h1&gt;;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">//输出组件</div><div class="line">ReactDOM.render(</div><div class="line">  &lt;HelloMessage  name=“React”/&gt;,</div><div class="line">  document.getElementByID(&apos;example&apos;);</div><div class="line">)</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>注意：原生 HTML 元素名以小写字母开头，而自定义的 React 类名以大写字母开头，比如 HelloMessage 不能写成 helloMessage。除此之外还需要注意组件类只能包含一个顶层标签，否则也会报错。</p>
-<p>组件名不一定用单标签:</p>
-<p><hellomessage> == <hellomessage></hellomessage></hellomessage></p>
-<h3 id="如果我们需要向组件传递参数，可以使用this-props对象"><a href="#如果我们需要向组件传递参数，可以使用this-props对象" class="headerlink" title="如果我们需要向组件传递参数，可以使用this.props对象"></a>如果我们需要向组件传递参数，可以使用this.props对象</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var HelloMessage = React.createClass(&#123;</div><div class="line">  render:function()&#123;</div><div class="line">    return &lt;h1&gt;Hello &#123;this.props.name&#125;!&lt;/h2&gt;;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-</blockquote>
-<h2 id="复合组件"><a href="#复合组件" class="headerlink" title="复合组件"></a>复合组件</h2><p>React可以创建多个组件来合成一个组件，把组件不同功能进行分离。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var WebSite = React.createClass(&#123;</div><div class="line">  render: function()&#123;</div><div class="line">    return (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;Name name=&#123;this.props.name&#125; /&gt;</div><div class="line">        &lt;Link site=&#123;this.props.site&#125; /&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line">var Name = React.createClass(&#123;</div><div class="line">  render: function() &#123;</div><div class="line">    return (</div><div class="line">      &lt;h1&gt;&#123;this.props.name&#125;&lt;/h1&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"> </div><div class="line">var Link = React.createClass(&#123;</div><div class="line">  render: function() &#123;</div><div class="line">    return (</div><div class="line">      &lt;a href=&#123;this.props.site&#125;&gt;</div><div class="line">        &#123;this.props.site&#125;</div><div class="line">      &lt;/a&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"> </div><div class="line">ReactDOM.render(</div><div class="line">  &lt;WebSite name=&quot;博客&quot; site=&quot; http://syymo.cn&quot; /&gt;,</div><div class="line">  document.getElementById(&apos;example&apos;)</div><div class="line">);</div></pre></td></tr></table></figure></p>
-<p>此教程学习参考<a href="http://www.runoob.com/react/react-tutorial.html" target="_blank" rel="external">菜鸟学院</a></p>
+                <h2 id="this关键字"><a href="#this关键字" class="headerlink" title="this关键字"></a>this关键字</h2><p>this是什么？<br>在还没接触到闭包等东西之前this就是这些意思<br>当前方法、函数的调用对象<br>通过事件调用函数的对象<br>在全局中this是window<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">console.log(this);  // object window</div><div class="line">//window 相当于是js 的“老大”</div><div class="line">window.alert(this); //object window</div></pre></td></tr></table></figure></p>
+<h2 id="谁让函数执行this就指向谁"><a href="#谁让函数执行this就指向谁" class="headerlink" title="谁让函数执行this就指向谁"></a>谁让函数执行this就指向谁</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">oBtn.onclick = function()&#123;</div><div class="line">    alert(this);  //按钮</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="函数嵌套函数中的this指向"><a href="#函数嵌套函数中的this指向" class="headerlink" title="函数嵌套函数中的this指向"></a>函数嵌套函数中的this指向</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">function fn1()&#123;</div><div class="line">    alert(this);  //谁让函数动 this指的就是谁</div><div class="line">&#125;</div><div class="line">var oBtn = document.getElementById(&quot;btn1&quot;);</div><div class="line">oBtn.onclick = function()&#123;</div><div class="line">    //alert(this);  //按钮</div><div class="line">    fn1();  //object window</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="this运用"><a href="#this运用" class="headerlink" title="this运用"></a>this运用</h2><h3 id="this选取当前元素"><a href="#this选取当前元素" class="headerlink" title="this选取当前元素"></a>this选取当前元素</h3><p>此方法中的this直接指向了<code>aBtn[i]</code>从而改变了其背景颜色。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var aBtn = document.getElementsByTagName(&quot;input&quot;);</div><div class="line">for(var i=0;i&lt;aBtn.length;i++)&#123;</div><div class="line">    aBtn[i].onclick = function()&#123;</div><div class="line">      this.style.background = &quot;yellow&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>而这种方法则是用<code>that</code>变量把<code>this</code>存起来，下面调用函数的时候直接用<code>that</code>，而此时<code>this</code>指向的是<code>window</code>对象<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var aBtn = document.getElementsByTagName(&quot;input&quot;);</div><div class="line">var that = null;</div><div class="line">for(var i=0;i&lt;aBtn.length;i++)&#123;</div><div class="line">    aBtn[i].onclick = function()&#123;</div><div class="line">      this.style.background = &quot;yellow&quot;;</div><div class="line">      that = this;</div><div class="line">      fn1();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function fn1()&#123;</div><div class="line">    // this = &gt; window</div><div class="line">    that.style.background = &quot;yellow&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这种发放则是直接在点击的时候执行函数，而此时<code>this</code>指向的是点击的按钮、因此三种方法均能达到效果。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var aBtn = document.getElementsByTagName(&quot;input&quot;);</div><div class="line">for(var i=0;i&lt;aBtn.length;i++)&#123;</div><div class="line">    aBtn[i].onclick = fn1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function fn1()&#123;</div><div class="line">    // this = &gt; window</div><div class="line">    this.style.background = &quot;yellow&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="this选取当前元素的子元素"><a href="#this选取当前元素的子元素" class="headerlink" title="this选取当前元素的子元素"></a>this选取当前元素的子元素</h3><p>当this中存储的是某元素对象，则可以通过this获取元素的子元素。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">    &lt;style&gt;</div><div class="line">        li&#123;</div><div class="line">            width:100px;</div><div class="line">            height:100px;</div><div class="line">            float:left;</div><div class="line">            margin-right:30px;</div><div class="line">            margin-top:50px;</div><div class="line">            background:#f1f1f1;</div><div class="line">            position:relative;</div><div class="line">            list-style:none;</div><div class="line">        &#125;</div><div class="line">        div&#123;</div><div class="line">            width:80px;</div><div class="line">            height:150px;</div><div class="line">            background:red;</div><div class="line">            position:absolute;</div><div class="line">            top:75px;</div><div class="line">            left:10px;</div><div class="line">            display:none;</div><div class="line">        &#125;</div><div class="line">    &lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;ul&gt;</div><div class="line">        &lt;li&gt;&lt;div&gt;&lt;/div&gt;&lt;/li&gt;</div><div class="line">        &lt;li&gt;&lt;div&gt;&lt;/div&gt;&lt;/li&gt;</div><div class="line">        &lt;li&gt;&lt;div&gt;&lt;/div&gt;&lt;/li&gt;</div><div class="line">        &lt;li&gt;&lt;div&gt;&lt;/div&gt;&lt;/li&gt;</div><div class="line">        &lt;li&gt;&lt;div&gt;&lt;/div&gt;&lt;/li&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;script&gt;</div><div class="line">    window.onload = function()&#123;</div><div class="line">        var aLi = document.getElementsByTagName(&quot;li&quot;);</div><div class="line">        var that = null;</div><div class="line">        for(var i=0;i&lt;aLi.length;i++)&#123;</div><div class="line">            aLi[i].onmouseover = function()&#123;</div><div class="line">                //this.getElementsByTagName(&apos;div&apos;)[0].style.display = &quot;block&quot;;</div><div class="line">                that = this;</div><div class="line">                fn1();</div><div class="line">            &#125;</div><div class="line">            aLi[i].onmouseout = function()&#123;</div><div class="line">                this.getElementsByTagName(&apos;div&apos;)[0].style.display = &quot;none&quot;;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        function fn1()&#123;</div><div class="line">            that.getElementsByTagName(&apos;div&apos;)[0].style.display = &quot;block&quot;;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>而此时的this指向的是<code>li</code>，可用在循环内部直接用<code>this</code>找到它的子元素，或者用<code>that</code>把<code>this</code>保存起来，然后在找它的子元素。</p>
 
                 <hr>
                 
@@ -203,14 +202,14 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/10/10/React基本组件/" data-toggle="tooltip" data-placement="top"
-                           title="React基本组件">&larr; Previous Post</a>
+                        <a href="/2017/11/10/React生命周期/" data-toggle="tooltip" data-placement="top"
+                           title="React生命周期">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2017/10/06/React之PropTypes/" data-toggle="tooltip" data-placement="top"
-                           title="React之PropTypes">Next Post &rarr;</a>
+                        <a href="/2017/11/01/JavaScript-Function类型/" data-toggle="tooltip" data-placement="top"
+                           title="JavaScript Function类型">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -226,7 +225,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用React-createClass方法生成一个组件类并输出。"><span class="toc-text">使用React.createClass方法生成一个组件类并输出。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#如果我们需要向组件传递参数，可以使用this-props对象"><span class="toc-text">如果我们需要向组件传递参数，可以使用this.props对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#复合组件"><span class="toc-text">复合组件</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#this关键字"><span class="toc-text">this关键字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#谁让函数执行this就指向谁"><span class="toc-text">谁让函数执行this就指向谁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数嵌套函数中的this指向"><span class="toc-text">函数嵌套函数中的this指向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#this运用"><span class="toc-text">this运用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#this选取当前元素"><span class="toc-text">this选取当前元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#this选取当前元素的子元素"><span class="toc-text">this选取当前元素的子元素</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>
@@ -248,8 +247,8 @@
                     </h5>
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#React"
-                           title="React">React</a>
+                        <a class="tag" href="/tags/#JavaScript"
+                           title="JavaScript">JavaScript</a>
                         
                     </div>
                 </section>

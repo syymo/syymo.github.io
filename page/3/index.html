@@ -16,11 +16,11 @@
     <link rel="alternate" type="application/atom+xml" title="syymo" href="/atom.xml">
     <title>
         
-        tags｜syymo&#39;s blog
+        syymo&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://syymo.github.io/tags/">
+    <link rel="canonical" href="http://syymo.github.io/page/3/">
 
     <!-- Font-awesome Core CSS -->
     <link rel="stylesheet" href="/css/font-awesome.min.css">
@@ -47,7 +47,7 @@
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
-" data-ishome = "false" >
+" data-ishome = "true" >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header page-scroll">
@@ -134,266 +134,325 @@
 </script>
 
 <!-- Main Content -->
+
+
 <style>
-    .intro-header .site-heading {
-        margin: 50px;
+
+    .custom-haojen-container .post-preview:nth-of-type(1),
+    .custom-haojen-container .post-preview-poetry:nth-of-type(1) {
+        text-align: center;
+        background-repeat: no-repeat;
+        border-radius: 3px;
+        background-size: cover;
+        padding: 0;
+        height: 300px;
+        display: table;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.16);
     }
-    
-    header.intro-header {
-        background-image: url('https://avatars2.githubusercontent.com/u/26571594?s=460&v=4')
+
+    /*去掉诗歌的背景图片*/
+    .custom-haojen-container .post-preview-poetry:nth-of-type(1) {
+        background-image: none !important;
+        background-color: rgba(255, 248, 220, 0.5);
     }
-    
+
+    .custom-haojen-container .post-preview:nth-child(1) h2,
+    .custom-haojen-container .post-preview:nth-child(1) .post-meta,
+    .custom-haojen-container .post-preview:nth-child(1) .post-subtitle {
+        text-shadow: 0 0 40px rgba(0, 0, 0, 1);
+        letter-spacing: 1px;
+        color: #fff;
+        margin-top: 0;
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+
+    .custom-haojen-container .post-preview:nth-child(1) .post-meta {
+        font-size: .9em;
+        font-weight: 300;
+        margin-top: 0;
+    }
+
+    .custom-haojen-container .post-preview-poetry:nth-child(1) .post-subtitle {
+        letter-spacing: 6px;
+        font-size: 18px;
+        font-family: unset;
+        font-weight: 400;
+        color: rgba(0, 0, 0, .75)
+    }
+
+    /*不显示摘要*/
+    .custom-haojen-container .post-preview:nth-child(1) .post-content-preview {
+        display: none
+    }
+
+    /*只第一个显示背景图片*/
+    .custom-haojen-container .post-preview:not(:nth-child(1)) {
+        background-image: none !important;
+    }
+
+    /*第一个分界线去掉*/
+    .custom-haojen-container hr:nth-of-type(1) {
+        display: none;
+    }
+
+    /*主题*/
+    .custom-haojen-container .post-preview:nth-of-type(1) > a {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    /*诗词标题*/
+    .custom-haojen-container .post-preview-poetry:nth-child(1) h2 {
+        font-size: 35px;
+        font-family: STKaiti;
+        color: rgba(0, 0, 0, .8);
+    }
+
+    .custom-haojen-container .post-preview-poetry:nth-of-type(1) .post-meta {
+        color: #0e2231;
+    }
+
+    @media (max-width: 768px) {
+        .custom-haojen-container .post-preview:nth-child(1) {
+            height: 240px;
+        }
+
+        .custom-haojen-container .post-preview-poetry:nth-child(1) h2 {
+            font-size: 28px !important;
+            margin-top: 0;
+        }
+
+        .custom-haojen-container .post-preview:nth-child(1) .post-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .custom-haojen-container .post-preview:nth-of-type(1) > a {
+            padding: 20px
+        }
+    }
+
+    /*手机屏幕*/
+    @media (max-width: 400px) {
+        .custom-haojen-container .post-preview:nth-child(1) {
+            height: 195px;
+        }
+
+        .custom-haojen-container .post-preview-poetry:nth-child(1) h2 {
+            font-size: 20px !important;
+        }
+
+        .custom-haojen-container .post-preview:nth-child(1) .post-subtitle {
+            font-size: 16px;
+        }
+
+        .custom-haojen-container .post-preview:nth-child(1) a {
+            padding: 30px 20px;
+        }
+    }
 </style>
 
 <!-- Page Header -->
-<header class="intro-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading text-center">
-                    <h1>Tags</h1>
-                    <span class="subheading">常与同好争高下,不共傻瓜论短长.</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- Main Content -->
-<div class="container">
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 visible-xs-block visible-sm-block">
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- 标签云 -->
-            <div id='tag_cloud' class="tags">
-                
-                <a href="#JavaScript" title="JavaScript" rel="9">JavaScript</a>
-                
-                <a href="#GitHub" title="GitHub" rel="1">GitHub</a>
-                
-                <a href="#Linux" title="Linux" rel="1">Linux</a>
-                
-                <a href="#React" title="React" rel="6">React</a>
-                
-                <a href="#Hexo" title="Hexo" rel="1">Hexo</a>
-                
+        <header class="intro-header">
+            <div class="container">
+                <div class="site-heading text-center">
+                    <div class="about-me">
+                        <!--移动端头部显示-->
+                        <img src="https://avatars2.githubusercontent.com/u/26571594?s=460&amp;v=4"/>
+                        <h5><a href="/about/">syymo</a></h5>
+                        <p>胡编乱造。</p>
+                    </div>
+                </div>
             </div>
+        </header>
+    </div>
+</div>
+<!-- Main Content -->
+<div class="container custom-haojen-container">
+    <!-- Post Container -->
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
+            <!-- Main Content -->
 
-            <!-- 标签列表 -->
+
+
+<div class="post-preview "
+     style="background-image: url('')">
+    <a href="/2017/09/23/JavaScript之正则表达式/">
+        <h2 class="post-title">
+            JavaScript之正则表达式
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-09-23
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                什么是正则表达式？正则：规则、模式字符串中字符出现的规律正则表达式是强大的字符串匹配工具也是一种难以读懂的文字
+正则能做什么？正则只能操作字符串
+何时使用字正则表达式？验证字符串格式，查找关键字，替换关键字
+使用正则RegExp对象：专门封装一条正则表达式，提供使用正则表达式的常用API    ..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('')">
+    <a href="/2017/09/23/hello-world/">
+        <h2 class="post-title">
+            Hello World
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-09-23
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer i..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+
+<!-- 翻页 pager -->
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/page/2/">&larr; Newer Posts</a>
+    </li>
+    
+    
+</ul>
+
+        </div>
+        <!-- Sidebar Container -->
+        <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+
+            <!-- About Me -->
+            <section class="visible-md visible-lg" style="padding: 0 18px">
+                <div class="short-about">
+                    <!--侧边栏头像-->
+                    
+                    <img src="https://avatars2.githubusercontent.com/u/26571594?s=460&amp;v=4"/>
+                    
+                    <h5><a href="/about/">syymo</a></h5>
+                    
+                    <p>胡编乱造。</p>
+                    
+                    <hr>
+                    <!-- SNS Link 社交 -->
+                    <ul class="list-inline">
+                        
+                        
+                        
+                        <li>
+                            <a target="_blank" href="https://www.zhihu.com/people/syymo">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                        </span>
+                            </a>
+                        </li>
+                        
+
+                        
+                        <li>
+                            <a target="_blank" href="http://weibo.com/syymo">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                        </span>
+                            </a>
+                        </li>
+                        
+
+                        
+
+                        
+                        <li>
+                            <a target="_blank" href="https://github.com/syymo">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                        </span>
+                            </a>
+                        </li>
+                        
+
+                        
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Featured Tags  标签 -->
             
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="JavaScript">
-                    <span class="tag-text">JavaScript</span>
-                </span>
-                
-                <div class="post-preview">
-                    <a href="/2017/10/30/JavaScript-Date类型/">
-                        <h2 class="post-title">
-                            JavaScript Date类型
-                        </h2>
-                        
-                    </a>
+            <section>
+                <div class="tags">
+                    
+                    
+                    <a href="/tags/#JavaScript" title="JavaScript"
+                       rel="9">JavaScript</a>
+                    
+                    
+                    
+                    <a href="/tags/#GitHub" title="GitHub"
+                       rel="1">GitHub</a>
+                    
+                    
+                    
+                    <a href="/tags/#Linux" title="Linux"
+                       rel="1">Linux</a>
+                    
+                    
+                    
+                    <a href="/tags/#React" title="React"
+                       rel="6">React</a>
+                    
+                    
+                    
+                    <a href="/tags/#Hexo" title="Hexo"
+                       rel="1">Hexo</a>
+                    
+                    
                 </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/10/31/JavaScript-Error对象/">
-                        <h2 class="post-title">
-                            JavaScript Error对象
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/11/01/JavaScript-Function类型/">
-                        <h2 class="post-title">
-                            JavaScript Function类型
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/10/29/JavaScript-Math对象/">
-                        <h2 class="post-title">
-                            JavaScript Math对象
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/11/08/JavaScript-this关键字/">
-                        <h2 class="post-title">
-                            JavaScript this关键字
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/09/23/JavaScript之正则表达式/">
-                        <h2 class="post-title">
-                            JavaScript之正则表达式
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/09/26/JavaScript保存对象的两种类型/">
-                        <h2 class="post-title">
-                            JavaScript保存对象的两种类型
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/10/23/JavaScript字符串/">
-                        <h2 class="post-title">
-                            JavaScript字符串
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/09/29/JavaScript内置对象类/">
-                        <h2 class="post-title">
-                            JavaScript内置对象类
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-            </div>
+            </section>
             
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="GitHub">
-                    <span class="tag-text">GitHub</span>
-                </span>
-                
-                <div class="post-preview">
-                    <a href="/2017/09/25/Github基本用法/">
-                        <h2 class="post-title">
-                            Github基本用法
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-            </div>
+
             
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Linux">
-                    <span class="tag-text">Linux</span>
-                </span>
+            <hr>
+            <h5 style="text-align: center;">Friends</h5>
+            <ul class="list-inline" style="text-align: center;">
                 
-                <div class="post-preview">
-                    <a href="/2017/09/25/Github基本用法/">
-                        <h2 class="post-title">
-                            Github基本用法
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
+                <li><a href="http://www.bugbo.xyz/" target="_blank">BugBo</a></li>
                 
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="React">
-                    <span class="tag-text">React</span>
-                </span>
+                <li><a href="http://dragonblog.club/" target="_blank">Dragon</a></li>
                 
-                <div class="post-preview">
-                    <a href="/2017/09/24/React入门之JSX用法/">
-                        <h2 class="post-title">
-                            React入门之JSX用法
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/09/24/React-Webpack实现热加载环境/">
-                        <h2 class="post-title">
-                            React+Webpack实现热加载环境
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/11/18/React属性与事件/">
-                        <h2 class="post-title">
-                            React属性与事件
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/11/10/React生命周期/">
-                        <h2 class="post-title">
-                            React生命周期
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/11/22/React样式/">
-                        <h2 class="post-title">
-                            React样式
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/11/15/React组件基本用法/">
-                        <h2 class="post-title">
-                            React组件基本用法
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Hexo">
-                    <span class="tag-text">Hexo</span>
-                </span>
-                
-                <div class="post-preview">
-                    <a href="/2017/09/23/hello-world/">
-                        <h2 class="post-title">
-                            Hello World
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-            </div>
+            </ul>
             
 
         </div>

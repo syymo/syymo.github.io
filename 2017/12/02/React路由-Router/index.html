@@ -16,11 +16,11 @@
     <link rel="alternate" type="application/atom+xml" title="syymo" href="/atom.xml">
     <title>
         
-        JavaScript内置对象类｜syymo&#39;s blog
+        React路由(Router)｜syymo&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://syymo.github.io/2017/09/29/JavaScript内置对象类/">
+    <link rel="canonical" href="http://syymo.github.io/2017/12/02/React路由-Router/">
 
     <!-- Font-awesome Core CSS -->
     <link rel="stylesheet" href="/css/font-awesome.min.css">
@@ -156,18 +156,15 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>JavaScript内置对象类</h1>
+                    <h1>React路由(Router)</h1>
                     
                     <span class="meta">
                          作者 syymo
                         <span>
-                          日期 2017-09-29
+                          日期 2017-12-02
                          </span>
                     </span>
                     <div class="tags text-center">
-                        
-                        <a class="tag" href="/tags/#JavaScript"
-                           title="JavaScript">JavaScript</a>
                         
                     </div>
                 </div>
@@ -176,7 +173,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            JavaScript内置对象类
+            React路由(Router)
         </span>
     </div>
 </header>
@@ -187,54 +184,32 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="内置对象"><a href="#内置对象" class="headerlink" title="内置对象"></a>内置对象</h2><p>什么是内置对象？</p>
-<ul>
-<li>内置对象就是ECMAScript标准中已经定义好的，由浏览器厂商已经实现的标准对象！</li>
-<li>内置对象中封装了专门的数据和操作数据常用的API</li>
-<li>JavaScript中内置对象列表：<ul>
-<li>String、Boolean、Nmuber、Array、Date、Math、Error、Function、Object、Global</li>
-</ul>
-</li>
-</ul>
-<h2 id="包装类型"><a href="#包装类型" class="headerlink" title="包装类型"></a>包装类型</h2><p>什么是包装类型？</p>
-<ul>
-<li>专门封装原始类型的数据，并提供数据常用操作的内置类型。<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var str = &quot;Hello&quot;;//原始类型数据，存栈</div><div class="line">// strObj = new String(str);//包装类型</div><div class="line">str += &quot;world!&quot;;</div><div class="line">// strObj = null; //帮助拼接完成后js自动释放</div><div class="line"></div><div class="line">var num = 5.5;</div><div class="line">//var numObj = new Number(num);</div><div class="line">num = num.toFixed(2);</div><div class="line">//numObj = null;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>为什么要有包装类型？</p>
-<ul>
-<li>让原始类型的数据也可以像引用类型一样，拥有方法和属性。</li>
-<li>JavaScript中的包装类型：<ul>
-<li>String类型、Number类型、Boolean类型</li>
-</ul>
-</li>
-</ul>
-<p>何时使用包装类型？</p>
-<ul>
-<li>只要有原始类型的数据调用方法或访问属性，js引擎都会自动创建对应的包装类型对象。</li>
-</ul>
-<h4 id="包装类型是内置对象的一个子集。"><a href="#包装类型是内置对象的一个子集。" class="headerlink" title="包装类型是内置对象的一个子集。"></a>包装类型是内置对象的一个子集。</h4><p>方法调用完，包装类型对象自动释放。</p>
-<h2 id="原始类型"><a href="#原始类型" class="headerlink" title="原始类型"></a>原始类型</h2><p>ECMAScript 有 5 种原始类型（primitive type），即</p>
-<ul>
-<li><h4 id="Undefined、Null、Boolean、Number-和-String。"><a href="#Undefined、Null、Boolean、Number-和-String。" class="headerlink" title="Undefined、Null、Boolean、Number 和 String。"></a>Undefined、Null、Boolean、Number 和 String。</h4></li>
-</ul>
-<p>创建<font color="red">原始类型</font>字符串变量：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//直接创建</div><div class="line">var stuN = &apos;Syymo&apos;;</div><div class="line">var sex = &apos;男&apos;;</div><div class="line"></div><div class="line">var priceString = String(150.5); //可能放置栈中</div></pre></td></tr></table></figure></p>
-<p>创建<font color="red">引用类型</font>字符串对象：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var carType = new String(&apos;BMW528Li&apos;); //可能放置堆中</div></pre></td></tr></table></figure></p>
+                <h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ npm install react-router -g</div><div class="line">$ npm install react-router --save</div></pre></td></tr></table></figure>
+<p>如果装的是v2 v3<code>$ npm install react-router@3 --save</code><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import &#123;Router, Route, hashHistory&#125; from &apos;react-router&apos;;</div><div class="line">export default class Root extends React.Component&#123;</div><div class="line">    render()&#123;</div><div class="line">        console.log(hashHistory);</div><div class="line">        return(</div><div class="line"></div><div class="line">            //这里替换之前的indnx，变成了程序的入口</div><div class="line">            &lt;Router history=&#123;hashHistory&#125;&gt;</div><div class="line">                &lt;Route component=&#123;Index&#125; path=&quot;/&quot;&gt;&lt;/Route&gt;</div><div class="line">                &lt;Route component=&#123;ComponentList&#125; path=&quot;list&quot;&gt;&lt;/Route&gt;</div><div class="line">            &lt;/Router&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ReactDOM.render(&lt;Root/&gt;,document.getElementById(&apos;example&apos;));</div></pre></td></tr></table></figure></p>
+<p>v4中 <code>hashHistory</code>  <code>console.log(hashHistory); //undefined</code></p>
+<h2 id="React-Router-V4"><a href="#React-Router-V4" class="headerlink" title="React Router V4"></a>React Router V4</h2><p><code>&lt; BrowserRouter &gt;</code>创建一个浏览器的历史，<br><code>&lt; HashRouter &gt;</code>创建一个哈希的历史，<br><code>&lt; MemoryRouter &gt;</code>创建一个记忆中的历史。</p>
+<h3 id="所有组件更改为react-router-dom导入"><a href="#所有组件更改为react-router-dom导入" class="headerlink" title="所有组件更改为react-router-dom导入"></a>所有组件更改为react-router-dom导入</h3><p>之前的所有路由组件均是从react-router中导入,在我之前的项目中,导入相关组件如下:<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//v3</div><div class="line">import &#123;Router,Route,hashHistory&#125; from &apos;react-router&apos;;</div></pre></td></tr></table></figure></p>
+<p>在react-router4 开始,所有的router组件均是从react-router-dom中导入, 所以一下的需要更改为以下代码:<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//v4</div><div class="line">import &#123;Route,BrowserRouter, Switch&#125; from &apos;react-router-dom&apos;;</div></pre></td></tr></table></figure></p>
+<p>细心的你发现在,到导入的过程中,我删除了Router,但是增加了BorwerRouter和Switch,下面我会一步步的说明.</p>
+<h3 id="将所有替换为"><a href="#将所有替换为" class="headerlink" title="将所有替换为"></a>将所有<router>替换为<browserrouter></browserrouter></router></h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//v4</div><div class="line">&lt;BrowserRouter&gt;</div><div class="line">  &lt;div&gt;</div><div class="line">    &lt;Route path=&apos;/about&apos; component=&#123;About&#125; /&gt;</div><div class="line">    &lt;Route path=&apos;/contact&apos; component=&#123;Contact&#125; /&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/BrowserRouter&gt;</div></pre></td></tr></table></figure>
+<p><code>v4</code>中<code>BrowserRouter</code>仅能有一个子节点，因此可以选用<code>div</code>等进行包裹。y因此选用<code>switch</code></p>
+<h3 id=""><a href="#" class="headerlink" title=""></a><switch></switch></h3><p>在V3中，可以指定一些子路由，并且只有第一个匹配的路径将被呈现。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// v3</div><div class="line">&lt;Route path=&apos;/&apos; component=&#123;App&#125;&gt;</div><div class="line">  &lt;IndexRoute component=&#123;Home&#125; /&gt;</div><div class="line">  &lt;Route path=&apos;about&apos; component=&#123;About&#125; /&gt;</div><div class="line">  &lt;Route path=&apos;contact&apos; component=&#123;Contact&#125; /&gt;</div><div class="line">&lt;/Route&gt;</div></pre></td></tr></table></figure></p>
+<p>V4提供了类似的功能与<switch>组件。当呈现<switch>，它只会渲染与当前位置相匹配的第一个子<router>与当前位置匹配。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// v4</div><div class="line">const App = () =&gt; (</div><div class="line">  &lt;Switch&gt;</div><div class="line">    &lt;Route exact path=&apos;/&apos; component=&#123;Home&#125; /&gt;</div><div class="line">    &lt;Route path=&apos;/about&apos; component=&#123;About&#125; /&gt;</div><div class="line">    &lt;Route path=&apos;/contact&apos; component=&#123;Contact&#125; /&gt;</div><div class="line">  &lt;/Switch&gt;</div><div class="line">)</div></pre></td></tr></table></figure></router></switch></switch></p>
+<h3 id="Link用法"><a href="#Link用法" class="headerlink" title="Link用法"></a>Link用法</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import &#123; BrowserRouter as Router, Route, Link &#125; from &apos;react-router-dom&apos;;</div><div class="line"></div><div class="line">const BasicExample = () =&gt; (</div><div class="line">  &lt;Router&gt;</div><div class="line">    &lt;div&gt;</div><div class="line">      &lt;ul&gt;</div><div class="line">        &lt;li&gt;&lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;&lt;/li&gt;</div><div class="line">        &lt;li&gt;&lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;&lt;/li&gt;</div><div class="line">        &lt;li&gt;&lt;Link to=&quot;/topics&quot;&gt;Topics&lt;/Link&gt;&lt;/li&gt;</div><div class="line">      &lt;/ul&gt;</div><div class="line"></div><div class="line">      &lt;hr /&gt;</div><div class="line"></div><div class="line">      &lt;Route exact path=&quot;/&quot; component=&#123;Home&#125; /&gt;</div><div class="line">      &lt;Route path=&quot;/about&quot; component=&#123;About&#125; /&gt;</div><div class="line">      &lt;Route path=&quot;/topics&quot; component=&#123;Topics&#125; /&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">  &lt;/Router&gt;</div><div class="line">);</div></pre></td></tr></table></figure>
+<p><a href="https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/guides/migrating.md3" target="_blank" rel="external">Migrating from v2/v3 to v4</a></p>
+<h2 id="Router嵌套"><a href="#Router嵌套" class="headerlink" title="Router嵌套"></a>Router嵌套</h2><p>页面中局部进行路由<br><img src="http://upload-images.jianshu.io/upload_images/2088736-477bfc4def18120e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="Router参数传递"><a href="#Router参数传递" class="headerlink" title="Router参数传递"></a>Router参数传递</h2><p>路由中写“:参数名”<br><img src="http://upload-images.jianshu.io/upload_images/2088736-42774980c9b66ad2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>Link中接参数值<br><img src="http://upload-images.jianshu.io/upload_images/2088736-500711d14e206551.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>Component中接收参数<br><code>this.props.match.params.id</code><br><img src="http://upload-images.jianshu.io/upload_images/2088736-f7688e3bcf29f893.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>此时的浏览器中会显示 <strong>参数值</strong><br><code>http://localhost:8080/#/ticket/123456</code></p>
 
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2017/10/23/JavaScript字符串/" data-toggle="tooltip" data-placement="top"
-                           title="JavaScript字符串">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2017/09/26/JavaScript保存对象的两种类型/" data-toggle="tooltip" data-placement="top"
-                           title="JavaScript保存对象的两种类型">Next Post &rarr;</a>
+                        <a href="/2017/11/22/React样式/" data-toggle="tooltip" data-placement="top"
+                           title="React样式">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -250,7 +225,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#内置对象"><span class="toc-text">内置对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#包装类型"><span class="toc-text">包装类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#包装类型是内置对象的一个子集。"><span class="toc-text">包装类型是内置对象的一个子集。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原始类型"><span class="toc-text">原始类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Undefined、Null、Boolean、Number-和-String。"><span class="toc-text">Undefined、Null、Boolean、Number 和 String。</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本用法"><span class="toc-text">基本用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-Router-V4"><span class="toc-text">React Router V4</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#所有组件更改为react-router-dom导入"><span class="toc-text">所有组件更改为react-router-dom导入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将所有替换为"><span class="toc-text">将所有替换为</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-text"></span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Link用法"><span class="toc-text">Link用法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Router嵌套"><span class="toc-text">Router嵌套</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Router参数传递"><span class="toc-text">Router参数传递</span></a></li></ol>
                 </div>
             </div>
         </div>
@@ -271,9 +246,6 @@
                         <a href="/tags/">FEATURED TAGS</a>
                     </h5>
                     <div class="tags">
-                        
-                        <a class="tag" href="/tags/#JavaScript"
-                           title="JavaScript">JavaScript</a>
                         
                     </div>
                 </section>

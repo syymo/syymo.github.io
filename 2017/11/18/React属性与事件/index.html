@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Github 上的个人博客">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="syymo" href="/atom.xml">
+    <title>
+        
+        React属性与事件｜syymo&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://syymo.github.io/2017/11/18/React属性与事件/">
+
+    <!-- Font-awesome Core CSS -->
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <!-- Animate Core CSS -->
+    <link rel="stylesheet" href="/css/animate.min.css">
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    syymo
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://avatars2.githubusercontent.com/u/26571594?s=460&v=4">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://avatars2.githubusercontent.com/u/26571594?s=460&v=4')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>React属性与事件</h1>
+                    
+                    <span class="meta">
+                         作者 syymo
+                        <span>
+                          日期 2017-11-18
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#React"
+                           title="React">React</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            React属性与事件
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="State属性"><a href="#State属性" class="headerlink" title="State属性"></a>State属性</h2><p>state 对于模块属于 自身 属性</p>
+<h3 id="初始化state"><a href="#初始化state" class="headerlink" title="初始化state"></a>初始化state</h3><p>初始化：<code>this.state = {name:&quot;syymo&quot;}</code><br>初始化可放在<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//初始化</div><div class="line">constructor()&#123;</div><div class="line">    super(); //调用基类的所有初始化方法</div><div class="line">    this.state = &#123;name: &quot;Syymo&quot;&#125;;   //state值作用于当前作用域</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>react组件中的this作用于此组件中作用域。</p>
+<h3 id="修改state属性"><a href="#修改state属性" class="headerlink" title="修改state属性"></a>修改state属性</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">render()&#123;</div><div class="line">    //箭头函数 也称作 匿名函数</div><div class="line">    setTimeout(()=&gt;&#123;</div><div class="line">        //更改state的时候</div><div class="line">        this.setState(&#123;name: &quot;syymo&quot;&#125;);</div><div class="line">    &#125;,3000);</div><div class="line">&#125;</div><div class="line">/*</div><div class="line">self = this;</div><div class="line">setTimeout(function()&#123;</div><div class="line">    //更改state的时候</div><div class="line">    self.setState(&#123;name: &quot;syymo&quot;&#125;);</div><div class="line">&#125;,3000);</div><div class="line">*/</div></pre></td></tr></table></figure>
+<p><strong>state的作用域只属于当前类，不污染其他模块</strong></p>
+<h2 id="Props属性"><a href="#Props属性" class="headerlink" title="Props属性"></a>Props属性</h2><p>props对于模块属于 外来 属性。<br>父组件向子组件传递参数：<br>传递参数可以通过：<code>&lt;IndexMain name=&quot;Syymo&quot;/&gt;</code><br>模块中接受参数：<code>this.props.name</code><br>对象的属性与组件的属性一一对应，但是有一个例外<code>this.props.children</code>属性。<br><code>...this.props</code>把父页面的所有属性传给子页面</p>
+<h3 id="this-props-children"><a href="#this-props-children" class="headerlink" title="this.props.children"></a>this.props.children</h3><p> this.props.children 表示组件的所有子节点。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var NodeList = React.createClass(&#123;</div><div class="line">    render: function()&#123;</div><div class="line">        return (</div><div class="line">            &lt;ol&gt;</div><div class="line">            &#123;   </div><div class="line">                //this.props.children表示组件的所有字节点</div><div class="line">                React.Children.map(this.props.children, function(child)&#123;</div><div class="line">                    return &lt;li&gt;&#123;child&#125;&lt;/li&gt;</div><div class="line">                &#125;)</div><div class="line">            &#125;</div><div class="line">            &lt;/ol&gt;</div><div class="line">        );</div><div class="line">    &#125;           </div><div class="line">&#125;);</div><div class="line">ReactDOM.render(</div><div class="line">    &lt;NodeList&gt;</div><div class="line">        &lt;span&gt;hello&lt;/span&gt;</div><div class="line">        &lt;span&gt;React&lt;/span&gt;</div><div class="line">        &lt;h1&gt;JavaScript&lt;/h1&gt;</div><div class="line">    &lt;/NodeList&gt;,</div><div class="line">    document.body</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<h5 id="this-props-children的值有三种可能："><a href="#this-props-children的值有三种可能：" class="headerlink" title="this.props.children的值有三种可能："></a>this.props.children的值有三种可能：</h5><ul>
+<li>如果当前组件没有子节点，它返回undefined<ul>
+<li>如果有一个子节点，数据类型是object</li>
+<li>如果有多个子节点，数组类型是array</li>
+</ul>
+</li>
+</ul>
+<p>####PropTypes<br>组件的属性可以接受任意值，字符串、对象、函数等等都可以。用于验证别人使用组件时，提供的参数是否符合要求。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import PropTypes from &apos;prop-types&apos;;</div><div class="line">var MyTitle = React.createClass(&#123;</div><div class="line">  /* getDefaultProps 方法可以用来设置组件属性的默认值。当组件有值时getDefaultProps值不会显示</div><div class="line"> getDefaultProps : function () &#123;</div><div class="line">    return &#123;</div><div class="line">      title : &apos;Hello World&apos;</div><div class="line">    &#125;;</div><div class="line">  &#125;,</div><div class="line">  */</div><div class="line">  propTypes: &#123;</div><div class="line">    title: React.PropTypes.string.isRequired,</div><div class="line">  &#125;,</div><div class="line">  render: function() &#123;</div><div class="line">     return &lt;h1&gt; &#123;this.props.title&#125; &lt;/h1&gt;;</div><div class="line">   &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>其中<code>PropTypes</code>告诉React，MyTitle组件有一个title属性，而且title属性是一个<code>string</code>。<br>如果没有title为<code>string</code>的值则会报错<br><code>isRequired</code>意思为必传参数。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2088736-218f2757cc84f4f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="报错信息"><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import PropTypes from &apos;prop-types&apos;;</div><div class="line">MyComponent.propTypes = &#123;</div><div class="line">    //  可以声明 prop 为指定的 JS 基本类型。默认 情况下，这些 prop 都是可传可不传的。  </div><div class="line">    optionalArray: PropTypes.array,  </div><div class="line">    optionalBool: PropTypes.bool,  </div><div class="line">    optionalFunc: PropTypes.func,  </div><div class="line">    optionalNumber: PropTypes.number,  </div><div class="line">    optionalObject: PropTypes.object,  </div><div class="line">    optionalString: PropTypes.string,  </div><div class="line">  </div><div class="line">    //  可以呈现的任何东西：数字、字符串、元素或数组(或片段)包含这些类型。</div><div class="line">    optionalNode: PropTypes.node,  </div><div class="line">  </div><div class="line">    // React 元素  </div><div class="line">    optionalElement: PropTypes.element,  </div><div class="line">  </div><div class="line">    // 用 JS 的 instanceof 操作符声明 prop 为类的实例。  </div><div class="line">    optionalMessage: PropTypes.instanceOf(Message),  </div><div class="line">  </div><div class="line">    // 用 enum 来限制 prop 只接受指定的值。  </div><div class="line">    optionalEnum: PropTypes.oneOf([&apos;News&apos;, &apos;Photos&apos;]),  </div><div class="line">  </div><div class="line">    // 指定的多个对象类型中的一个  </div><div class="line">    optionalUnion: PropTypes.oneOfType([  </div><div class="line">        PropTypes.string,  </div><div class="line">        PropTypes.number,  </div><div class="line">        PropTypes.instanceOf(Message)  </div><div class="line">    ]),  </div><div class="line">  </div><div class="line">    // 指定类型组成的数组  </div><div class="line">    optionalArrayOf: PropTypes.arrayOf(React.PropTypes.number),  </div><div class="line">  </div><div class="line">    // 指定类型的属性构成的对象  </div><div class="line">    optionalObjectOf: PropTypes.objectOf(React.PropTypes.number),  </div><div class="line">  </div><div class="line">    // 特定形状参数的对象  </div><div class="line">    optionalObjectWithShape:PropTypes.shape(&#123;  </div><div class="line">        color: React.PropTypes.string,  </div><div class="line">        fontSize: React.PropTypes.number  </div><div class="line">    &#125;),  </div><div class="line">  </div><div class="line">    // 以后任意类型加上 `isRequired` 来使 prop 不可空。  </div><div class="line">    requiredFunc: PropTypes.func.isRequired,  </div><div class="line">  </div><div class="line">    // 不可空的任意类型  </div><div class="line">    requiredAny: PropTypes.any.isRequired,  </div><div class="line">  </div><div class="line">    // 自定义验证器。如果验证失败需要返回一个 Error 对象。不要直接  </div><div class="line">    // 使用 `console.warn` 或抛异常，因为这样 `oneOfType` 会失效。  </div><div class="line">    customProp: function(props, propName, componentName) &#123;</div><div class="line">        if (!/matchme/.test(props[propName])) &#123;</div><div class="line">            return new Error(</div><div class="line">                &apos;Invalid prop `&apos; + propName + &apos;` supplied to&apos; +&apos; `&apos; + componentName + &apos;`. Validation failed.&apos;</div><div class="line">            );</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    //  你也可以去`arrayOf`和`objectOf`对象提供自定义验证器。</div><div class="line">    //  如果验证失败，它应该返回一个错误对象。</div><div class="line">    //  验证器将调用数组或对象中的每个键。</div><div class="line">    //   前两个参数验证程序是数组或对象本身，和当前项的键。</div><div class="line">    customArrayProp: PropTypes.arrayOf(function(propValue, key,       </div><div class="line">        componentName, location, propFullName) &#123;</div><div class="line">            if (!/matchme/.test(propValue[key])) &#123;</div><div class="line">                return new Error(</div><div class="line">                    &apos;Invalid prop `&apos; + propFullName + &apos;` supplied to&apos; +        &apos; `&apos; + componentName + &apos;`. Validation failed.&apos;</div><div class="line">                );</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h2 id="事件与数据的双向绑定"><a href="#事件与数据的双向绑定" class="headerlink" title="事件与数据的双向绑定"></a>事件与数据的双向绑定</h2><h3 id="事件的绑定"><a href="#事件的绑定" class="headerlink" title="事件的绑定"></a>事件的绑定</h3><p>可以再构造函数中绑定<br><code>this: this.forceUpdateHandler = this.forceUpdateHandle.bind(this);</code><br>调用时绑定<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">changeUserInfo()&#123;</div><div class="line">    this.setState(&#123;age : 22&#125;);</div><div class="line">&#125;</div><div class="line">return (</div><div class="line">    &lt;div&gt;</div><div class="line">        &lt;p&gt;&#123;this.state.age&#125;&lt;/p&gt;</div><div class="line">        &lt;input type=&quot;button&quot; value=&quot;提交&quot; onClick=&#123;this.changeUserInfo.bind(this)&#125;/&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<h3 id="双向绑定"><a href="#双向绑定" class="headerlink" title="双向绑定"></a>双向绑定</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">changeChildValueChange(event)&#123;</div><div class="line">    this.setState(&#123;age : event.target.value&#125;);</div><div class="line">&#125;;</div><div class="line">render()&#123;</div><div class="line">    return (</div><div class="line">        &lt;div&gt;</div><div class="line">            &lt;div&gt;</div><div class="line">                &lt;p&gt;&#123;this.state.age&#125;&lt;/p&gt;</div><div class="line">                &lt;p&gt;页面输入：&lt;input type=&quot;text&quot; onChange=&#123;this.props.handleChildValueChange&#125;/&gt;&lt;/p&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    )</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Refs"><a href="#Refs" class="headerlink" title="Refs"></a>Refs</h2><p>在react中获取dom节点有多种方式<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">方式一</div><div class="line">&lt;input id=&quot;submitButton&quot; ref=&quot;submitButton&quot; type=&quot;button&quot; value=&quot;提交&quot; onClick=&#123;this.changeUserInfo.bind(this)&#125;/&gt;</div><div class="line"></div><div class="line">var mySubmitButton = document.getElementById(&quot;submitButton&quot;);</div><div class="line">ReactDOM.findDOMNode(mySubmitButton).style.color = &apos;red&apos;;</div></pre></td></tr></table></figure></p>
+<p>此方式基本使用了原生JavaScript所以不推荐使用。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">方式二</div><div class="line">&lt;input id=&quot;submitButton&quot; ref=&quot;submitButton&quot; type=&quot;button&quot; value=&quot;提交&quot; onClick=&#123;this.changeUserInfo.bind(this)&#125;/&gt;</div><div class="line"></div><div class="line">this.refs.submitButton.style.color = &apos;red&apos;;</div></pre></td></tr></table></figure>
+<p><code>Refs</code>是访问到组件内部DOM节点唯一可靠的方法<br><code>Refs</code>会自动销毁对子组件的引用</p>
+<ul>
+<li>不要在<code>render</code>或<code>render</code>之前对<code>Refs</code>进行调用</li>
+<li>不要滥用<code>Refs</code></li>
+</ul>
+<h2 id="独立组件共享Mixin"><a href="#独立组件共享Mixin" class="headerlink" title="独立组件共享Mixin"></a>独立组件共享Mixin</h2><ul>
+<li>不同的组件之间公用功能、共享代码</li>
+<li>和页面有相同的生命周期<br><code>es</code>中不支持<code>mixin</code>但是安装<code>react-mixin</code>插件可以进行支持：<br><code>npm install react-mixin@2.0.2 --save</code><br>建立的minins.js文件<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">const MixinLog = &#123;</div><div class="line">    log()&#123;</div><div class="line">        console.log(&quot;abcdefg...&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">export default MixinLog;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在组件中引用<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">import ReactMixin from &apos;react-mixin&apos;</div><div class="line">import MixinLog from &apos;./mixins&apos;;</div><div class="line"></div><div class="line">//  其他组件中调用方法</div><div class="line">changeUserInfo()&#123;</div><div class="line">    MixinLog.log();</div><div class="line">&#125;</div><div class="line">ReactMixin(BodyIndex.prototype, MixinLog);</div></pre></td></tr></table></figure></p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/11/22/React样式/" data-toggle="tooltip" data-placement="top"
+                           title="React样式">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/11/15/React组件基本用法/" data-toggle="tooltip" data-placement="top"
+                           title="React组件基本用法">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#State属性"><span class="toc-text">State属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化state"><span class="toc-text">初始化state</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改state属性"><span class="toc-text">修改state属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Props属性"><span class="toc-text">Props属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#this-props-children"><span class="toc-text">this.props.children</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#this-props-children的值有三种可能："><span class="toc-text">this.props.children的值有三种可能：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件与数据的双向绑定"><span class="toc-text">事件与数据的双向绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#事件的绑定"><span class="toc-text">事件的绑定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#双向绑定"><span class="toc-text">双向绑定</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Refs"><span class="toc-text">Refs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#独立组件共享Mixin"><span class="toc-text">独立组件共享Mixin</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#React"
+                           title="React">React</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.bugbo.xyz/">BugBo</a></li>
+                        
+                        <li><a href="http://dragonblog.club/">Dragon</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; syymo 2017
+                    <br>
+                    <span id="busuanzi_container_site_uv" style="font-size: 12px;">UV: <span id="busuanzi_value_site_uv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://syymo.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-108450504-1';
+    var _gaDomain = 'auto';
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<!-- <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script> -->
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://avatars2.githubusercontent.com/u/26571594?s=460&amp;v=4">
+</body>
+
+</html>
