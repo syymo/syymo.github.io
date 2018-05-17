@@ -83,7 +83,7 @@
                         
 							
                         <li>
-                            <a href="/archives/">archives</a>
+                            <a href="/tags/">tags</a>
                         </li>
 							
 						
@@ -91,7 +91,7 @@
                         
 							
                         <li>
-                            <a href="/tags/">tags</a>
+                            <a href="/archives/">archives</a>
                         </li>
 							
 						
@@ -190,7 +190,7 @@
                 <h2 id="什么是正则表达式？"><a href="#什么是正则表达式？" class="headerlink" title="什么是正则表达式？"></a>什么是正则表达式？</h2><p>正则：规则、模式<br>字符串中字符出现的规律<br>正则表达式是强大的字符串匹配工具<br>也是一种难以读懂的文字</p>
 <h2 id="正则能做什么？"><a href="#正则能做什么？" class="headerlink" title="正则能做什么？"></a>正则能做什么？</h2><p>正则只能操作字符串</p>
 <h2 id="何时使用字正则表达式？"><a href="#何时使用字正则表达式？" class="headerlink" title="何时使用字正则表达式？"></a>何时使用字正则表达式？</h2><p>验证字符串格式，查找关键字，替换关键字</p>
-<h2 id="使用正则"><a href="#使用正则" class="headerlink" title="使用正则"></a>使用正则</h2><p>RegExp对象：专门封装一条正则表达式，提供使用正则表达式的常用API<br>    先创建然后调用API<br>API：var boolean = regExp.test(“被检查的字符串”);<br>    如果验证通过返回true；否则返回false<br>var re = new RegExp(“\d{6}”,ig);  //动态创建正则表达式<br><strong> 强调：所有的\都要改成\\ </strong><br>var re = /正则表达式/;<br>例如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var str = &quot;hello world&quot;;</div><div class="line">//js风格</div><div class="line">var re = new RegExp(&apos;H&apos;);//参数区分大小写</div><div class="line">alert(re.text(str));//检验str中是否有a  false</div><div class="line">// var re = new RegExp(&apos;H&apos;,&apos;i&apos;);//加上i忽略大小写</div><div class="line"> /*</div><div class="line">perl风格</div><div class="line">正则简写</div><div class="line">var re = /H/;</div><div class="line">var re = /H/i;</div><div class="line">*/</div></pre></td></tr></table></figure></p>
+<h2 id="使用正则"><a href="#使用正则" class="headerlink" title="使用正则"></a>使用正则</h2><p>RegExp对象：专门封装一条正则表达式，提供使用正则表达式的常用API<br>    先创建然后调用API<br>API：var boolean = regExp.test(“被检查的字符串”);<br>    如果验证通过返回true；否则返回false<br>var re = new RegExp(“\d{6}”,ig);  //动态创建正则表达式<br><strong> 强调：所有的\都要改成\\ </strong><br>var re = /正则表达式/;<br>例如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var str = &quot;hello world&quot;;</div><div class="line">//js风格</div><div class="line">var re = new RegExp(&apos;H&apos;);//参数区分大小写</div><div class="line">alert(re.test(str));//检验str中是否有H  false</div><div class="line">// var re = new RegExp(&apos;H&apos;,&apos;i&apos;);//加上i忽略大小写 true</div><div class="line"> /*</div><div class="line">perl风格</div><div class="line">正则简写</div><div class="line">var re = /H/;</div><div class="line">var re = /H/i;</div><div class="line">*/</div></pre></td></tr></table></figure></p>
 <h2 id="正则表达式字母符号"><a href="#正则表达式字母符号" class="headerlink" title="正则表达式字母符号"></a>正则表达式字母符号</h2><table>
 <thead>
 <tr>
