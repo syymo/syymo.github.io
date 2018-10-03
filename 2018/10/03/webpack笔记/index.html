@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Github 上的个人博客">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="syymo" href="/atom.xml">
+    <title>
+        
+        webpack笔记｜syymo&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://syymo.github.io/2018/10/03/webpack笔记/">
+
+    <!-- Font-awesome Core CSS -->
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <!-- Animate Core CSS -->
+    <link rel="stylesheet" href="/css/animate.min.css">
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    syymo
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://avatars2.githubusercontent.com/u/26571594?s=460&v=4">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://avatars2.githubusercontent.com/u/26571594?s=460&v=4')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>webpack笔记</h1>
+                    
+                    <span class="meta">
+                         作者 syymo
+                        <span>
+                          日期 2018-10-03
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#webpack"
+                           title="webpack">webpack</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            webpack笔记
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="webpack是什么"><a href="#webpack是什么" class="headerlink" title="webpack是什么?"></a>webpack是什么?</h2><p>官方的说法就是：</p>
+<blockquote>
+<p><a href="https://webpack.github.io/" target="_blank" rel="noopener">webpack</a>其实就是一个现代的JavaScript应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。</p>
+</blockquote>
+<p><img src="/2018/10/03/webpack笔记/what-is-webpack.png" alt="webpack"></p>
+<p><a href="https://www.webpackjs.com/concepts/" target="_blank" rel="noopener">webpack 中文文档</a></p>
+<p>当然简单点说webpack可以说是前端自动化打包工具，webpack高度可配置，要理解webpack之前我们先需要了解四个核心概念</p>
+<ul>
+<li>入口entery</li>
+<li>输出output</li>
+<li>loaders</li>
+<li>插件plugins</li>
+</ul>
+<h2 id="入口entery"><a href="#入口entery" class="headerlink" title="入口entery"></a>入口entery</h2><p>入口顾名思义就是进入webpack的通道，告诉<code>webpack</code>从这里进入。<br>入口<code>entery</code>起点指示<code>webpack</code>应该使用哪个模块，来作为构建其内部依赖图的开始。进入入口起点后，<code>webpack</code>会找出有哪些模块和库是入口起点(直接和间接)依赖。</p>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.export = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    app: &apos;./src/app.js&apos;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以设置一个或者多个入口<code>entery</code>。默认路径<code>./src</code></p>
+<h3 id="单个入口-简写-语法"><a href="#单个入口-简写-语法" class="headerlink" title="单个入口(简写)语法"></a>单个入口(简写)语法</h3><p>用法：<code>entry: string | Array&lt;string&gt;</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const config = &#123;</span><br><span class="line">  entry: &apos;./src/app.js&apos;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">module.exports = config;</span><br></pre></td></tr></table></figure>
+<p><code>entry</code>属性的单个入口语法，是下面的简写：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const config = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    main &apos;./src/app.js&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>当我们想<code>entry</code>传入一个数组的时候将创建多个主入口<code>(multi-main entry)</code>。当我们需要多个依赖文件以启注入，并且将他们的依赖导向(graph)到一个“chunk”时，出入数组的方式就很有用。</p>
+<p>当我们正在寻找只有一个入口起点的应用程序或工具，快速设置webpack配置的时候，这回是个不错的选择，但是这样的语法在拓展配置时有失灵活性。</p>
+<h3 id="对象语法"><a href="#对象语法" class="headerlink" title="对象语法"></a>对象语法</h3><p>用法：<code>entry: { [ entryChunkName: string ]: string | Array&lt;string&gt; }</code><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const config = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    app: &apos;./src/app.js&apos;,</span><br><span class="line">    vendors: &apos;./src/vendors.js&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>对象语法会比较繁琐。这是程序中定义入口的最可拓展的方式。</p>
+<blockquote>
+<p>“可扩展的 webpack 配置”是指，可重用并且可以与其他配置组合使用。这是一种流行的技术，用于将关注点(concern)从环境(environment)、构建目标(build target)、运行时(runtime)中分离。然后使用专门的工具（如 webpack-merge）将它们合并。</p>
+</blockquote>
+<h3 id="常见场景"><a href="#常见场景" class="headerlink" title="常见场景"></a>常见场景</h3><h4 id="分离-应用程序-app-和-第三方库-vendor-入口"><a href="#分离-应用程序-app-和-第三方库-vendor-入口" class="headerlink" title="分离 应用程序(app) 和 第三方库(vendor) 入口"></a>分离 应用程序(app) 和 第三方库(vendor) 入口</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const config = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    app: &apos;./src/app.js&apos;,</span><br><span class="line">    vendors: &apos;src/vendors.js&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这是什么？从表面上看，这告诉我们 webpack 从 app.js 和 vendors.js 开始创建依赖图(dependency graph)。这些依赖图是彼此完全分离、互相独立的（每个 bundle 中都有一个 webpack 引导(bootstrap)）。这种方式比较常见于，只有一个入口起点（不包括 vendor）的单页应用程序(single page application)中。</p>
+</blockquote>
+<blockquote>
+<p>为什么？此设置允许你使用 CommonsChunkPlugin 从「应用程序 bundle」中提取 vendor 引用(vendor reference) 到 vendor bundle，并把引用 vendor 的部分替换为 <strong>webpack_require</strong>() 调用。如果应用程序 bundle 中没有 vendor 代码，那么你可以在 webpack 中实现被称为长效缓存的通用模式。</p>
+</blockquote>
+<h4 id="多页面应用程序"><a href="#多页面应用程序" class="headerlink" title="多页面应用程序"></a>多页面应用程序</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const config = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    pageOne: &apos;./src/pageOne/index.js&apos;,</span><br><span class="line">    pageTwo: &apos;./src/pageTwo/index.js&apos;,</span><br><span class="line">    pageThree: &apos;./src/pageThree/index.js&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这是什么？我们告诉webpack需要三个独立分离的依赖图。<br>为什么？在多页面应用中，（译注：每当页面跳转时）服务器将会为你获取一个新的HTML文档。页面重新加载新文档，而且资源被重新下载。然而，这给了我们特殊的机会去做很多事：<br>使用CommonsChunkPlugin为每个页面间的应用程序共享代码创建按bundle。由于入口起点增多，多页面应用能够复用入口起点之间的大量代码/模块，从而极大地从这些技术中受益。</p>
+</blockquote>
+<h2 id="出口output"><a href="#出口output" class="headerlink" title="出口output"></a>出口output</h2><p>出口<code>output</code>属性是告诉webpack在哪里输出它所创建的<code>bundles</code>，以及给这些文件起什么名字，默认值为<code>./dist</code>。基本上，整个应用程序结构，都会被编译到指定的输出路径的文件夹中。即使可以存在多个入口起点，但只能指定一个输出配置。</p>
+<h3 id="用法-1"><a href="#用法-1" class="headerlink" title="用法"></a>用法</h3><p><code>filename</code> 用于输出<code>webpack bundle</code>的文件名。<br><code>path</code>  输出文件<code>webpack bundle</code>目录<code>path</code>的绝对路径。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const path = reqire(&apos;path);  // Node.js用于操作文件按路径的模块</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    app: &apos;./src/app.js&apos;,</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &apos;bundle.js&apos;,  // 文件名</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;),  // 文件路径</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此配置是指将<code>./src/app.js</code> 打包成<code>bundle.js</code> 然后输出到<code>path.resolve(__dirname, &#39;dist&#39;)</code>目录下。</p>
+<h3 id="多个入口起点"><a href="#多个入口起点" class="headerlink" title="多个入口起点"></a>多个入口起点</h3><p>如果配置了多个单独的“chunk”(例如，使用多个入口起点或使用像CommonsChunkPlugin这样的插件)，则应该使用占位符来确保每个文件具有唯一的名称。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const path = reqire(&apos;path);  // Node.js用于操作文件按路径的模块</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    app: &apos;./src/app.js&apos;,</span><br><span class="line">    search: &apos;./src/seatch.js&apos;,</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &apos;[name].[chunkhash]&apos;,  // 文件名</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;),  // 文件路径</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 写入到硬盘中：./dist/app.js  ./dist/search.js</span><br></pre></td></tr></table></figure></p>
+<h3 id="高级进阶"><a href="#高级进阶" class="headerlink" title="高级进阶"></a>高级进阶</h3><p>使用CDN和资源hash的复杂实例：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">output: &#123;</span><br><span class="line">  path: &quot;/home/proj/cdn/assets/[hash]&quot;,</span><br><span class="line">  publicPath: &quot;http://cdn.example.com/assets/[hash]/&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在编译时不知道最终输出文件的 publicPath 的情况下，publicPath 可以留空，并且在入口起点文件运行时动态设置。如果你在编译时不知道 publicPath，你可以先忽略它，并且在入口起点设置 <strong>webpack_public_path</strong>。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">__webpack_public_path__ = myRuntimePublicPath</span><br></pre></td></tr></table></figure></p>
+<h4 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h4><p>hash是跟整个项目的构建相关，只要项目里有文件更改，整个项目构建的hash值都会更改，并且全部文件都共用相同的hash值</p>
+<h4 id="chunkhash"><a href="#chunkhash" class="headerlink" title="chunkhash"></a>chunkhash</h4><p>chunkhash和hash不一样，它根据不同的入口文件(Entry)进行依赖文件解析、构建对应的chunk，生成对应的哈希值。我们在生产环境里把一些公共库和程序入口文件区分开，单独打包构建，接着我们采用chunkhash的方式生成哈希值，那么不改动公共库的代码，就可以保证其哈希值不会受影响。</p>
+<h4 id="contenthash"><a href="#contenthash" class="headerlink" title="contenthash"></a>contenthash</h4><p>当index.css被index.js引用了，所以共用相同的chunkhash值。但是这样子有个问题，如果index.js更改了代码，css文件就算内容没有任何改变，由于是该模块发生了改变，导致css文件会重复构建。<br>这个时候，我们可以使用extra-text-webpack-plugin里的contenthash值，保证即使css文件所处的模块里就算其他文件内容改变，只要css文件内容不变，那么不会重复构建。</p>
+<h2 id="loader"><a href="#loader" class="headerlink" title="loader"></a>loader</h2><p>由于<code>webpack</code>本身只能理解<code>JavaScript文件</code>,所以<code>loader</code>的出现就是让<code>webpack</code>能够去处理那些非<code>JavaScript</code>文件。<code>loader</code>的可以将那些其他类型的文件转换成<code>webpack</code>能够处理的有效模块，然后通过<code>webpack</code>的打包能力，对它们进行处理。</p>
+<p>本质上<code>webpack loader</code>将所有类型的文件，转换为应用程序的依赖图(和最终的bundle)可以直接引用的模块。</p>
+<blockquote>
+<p>注意，loader 能够 import 导入任何类型的模块（例如 .css 文件），这是 webpack 特有的功能，其他打包程序或任务执行器的可能并不支持。我们认为这种语言扩展是有很必要的，因为这可以使开发人员创建出更准确的依赖关系图。</p>
+</blockquote>
+<h3 id="使用loader方式"><a href="#使用loader方式" class="headerlink" title="使用loader方式"></a>使用loader方式</h3><p>有三种使用loader方式：</p>
+<ul>
+<li>配置（推荐）：在webpack.config.js文件中指定loader。</li>
+<li>内联：在每个import语句中显式指定loader。</li>
+<li>CLI：在shell命令中指定他们。</li>
+</ul>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>在是使用loader的时候需要安装相应的loader:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install --save-dev css-loader</span><br><span class="line">npm install --save-dev ts-loader</span><br></pre></td></tr></table></figure></p>
+<p>在<code>webpack</code>的配置中<code>loader</code>有两个配置项:</p>
+<ul>
+<li>test 用于识别出应该被队形的loader进行转换的某个或某些文件。</li>
+<li>use 用于进行转换时，应该使用那个loader。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  module: &#123;</span><br><span class="line">    reules: [</span><br><span class="line">      test: /\.(less|css)$/,</span><br><span class="line">      use: [</span><br><span class="line">        &#123;</span><br><span class="line">          loader: MiniCssExtractPlugin.loader</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          loader: &apos;css-loader&apos;,</span><br><span class="line">          options: &#123;</span><br><span class="line">            sourceMap: true</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          loader: &apos;less-loader&apos;,</span><br><span class="line">          options: &#123;</span><br><span class="line">            sourceMap: true</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = config;</span><br></pre></td></tr></table></figure>
+<p>以上配置，使用rules属性，里面包含两个必须属性：test和use。这告诉webpack编译器(compiler)如下信息：</p>
+<blockquote>
+<p><code>webpack</code>编译器，当你碰到[ 在<code>require() / import</code> 语句中遇到<code>.css/.less</code> ] 时，你对它进行一次<code>use里面的</code>方法转换一下</p>
+</blockquote>
+<p>需要注意的是，在webpack中配置loader时，需要在<code>module.rules</code>中，而不是<code>rules</code>。</p>
+<h4 id="内联"><a href="#内联" class="headerlink" title="内联"></a>内联</h4><p>可以在import语句或任何等效于”import”的方式中指定loader。使用<code>!</code>将资源中的loader分开。分开的每个部分都相当于当前目录解析。<br><code>import Styles from &#39;style-loader!css-loader?modules!./styles.css&#39;;</code><br>通过前置所有规则及使用<code>!</code>，可以覆盖到配置中的任意loader。</p>
+<p>选项可以传递查询参数，例如<code>?key=value&amp;foo=bar</code>,或者一个<code>JSON</code>对象，例如<code>?{&quot;key&quot;:&quot;value&quot;,&quot;foo&quot;:&quot;bar&quot;}</code>。</p>
+<h4 id="CLI"><a href="#CLI" class="headerlink" title="CLI"></a>CLI</h4><p>通过<code>CLI</code>使用<code>loader</code>：<br><code>webpack --module-bind jade-loader --module-bind &#39;css=style-loader!css-loader&#39;</code><br>这会对<code>.jade</code>文件使用<code>jade-loader</code>，对<code>.css</code>文件使用<code>css-loader</code>。</p>
+<h3 id="loader特性"><a href="#loader特性" class="headerlink" title="loader特性"></a>loader特性</h3><ul>
+<li><code>loader</code> 支持链式传递。能够对资源使用流水线(pipeline)。一组链式的loader将按照相反的顺序执行。loader链中的第一个loader返回值给下一个<code>loader</code>。在最后一个<code>loader</code>，返回<code>webpack</code>所预期的<code>JavaScript</code>。</li>
+<li><code>loader</code> 可以是同步的，也可以是异步的。</li>
+<li><code>loader</code> 运行在<code>Node.js</code>中，并且能够执行任何可能的操作。</li>
+<li><code>loader</code> 接收查询参数。用于对<code>loader</code>传递配置。</li>
+<li><code>loader</code> 也能够使用<code>options</code>对象进行配置。</li>
+<li>除了使用<code>package.json</code>常见的<code>main</code>属性，还可以将普通<code>npm</code>模块导出为<code>loader</code>，做法时在<code>package.json</code>里定义一个<code>loader</code>字段。</li>
+<li>插件(plugin)可以为<code>loade</code>r带来更多的特性。</li>
+<li><code>loader</code> 能够产生额外的任意文件。<br>loader通过(loader)预处理函数，为JavaScript生态系统提供了更多的能力。用户现在可以更加灵活地引入细粒度逻辑，例如压缩、打包、语言翻译和<a href="https://www.webpackjs.com/loaders/" target="_blank" rel="noopener">其他更多</a>。</li>
+</ul>
+<h3 id="解析loader"><a href="#解析loader" class="headerlink" title="解析loader"></a>解析loader</h3><p><code>loader</code>遵循标准的模块解析。多数情况下，<code>loader</code>将从模块路径(通常将模块路径认为时<code>npm install</code>，<code>node_modules</code>)解析。</p>
+<p><code>loader</code>模块需要导出为一个函数，并且使用<code>Node.js</code>兼容的<code>JavaScript</code>编写。通常使用<code>npm</code>进行管理，但是也可以自定义<code>loader</code>作为应用程序的文件。按照约定，<code>loader</code>通常被命名为<code>xxx-loader</code>(例如<code>json-loader</code>)。详细信息，查看<a href="https://www.webpackjs.com/contribute/writing-a-loader/" target="_blank" rel="noopener">如何编写loader?</a></p>
+<h2 id="插件plugins"><a href="#插件plugins" class="headerlink" title="插件plugins"></a>插件plugins</h2><p><code>loader</code>被用于转换某些类型的模块，而插件则可以用于执行范围更广的任务。插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。插件接口功能极其强大，可以用于处理各种各样的任务。</p>
+<p>插件时<code>webpack</code>的支柱功能。<code>webpack</code>自身也是构建于，你在<code>webpack</code>配置中用到的相同的插件系统之上！插件目的在于解决<code>loader</code>无法实现的其他事。</p>
+<h3 id="剖析"><a href="#剖析" class="headerlink" title="剖析"></a>剖析</h3><p><code>webpack</code>插件是一个具有<code>apply</code>属性的<code>JavaScript</code>对象。<code>apply</code>属性会被<code>webpack compiler</code>调用，并且<code>compiler</code>对象可以在整个编译生命周期访问。<br>ConsoleLogOnBuildWebpackPlugin.js<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const pluginName = &apos;ConsoleLogOnBuildWebpackPlugin&apos;;</span><br><span class="line"></span><br><span class="line">class ConsoleLogOnBuldWebpackPlugin &#123;</span><br><span class="line">  apply(compiler) &#123;</span><br><span class="line">    compiler.hooks.run.tap(pluginName, compilation =&gt; &#123;</span><br><span class="line">      console.log(&quot;webpack 构建过程开始!&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>compiler hook</code>的tap方法的第一个参数，应该是驼峰式命名的插件名称。建议为此使用一个常量，以便它可以在所有<code>hook</code>中复用。</p>
+<h3 id="用法-2"><a href="#用法-2" class="headerlink" title="用法"></a>用法</h3><p>由于插件可以携带参数/选项，你必须在<code>webpack</code>配置中，向 <code>plugins</code>属性传入<code>new</code>实例。</p>
+<p>当使用插件的时候，需要<code>require()</code>插件，然后把插件添加到<code>plugins</code>数组中。多数插件可以通过选项<code>option</code>自定义。也可以在一个配置文件中以不同的目的使用同一个插件，这时就需要new来创建它的一个实例。</p>
+<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);</span><br><span class="line">const webpack = require(&apos;webpack&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  module: &#123;</span><br><span class="line">    // loaders</span><br><span class="line">    reules: [</span><br><span class="line">      test: /\.(less|css)$/,</span><br><span class="line">      use: [</span><br><span class="line">        &#123;</span><br><span class="line">          loader: MiniCssExtractPlugin.loader</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          loader: &apos;css-loader&apos;,</span><br><span class="line">          options: &#123;</span><br><span class="line">            sourceMap: true</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          loader: &apos;less-loader&apos;,</span><br><span class="line">          options: &#123;</span><br><span class="line">            sourceMap: true</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  // 入口</span><br><span class="line">  entry: &#123;</span><br><span class="line">    app: &apos;./src/app.js&apos;,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  // 出口</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &apos;[name].[chunkhash].js&apos;,  // 文件名</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;),  // 文件路径</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  // 插件</span><br><span class="line">  plugins: [</span><br><span class="line">    new webpack.optimize.UglifyJsPlugin(),</span><br><span class="line">    new HtmlWebpackPlugin(&#123;template: &apos;./src/index.html&apos;&#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = config;</span><br></pre></td></tr></table></figure>
+<p>webpack提供了许多插件可以查看<a href="https://www.webpackjs.com/plugins/" target="_blank" rel="noopener">插件列表</a>获取信息。</p>
+<h3 id="Node-API"><a href="#Node-API" class="headerlink" title="Node API"></a>Node API</h3><p>即使使用<code>Node API</code>，用户也应该在配置中传入<code>plugins</code>属性。<code>compiler.apply</code>并不是推荐的使用方式。</p>
+<p>some-node-script.js<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const webpack = require(&apos;webpack&apos;);</span><br><span class="line">const configuration = require(&apos;./webpack.config.js&apos;);</span><br><span class="line"></span><br><span class="line">let compiler = webpack(configuration);</span><br><span class="line">compiler.apply(new webpack.ProgressPlugin());</span><br><span class="line"></span><br><span class="line">compiler.run(function(err, status) &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="模式mode"><a href="#模式mode" class="headerlink" title="模式mode"></a>模式mode</h2><p>mode：string</p>
+<p>通过选择<code>development</code>或<code>production</code>之中的一个，来设置<code>mode</code>参数，你可以启用相应模式下的<code>webpack</code>内置的优化。</p>
+<h3 id="用法-3"><a href="#用法-3" class="headerlink" title="用法"></a>用法</h3><p>只在配置中提供mode选项：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  mode: &apos;production&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>或者从CLI参数中传递：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">webpack --mode=production</span><br></pre></td></tr></table></figure></p>
+<p>支持以下字符串值：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">选项</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">development</td>
+<td style="text-align:center">会将 process.env.NODE_ENV 的值设为 development。启用 NamedChunksPlugin 和 NamedModulesPlugin。</td>
+</tr>
+<tr>
+<td style="text-align:center">production</td>
+<td style="text-align:center">会将 process.env.NODE_ENV 的值设为 production。启用 FlagDependencyUsagePlugin, FlagIncludedChunksPlugin, ModuleConcatenationPlugin, NoEmitOnErrorsPlugin, OccurrenceOrderPlugin, SideEffectsFlagPlugin 和 UglifyJsPlugin.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>只设置NODE_ENV，则不hi自动设置mode</strong></p>
+<h4 id="mode-development"><a href="#mode-development" class="headerlink" title="mode: development"></a>mode: development</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// webpack.development.config.js</span><br><span class="line">module.exports = &#123;</span><br><span class="line">+ mode: &apos;development&apos;</span><br><span class="line">- plugins: [</span><br><span class="line">-   new webpack.NamedModulesPlugin(),</span><br><span class="line">-   new webpack.DefinePlugin(&#123; &quot;process.env.NODE_ENV&quot;: JSON.stringify(&quot;development&quot;) &#125;),</span><br><span class="line">- ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="mode-production"><a href="#mode-production" class="headerlink" title="mode: production"></a>mode: production</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// webpack.production.config.js</span><br><span class="line">module.exports = &#123;</span><br><span class="line">+  mode: &apos;production&apos;,</span><br><span class="line">-  plugins: [</span><br><span class="line">-    new UglifyJsPlugin(/* ... */),</span><br><span class="line">-    new webpack.DefinePlugin(&#123; &quot;process.env.NODE_ENV&quot;: JSON.stringify(&quot;production&quot;) &#125;),</span><br><span class="line">-    new webpack.optimize.ModuleConcatenationPlugin(),</span><br><span class="line">-    new webpack.NoEmitOnErrorsPlugin()</span><br><span class="line">-  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/04/19/Express-MongBD/" data-toggle="tooltip" data-placement="top"
+                           title="Express+MongBD">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTUzNi8xMjA3Mg==">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#webpack是什么"><span class="toc-text">webpack是什么?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#入口entery"><span class="toc-text">入口entery</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#用法"><span class="toc-text">用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单个入口-简写-语法"><span class="toc-text">单个入口(简写)语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象语法"><span class="toc-text">对象语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见场景"><span class="toc-text">常见场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分离-应用程序-app-和-第三方库-vendor-入口"><span class="toc-text">分离 应用程序(app) 和 第三方库(vendor) 入口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多页面应用程序"><span class="toc-text">多页面应用程序</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#出口output"><span class="toc-text">出口output</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#用法-1"><span class="toc-text">用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多个入口起点"><span class="toc-text">多个入口起点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高级进阶"><span class="toc-text">高级进阶</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#hash"><span class="toc-text">hash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#chunkhash"><span class="toc-text">chunkhash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#contenthash"><span class="toc-text">contenthash</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#loader"><span class="toc-text">loader</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用loader方式"><span class="toc-text">使用loader方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内联"><span class="toc-text">内联</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CLI"><span class="toc-text">CLI</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#loader特性"><span class="toc-text">loader特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解析loader"><span class="toc-text">解析loader</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插件plugins"><span class="toc-text">插件plugins</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#剖析"><span class="toc-text">剖析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用法-2"><span class="toc-text">用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置-1"><span class="toc-text">配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-API"><span class="toc-text">Node API</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模式mode"><span class="toc-text">模式mode</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#用法-3"><span class="toc-text">用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mode-development"><span class="toc-text">mode: development</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mode-production"><span class="toc-text">mode: production</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#webpack"
+                           title="webpack">webpack</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.bugbo.xyz/">BugBo</a></li>
+                        
+                        <li><a href="http://dragonblog.club/">Dragon</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/syymoi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; syymo 2018
+                    <br>
+                    <span id="busuanzi_container_site_uv" style="font-size: 12px;">UV: <span id="busuanzi_value_site_uv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://syymo.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-108450504-1';
+    var _gaDomain = 'auto';
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<!-- <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script> -->
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://avatars2.githubusercontent.com/u/26571594?s=460&amp;v=4">
+</body>
+
+</html>

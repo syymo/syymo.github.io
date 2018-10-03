@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Github 上的个人博客">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="syymo" href="/atom.xml">
+    <title>
+        
+        JavaScript字符串｜syymo&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://syymo.github.io/2017/10/23/JavaScript字符串/">
+
+    <!-- Font-awesome Core CSS -->
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <!-- Animate Core CSS -->
+    <link rel="stylesheet" href="/css/animate.min.css">
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    syymo
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://avatars2.githubusercontent.com/u/26571594?s=460&v=4">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://avatars2.githubusercontent.com/u/26571594?s=460&v=4')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>JavaScript字符串</h1>
+                    
+                    <span class="meta">
+                         作者 syymo
+                        <span>
+                          日期 2017-10-23
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#JavaScript"
+                           title="JavaScript">JavaScript</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            JavaScript字符串
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="字符串的使用"><a href="#字符串的使用" class="headerlink" title="字符串的使用"></a>字符串的使用</h2><p>JavaScript中字符串的内容都是不可变的。String对象的所有方法都是返回一个全新的对象，而不是修改原始字符串。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var s1 = new String(&quot;Hello&quot;);</span><br><span class="line">var s2 = s1.toLowerCase(); //把字符串s1转换为小写形式</span><br><span class="line">var s3 = s1.toUpperCase(); //把字符串s1转换为大写形式</span><br><span class="line"></span><br><span class="line">console.log(s1); //Hello</span><br><span class="line">console.log(s2); //hello</span><br></pre></td></tr></table></figure></p>
+<p>length属性返回字符串中字符的个数<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var s3 = new String(&apos;abc字符 串&apos;);</span><br><span class="line">console.log(s3);  // 7</span><br></pre></td></tr></table></figure></p>
+<h3 id="字符串类型底层其实都是用字符字符数组实现的"><a href="#字符串类型底层其实都是用字符字符数组实现的" class="headerlink" title="字符串类型底层其实都是用字符字符数组实现的"></a>字符串类型底层其实都是用字符字符数组实现的</h3><p>比如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var str = &apos;Hello World!&apos;</span><br><span class="line">console.log(str[1]); //e</span><br></pre></td></tr></table></figure></p>
+<h2 id="获取指定位置的字符charAt"><a href="#获取指定位置的字符charAt" class="headerlink" title="获取指定位置的字符charAt()"></a>获取指定位置的字符charAt()</h2><p>charAt(index) 方法用于获取指定下标出的字符<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var str = &apos;Hello World!&apos;</span><br><span class="line">console.log(str.charAt(0)); // H</span><br><span class="line">console.log(str.charAt(11)); // !</span><br></pre></td></tr></table></figure></p>
+<p>charCodeAt(index) 方法用于获取指定小标出的字符的Unicode码 字符编码<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var str = &apos;aA一龥&apos;;</span><br><span class="line">console.log(str.charCodeAt(0)); // 97</span><br><span class="line">console.log(str.charCodeAt(1)); // 65</span><br><span class="line">console.log(str.charCodeAt(2)); // 19968</span><br><span class="line">console.log(str.charCodeAt(3)); // 40869</span><br><span class="line">console.log(String.fromCharCode(str.charCodeAt(3))); // 龥</span><br></pre></td></tr></table></figure></p>
+<p>注意：<br>频繁对字符串+= 要用字数组代替！<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var result;</span><br><span class="line">for(var i=0;i&lt;input.length;i++)&#123;</span><br><span class="line">	result += input[i]; //将i位置的字符转为一个数</span><br><span class="line">&#125;</span><br><span class="line">console.log(result.join(&quot; &quot;));</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Step1：每个子字符串放入数组</li>
+<li>Step2：join(“”)拼接数组元素<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var result = [];</span><br><span class="line">for(var i=0;i&lt;input.length;i++)&#123;</span><br><span class="line">	result.push(input.charCodeAt(i)); //将i位置的字符转为一个数</span><br><span class="line">&#125;</span><br><span class="line">console.log(result.join(&quot; &quot;));</span><br><span class="line">//解码</span><br><span class="line">var fromChar = [];</span><br><span class="line">for(var i=0;i&lt;result.length;i++)&#123;</span><br><span class="line">	fromChar.push(String.fromCharCode(result[i]))	;</span><br><span class="line">&#125;</span><br><span class="line">console.log(&quot;解码&quot;+fromChar.join(&quot;&quot;));</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="字符串三大操作："><a href="#字符串三大操作：" class="headerlink" title="字符串三大操作："></a>字符串三大操作：</h2><h3 id="1-查找关键字indexOf"><a href="#1-查找关键字indexOf" class="headerlink" title="1. 查找关键字indexOf()"></a>1. 查找关键字indexOf()</h3><p>var index=str.index(“关键字”);//返回位置没有找到返回-1<br><strong>indexOf 只找第一个关键词位置  默认从0开始找</strong><br>var index=str.indexOf(“关键字”,from);<br>    from：开始查找位置<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var str = &quot;朋友说要来，我急忙去车站。结果她又说车在车站已经停了！&quot;;</span><br><span class="line">//var index = -1;</span><br><span class="line">//index+1从上次找的位置之后开始</span><br><span class="line">//while((index = str.indexOf(&quot;车站&quot;,index+1)) != -1)&#123;</span><br><span class="line">var index = str.length;</span><br><span class="line">while((index = str.lastIndexOf(&quot;车站&quot;,index-1)) != -1)&#123; //从后往前找</span><br><span class="line">	console.log(&quot;位置：&quot;+index+&quot;发现关键字&quot;);</span><br><span class="line">        if(index==0)&#123;//防止字符出现在第一个出现死循环</span><br><span class="line">            break</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="lastIndexOf-value-fromIndex-返回最后一次出现指定子串的下标"><a href="#lastIndexOf-value-fromIndex-返回最后一次出现指定子串的下标" class="headerlink" title="lastIndexOf(value,[fromIndex])    返回最后一次出现指定子串的下标"></a>lastIndexOf(value,[fromIndex])    返回最后一次出现指定子串的下标</h4><h3 id="2-截取子字符串slice-、substring"><a href="#2-截取子字符串slice-、substring" class="headerlink" title="2. 截取子字符串slice()、substring()"></a>2. 截取子字符串slice()、substring()</h3><p>str.slice(start, [end])    返回从start到end-1范围内的子串；若省略end，则直接取到字符串结尾<br>str.substring(start, [end])    返回从start到end-1范围内的子串；若省略end，则直接取到字符串结尾<br>slice可以用负数 而substring不可以<br>str.substr(start,count)    返回从start开始的count个字符;若省略count则取到结尾<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var pid = &quot;110102198006282151&quot;;</span><br><span class="line">var birth = pid.substring(6,14); //19800628</span><br><span class="line">var birth = pid.slice(-4-8,-5+1); //19800628</span><br><span class="line">var birth = pid.substr(6,8); //19800628</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-分隔字符串split"><a href="#3-分隔字符串split" class="headerlink" title="3. 分隔字符串split()"></a>3. 分隔字符串split()</h3><p>split(separator,[count])使用指定分隔符对字符串进行拆分。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//将单词首字母换为大写，然后拼第二个字母之后的所有字符</span><br><span class="line">var str = &quot;you can you up&quot;;</span><br><span class="line">var subarr = str.split(/\s+/);</span><br><span class="line">console.log(subarr);</span><br><span class="line">for(var i=0;i&lt;subarr.length;i++)&#123;</span><br><span class="line">  subarr[i] = subarr[i][0].toUpperCase() + subarr[i].substring(1);</span><br><span class="line">&#125;</span><br><span class="line">str = subarr.join(&quot; &quot;)</span><br><span class="line">console.log(str); //You Can You Up</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-连接字符串concat"><a href="#4-连接字符串concat" class="headerlink" title="4. 连接字符串concat()"></a>4. 连接字符串concat()</h3><p>concat(str1,str2,…)将多个字符串拼接起来str1+str2可以代替。</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>可以使用unicode位数判断字符的类型。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数字编号</th>
+<th style="text-align:center">字符</th>
+<th style="text-align:center">类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">48-57</td>
+<td style="text-align:center">0-9</td>
+<td style="text-align:center">数字</td>
+</tr>
+<tr>
+<td style="text-align:center">65-90</td>
+<td style="text-align:center">A-Z</td>
+<td style="text-align:center">大写字母</td>
+</tr>
+<tr>
+<td style="text-align:center">97-122</td>
+<td style="text-align:center">a-z</td>
+<td style="text-align:center">小写字母</td>
+</tr>
+<tr>
+<td style="text-align:center">19968-40869</td>
+<td style="text-align:center">汉字</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">其他为特殊字符</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-模式匹配："><a href="#5-模式匹配：" class="headerlink" title="5. 模式匹配："></a>5. 模式匹配：</h3><p>什么是模式匹配：可以设置查找或替换的规则！<br>何时使用模式匹配：要查找的关键字可能发生有规律的变化。<br>如何使会用模式匹配：</p>
+<h4 id="replace"><a href="#replace" class="headerlink" title="replace()"></a>replace()</h4><p>var newStr = str.replace(reg,b);<br>用规则reg替换字符b第一次出现的位置  /a/g全部替换<br>第二个参数可以是函数</p>
+<ul>
+<li>先定义模式：/关键字/模式<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var str = &quot;You can you up&quot;;</span><br><span class="line">var reg = /You/ig; //i不区分大消息g全局匹配</span><br><span class="line">console.log(str.replace(reg,&quot;**&quot;)); //** can ** up</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="match"><a href="#match" class="headerlink" title="match"></a>match</h4><p>按模式<em>替换</em>关键字的<em>内容</em><br>var arr = str.match(reg);<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var str = &quot;You can you up&quot;;</span><br><span class="line">var reg = /You/ig; //i不区分大消息g全局匹配</span><br><span class="line">console.log(str.match(reg)); //打印出数组含有You和you</span><br></pre></td></tr></table></figure></p>
+<p>只能取得关键字的内容，无法确定每个关键字的位置！<br><strong>如果未找到返回<code>null</code></strong>  只要有可能返回null 都要先判断!=null,再处理</p>
+<h4 id="search"><a href="#search" class="headerlink" title="search()"></a>search()</h4><p>var index=str.search(reg); 和indexOf完全相同！<br>但是indexOf不支持模式匹配</p>
+<p>infdexOf不支持正则<br>search支持正则，但是每次只能找一个<br>match所有内容但是得不到位置！</p>
+<h3 id="查找："><a href="#查找：" class="headerlink" title="查找："></a>查找：</h3><p>仅判断有没有，或者仅查找位置：indexOf() 支持正则：search()<br>仅找所有关键字的内容：match()<br>既找位置又找内容：<a href="http://www.syymo.cn/2017/09/23/JavaScript之正则表达式#JavaScript中regExp的exec-查找方法" target="_blank" rel="noopener">exec()</a></p>
+<h3 id="trim-方法"><a href="#trim-方法" class="headerlink" title="trim()方法"></a>trim()方法</h3><p>var newStr = str.trim()<br>返回的字符串去掉了左右空格<br>IE8不支持trim()<br>用正则表达式代替<br>function trim(str){<br>    var regExp = /(^\s+)|(\s+$)/g;<br>    str = str.replace(regExp,””);<br>    return str;<br>}</p>
+<h2 id="String对象与正则表达式"><a href="#String对象与正则表达式" class="headerlink" title="String对象与正则表达式"></a>String对象与正则表达式</h2><p>var str = str.replace(/正则表达式/ig,”替换值”);<br>var arr = str.match(/正则表达式/ig);<br>var index = str.search(/正则表达式/);<br>var arr = str.split(/正则表达式/);</p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/10/29/JavaScript-Math对象/" data-toggle="tooltip" data-placement="top"
+                           title="JavaScript Math对象">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/09/29/JavaScript内置对象类/" data-toggle="tooltip" data-placement="top"
+                           title="JavaScript内置对象类">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTUzNi8xMjA3Mg==">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串的使用"><span class="toc-text">字符串的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串类型底层其实都是用字符字符数组实现的"><span class="toc-text">字符串类型底层其实都是用字符字符数组实现的</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取指定位置的字符charAt"><span class="toc-text">获取指定位置的字符charAt()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串三大操作："><span class="toc-text">字符串三大操作：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-查找关键字indexOf"><span class="toc-text">1. 查找关键字indexOf()</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#lastIndexOf-value-fromIndex-返回最后一次出现指定子串的下标"><span class="toc-text">lastIndexOf(value,[fromIndex])    返回最后一次出现指定子串的下标</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-截取子字符串slice-、substring"><span class="toc-text">2. 截取子字符串slice()、substring()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-分隔字符串split"><span class="toc-text">3. 分隔字符串split()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-连接字符串concat"><span class="toc-text">4. 连接字符串concat()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-text">注意</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-模式匹配："><span class="toc-text">5. 模式匹配：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#replace"><span class="toc-text">replace()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#match"><span class="toc-text">match</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#search"><span class="toc-text">search()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查找："><span class="toc-text">查找：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#trim-方法"><span class="toc-text">trim()方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String对象与正则表达式"><span class="toc-text">String对象与正则表达式</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#JavaScript"
+                           title="JavaScript">JavaScript</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.bugbo.xyz/">BugBo</a></li>
+                        
+                        <li><a href="http://dragonblog.club/">Dragon</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/syymoi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; syymo 2018
+                    <br>
+                    <span id="busuanzi_container_site_uv" style="font-size: 12px;">UV: <span id="busuanzi_value_site_uv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://syymo.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-108450504-1';
+    var _gaDomain = 'auto';
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<!-- <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script> -->
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://avatars2.githubusercontent.com/u/26571594?s=460&amp;v=4">
+</body>
+
+</html>

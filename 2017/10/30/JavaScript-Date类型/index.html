@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Github 上的个人博客">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="syymo" href="/atom.xml">
+    <title>
+        
+        JavaScript Date类型｜syymo&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://syymo.github.io/2017/10/30/JavaScript-Date类型/">
+
+    <!-- Font-awesome Core CSS -->
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <!-- Animate Core CSS -->
+    <link rel="stylesheet" href="/css/animate.min.css">
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    syymo
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://avatars2.githubusercontent.com/u/26571594?s=460&v=4">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://avatars2.githubusercontent.com/u/26571594?s=460&v=4')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>JavaScript Date类型</h1>
+                    
+                    <span class="meta">
+                         作者 syymo
+                        <span>
+                          日期 2017-10-30
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#JavaScript"
+                           title="JavaScript">JavaScript</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            JavaScript Date类型
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="new-Date"><a href="#new-Date" class="headerlink" title="new Date()"></a>new Date()</h2><p>var now = new Date();<br>Date中保存1970年1月1日午夜（零时）开始经过的毫秒数来保存日期。<br>在不传递参数的情况下，新创建的对象自动获取当前时间。日期和时间都基于本地时区而非GMT来创建。<br>想根据特定的日期和时间创建对象可以直接传或者使用Date.parse()和Date.UTC()<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//使用指定的年月日[时分秒]进行初始化</span><br><span class="line">var d1 = new Date(2017, 10, 30);</span><br><span class="line">var d2 = new Date(&apos;2017/10/30&apos;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="Date-parse"><a href="#Date-parse" class="headerlink" title="Date.parse()"></a>Date.parse()</h3><p>Date.parse()方法接收一个表示日期的字符串参数，然后根据这个字符串返回相应的毫秒数。<br>ECMA-262没有定义Date.parse()应该支持那种日期格式，因此该方法的实现因地区而异。将地区设置为美国的浏览器通常都接受一下日期格式：</p>
+<ul>
+<li>“月/日/年”，如5/20/2004；</li>
+<li>“英文月 日,年”，如Janunary 25,2004；</li>
+<li>“英文星期几 英文月名 日 年 时:分:秒”，如Tue May 25 2004 00:00:00 GMT-0700；<br>如果传入Date.parse()方法的字符串不能表示日期，那么它返回NaN。</li>
+</ul>
+<p><code>var someDate = new Date(Date.parse(&quot;May 25, 2017&quot;));</code></p>
+<h3 id="Date-UTC"><a href="#Date-UTC" class="headerlink" title="Date.UTC()"></a>Date.UTC()</h3><p>Date.UTC()方法同样也返回表示日期的毫秒数，但与Date.parse()在构建值时使用不同的信息。<br>Date.UTC()的参数分别是年份、基于0的月份（一月是0，二月是1，…）、月中的那天（1到31）、小时（0到23）、分钟（0到59）、秒（0到59）及毫秒数。这些参数中只有前两个参数（年和月）是必须的。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//GMT时间2017年1月1日午夜零时</span><br><span class="line">var now = new Date(Date.UTC(2017, 0));</span><br><span class="line">//GMT时间2017年10月30日下午18:25:30</span><br><span class="line">var nowtime = new Date(Date.UTC(2017, 9, 30, 18, 25, 30));</span><br></pre></td></tr></table></figure>
+<h3 id="Date-now"><a href="#Date-now" class="headerlink" title="Date.now()"></a>Date.now()</h3><p>var start = Date.now();<br>该方法表示调用这个方法时的日期和和时间的毫秒数。</p>
+<h2 id="ValueOf"><a href="#ValueOf" class="headerlink" title="ValueOf()"></a>ValueOf()</h2><p>Date的ValueOf方法，根本不返回字符串，而是返回日期的毫秒表示。因此可以用来比较日期值。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var date1 = new Date(2017, 10, 30);</span><br><span class="line">var date2 = new Date(2017, 11, 11);</span><br><span class="line">alert(date1 &lt; date2);  //true</span><br><span class="line">alert(date1 &gt; date2);  //false</span><br></pre></td></tr></table></figure></p>
+<h2 id="日期常用方法"><a href="#日期常用方法" class="headerlink" title="日期常用方法"></a>日期常用方法</h2><blockquote>
+<p>1.每个分量都有一对<strong> get/set </strong>方法，获取/设置该分量的值<br>2.命名：年月日 没有s,<strong> 时分秒 有s </strong><br>3.取值/赋值：除了每月中的日之外，其余都是从0开始到-1结束<br>         每月中的日从1开始，到31结束<br>         月份：<strong> 取值时要+1修正，赋值时-1修正 </strong><br>         星期：日 一 二 三 四 五 六 对应 0  1  2  3  4  5  6</p>
+</blockquote>
+<h2 id="日期计算："><a href="#日期计算：" class="headerlink" title="日期计算："></a>日期计算：</h2><blockquote>
+<p>1.两日期对象相减，得到毫秒<br>2.时间+-：var nowMs = date.getTime() 返回时间毫秒数<br>    var nextMs = mowMs +/- 5*60*1000;<br>    var next = new Date(nextMs);<br>使用毫秒做计算，不改变原时间对象！需要重新封装时间对象<br>最大仅能算到“天数”。再算“月数”无法确定没有天数<br>3.任意分量的计算<br>  先取出分量值，做计算，再set回去<br>  setXXX()：</p>
+<ul>
+<li>1.自动调整进制</li>
+<li>2.<strong> 直接修改原日期对象 </strong><br>如何保留原日期对象呢？先new出新Date对象，再set<br>var newDate = new Date(oldDate.getTime());<br>使用毫秒做计算，不改变原时间对象！需要重新封装时间对象<br>最大仅能算到“天数”。再算“月数”无法确定没有天数</li>
+</ul>
+</blockquote>
+<h2 id="日期格式化方法"><a href="#日期格式化方法" class="headerlink" title="日期格式化方法"></a>日期格式化方法</h2><p><strong> 一般自定义format(date)方法 </strong><br>Date类型一些专门用于将日期格式化为字符串的方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>toString()</td>
+<td>返回带有时区信息的日期和时间（0-23）</td>
+</tr>
+<tr>
+<td>toLocaleString()</td>
+<td>返回日期和时间的本地格式（AM、PM）</td>
+</tr>
+<tr>
+<td>toDateString()</td>
+<td>以特定于实现的格式显示星期几、月、日和年</td>
+</tr>
+<tr>
+<td>toTimeString()</td>
+<td>以特定于实现的格式显示时、分、秒和时区</td>
+</tr>
+<tr>
+<td>toLocaleDateString()</td>
+<td>以特定于地区的格式显示星期几、月、日和年</td>
+</tr>
+<tr>
+<td>toLocaleTimeString()</td>
+<td>以特定于的格式显示时、分、秒</td>
+</tr>
+<tr>
+<td>toUTCString()</td>
+<td>以特定于实现的格式完整的UTC日期</td>
+</tr>
+</tbody>
+</table>
+<h2 id="日期-时间组件方法"><a href="#日期-时间组件方法" class="headerlink" title="日期/时间组件方法"></a>日期/时间组件方法</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>getTime</td>
+<td>返回表示日期的毫秒数；与valueOf方法返回的值相同</td>
+</tr>
+<tr>
+<td>getDate()</td>
+<td>从 Date 对象返回一个月中的某一天 (1 ~ 31)</td>
+</tr>
+<tr>
+<td>getDay()</td>
+<td>从 Date 对象返回一周中的某一天 (0 ~ 6)</td>
+</tr>
+<tr>
+<td>getMonth()</td>
+<td>从 Date 对象返回月份 (0 ~ 11)</td>
+</tr>
+<tr>
+<td>getFullYear()</td>
+<td>从 Date 对象以四位数字返回年份</td>
+</tr>
+<tr>
+<td>getYear()</td>
+<td>请使用 getFullYear() 方法代替</td>
+</tr>
+<tr>
+<td>getHours()</td>
+<td>返回 Date 对象的小时 (0 ~ 23)</td>
+</tr>
+<tr>
+<td>getMinutes()</td>
+<td>返回 Date 对象的分钟 (0 ~ 59)</td>
+</tr>
+<tr>
+<td>getSeconds()</td>
+<td>返回 Date 对象的秒数 (0 ~ 59)</td>
+</tr>
+<tr>
+<td>getMilliseconds()</td>
+<td>返回 Date 对象的毫秒(0 ~ 999)</td>
+</tr>
+<tr>
+<td>getTime()</td>
+<td>返回 1970 年 1 月 1 日至今的毫秒数</td>
+</tr>
+<tr>
+<td>getTimezoneOffset()</td>
+<td>返回本地时间与格林威治标准时间 (GMT) 的分钟差</td>
+</tr>
+<tr>
+<td>getUTCDate()</td>
+<td>根据世界时从 Date 对象返回月中的一天 (1 ~ 31)</td>
+</tr>
+<tr>
+<td>getUTCDay()</td>
+<td>根据世界时从 Date 对象返回周中的一天 (0 ~ 6)</td>
+</tr>
+<tr>
+<td>getUTCMonth()</td>
+<td>根据世界时从 Date 对象返回月份 (0 ~ 11)</td>
+</tr>
+<tr>
+<td>getUTCFullYear()</td>
+<td>根据世界时从 Date 对象返回四位数的年份</td>
+</tr>
+<tr>
+<td>getUTCHours()</td>
+<td>根据世界时返回 Date 对象的小时 (0 ~ 23)</td>
+</tr>
+<tr>
+<td>getUTCMinutes()</td>
+<td>根据世界时返回 Date 对象的分钟 (0 ~ 59)</td>
+</tr>
+<tr>
+<td>getUTCSeconds()</td>
+<td>根据世界时返回 Date 对象的秒钟 (0 ~ 59)</td>
+</tr>
+<tr>
+<td>getUTCMilliseconds()</td>
+<td>根据世界时返回 Date 对象的毫秒(0 ~ 999)</td>
+</tr>
+<tr>
+<td>parse()</td>
+<td>返回1970年1月1日午夜到指定日期（字符串）的毫秒数</td>
+</tr>
+<tr>
+<td>setDate()</td>
+<td>设置 Date 对象中月的某一天 (1 ~ 31)</td>
+</tr>
+<tr>
+<td>setMonth()</td>
+<td>设置 Date 对象中月份 (0 ~ 11)</td>
+</tr>
+<tr>
+<td>setFullYear()</td>
+<td>设置 Date 对象中的年份（四位数字）</td>
+</tr>
+<tr>
+<td>setYear()</td>
+<td>请使用 setFullYear() 方法代替</td>
+</tr>
+<tr>
+<td>setHours()</td>
+<td>设置 Date 对象中的小时 (0 ~ 23)。</td>
+</tr>
+<tr>
+<td>setMinutes()</td>
+<td>设置 Date 对象中的分钟 (0 ~ 59)</td>
+</tr>
+<tr>
+<td>setSeconds()</td>
+<td>设置 Date 对象中的秒钟 (0 ~ 59)</td>
+</tr>
+<tr>
+<td>setMilliseconds()</td>
+<td>设置 Date 对象中的毫秒 (0 ~ 999)</td>
+</tr>
+<tr>
+<td>setTime()</td>
+<td>以毫秒设置 Date 对象</td>
+</tr>
+<tr>
+<td>setUTCDate()</td>
+<td>根据世界时设置 Date 对象中月份的一天 (1 ~ 31)</td>
+</tr>
+<tr>
+<td>setUTCMonth()</td>
+<td>根据世界时设置 Date 对象中的月份 (0 ~ 11)</td>
+</tr>
+<tr>
+<td>setUTCFullYear()</td>
+<td>根据世界时设置 Date 对象中的年份（四位数字）</td>
+</tr>
+<tr>
+<td>setUTCHours()</td>
+<td>根据世界时设置 Date 对象中的小时 (0 ~ 23)</td>
+</tr>
+<tr>
+<td>setUTCMinutes()</td>
+<td>根据世界时设置 Date 对象中的分钟 (0 ~ 59)</td>
+</tr>
+<tr>
+<td>setUTCSeconds()</td>
+<td>根据世界时设置 Date 对象中的秒钟 (0 ~ 59)</td>
+</tr>
+<tr>
+<td>setUTCMilliseconds()</td>
+<td>根据世界时设置 Date 对象中的毫秒 (0 ~ 999)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="小案例"><a href="#小案例" class="headerlink" title="小案例"></a>小案例</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//张三2015年9月1日上大学</span><br><span class="line">//在校4年，求离校日期？</span><br><span class="line">//离校前一个月要答辩</span><br><span class="line">//如果答辩日碰到周末则提前</span><br><span class="line">//求答辩日期？</span><br><span class="line">//提前一周提醒答辩，求提醒日期？</span><br><span class="line">var hire = new Date(&quot;2017-9-1&quot;);</span><br><span class="line">console.log(&quot;到校时间：&quot;+format(hire));</span><br><span class="line">hire.setFullYear(hire.getFullYear()+3);</span><br><span class="line">console.log(&quot;离校时间：&quot;+format(hire));</span><br><span class="line">hire.setMonth(hire.getMonth()-1);</span><br><span class="line">if(hire.getDay() == 6)&#123; //减一天</span><br><span class="line">    hire.setDate(hire.getDate()-1);</span><br><span class="line">&#125;else if(hire.getDay() == 0)&#123;//减两天</span><br><span class="line">    hire.setDate(hire.getDate()-2);</span><br><span class="line">&#125;   </span><br><span class="line">console.log(&quot;答辩时间：&quot;+format(hire));</span><br><span class="line">hire.setDate(hire.getDate()-2);</span><br><span class="line">console.log(&quot;提醒时间：&quot;+format(hire));  </span><br><span class="line"></span><br><span class="line">//格式化时间</span><br><span class="line">function format(date)&#123;</span><br><span class="line">    function format(date)&#123;</span><br><span class="line">    var weeks = [&quot;日&quot;, &quot;一&quot;, &quot;二&quot;, &quot;三&quot;, &quot;四&quot;, &quot;五&quot;, &quot;六&quot;];</span><br><span class="line">    var year = date.getFullYear() + &quot;年&quot;;</span><br><span class="line">    var month = formatNum(date.getMonth() + 1) + &quot;月&quot;;</span><br><span class="line">    var day = formatNum(date.getDate()) + &quot;日&quot;;</span><br><span class="line">    var week = &quot; 星期&quot; + weeks[date.getDay()];</span><br><span class="line">    var hour = formatNum(date.getHours()) + &quot;时&quot;;</span><br><span class="line">    var minute = formatNum(date.getMinutes()) + &quot;分&quot;;</span><br><span class="line">    var second = formatNum(date.getSeconds()) + &quot;秒&quot;;</span><br><span class="line">    //格式化小于10的数字</span><br><span class="line">    function formatNum(num)&#123;</span><br><span class="line">        if(num&lt;10)&#123;</span><br><span class="line">            num = &quot;0&quot; + num;</span><br><span class="line">        &#125;</span><br><span class="line">        return num;</span><br><span class="line">    &#125;           </span><br><span class="line">    var str = year + month + day + week +&quot; &quot;+ hour +&quot;:&quot;+ minute +&quot;:&quot;+ second;</span><br><span class="line">    return str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">到校时间：2017年09月01日 星期五 09时:25分:30秒</span><br><span class="line">离校时间：2020年09月01日 星期二 09时:25分:30秒</span><br><span class="line">答辩时间：2020年07月31日 星期五 09时:25分:30秒</span><br><span class="line">提醒时间：2020年07月29日 星期三 09时:25分:30秒</span><br></pre></td></tr></table></figure></p>
+<h2 id="时间选择器"><a href="#时间选择器" class="headerlink" title="时间选择器"></a>时间选择器</h2><p><a href="https://github.com/syymo/DatePicker" target="_blank" rel="noopener">时间选择器插件</a></p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/10/31/JavaScript-Error对象/" data-toggle="tooltip" data-placement="top"
+                           title="JavaScript Error对象">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/10/29/JavaScript-Math对象/" data-toggle="tooltip" data-placement="top"
+                           title="JavaScript Math对象">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTUzNi8xMjA3Mg==">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#new-Date"><span class="toc-text">new Date()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Date-parse"><span class="toc-text">Date.parse()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Date-UTC"><span class="toc-text">Date.UTC()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Date-now"><span class="toc-text">Date.now()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ValueOf"><span class="toc-text">ValueOf()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期常用方法"><span class="toc-text">日期常用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期计算："><span class="toc-text">日期计算：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期格式化方法"><span class="toc-text">日期格式化方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期-时间组件方法"><span class="toc-text">日期/时间组件方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小案例"><span class="toc-text">小案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间选择器"><span class="toc-text">时间选择器</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#JavaScript"
+                           title="JavaScript">JavaScript</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.bugbo.xyz/">BugBo</a></li>
+                        
+                        <li><a href="http://dragonblog.club/">Dragon</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/syymoi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; syymo 2018
+                    <br>
+                    <span id="busuanzi_container_site_uv" style="font-size: 12px;">UV: <span id="busuanzi_value_site_uv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://syymo.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-108450504-1';
+    var _gaDomain = 'auto';
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<!-- <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script> -->
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://avatars2.githubusercontent.com/u/26571594?s=460&amp;v=4">
+</body>
+
+</html>

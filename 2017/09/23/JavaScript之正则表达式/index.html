@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Github 上的个人博客">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="syymo" href="/atom.xml">
+    <title>
+        
+        JavaScript之正则表达式｜syymo&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://syymo.github.io/2017/09/23/JavaScript之正则表达式/">
+
+    <!-- Font-awesome Core CSS -->
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <!-- Animate Core CSS -->
+    <link rel="stylesheet" href="/css/animate.min.css">
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    syymo
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://avatars2.githubusercontent.com/u/26571594?s=460&v=4">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://avatars2.githubusercontent.com/u/26571594?s=460&v=4')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>JavaScript之正则表达式</h1>
+                    
+                    <span class="meta">
+                         作者 syymo
+                        <span>
+                          日期 2017-09-23
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#JavaScript"
+                           title="JavaScript">JavaScript</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            JavaScript之正则表达式
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="什么是正则表达式？"><a href="#什么是正则表达式？" class="headerlink" title="什么是正则表达式？"></a>什么是正则表达式？</h2><p>正则：规则、模式<br>字符串中字符出现的规律<br>正则表达式是强大的字符串匹配工具<br>也是一种难以读懂的文字</p>
+<h2 id="正则能做什么？"><a href="#正则能做什么？" class="headerlink" title="正则能做什么？"></a>正则能做什么？</h2><p>正则只能操作字符串</p>
+<h2 id="何时使用字正则表达式？"><a href="#何时使用字正则表达式？" class="headerlink" title="何时使用字正则表达式？"></a>何时使用字正则表达式？</h2><p>验证字符串格式，查找关键字，替换关键字</p>
+<h2 id="使用正则"><a href="#使用正则" class="headerlink" title="使用正则"></a>使用正则</h2><p>RegExp对象：专门封装一条正则表达式，提供使用正则表达式的常用API<br>    先创建然后调用API<br>API：var boolean = regExp.test(“被检查的字符串”);<br>    如果验证通过返回true；否则返回false<br>var re = new RegExp(“\d{6}”,ig);  //动态创建正则表达式<br><strong> 强调：所有的\都要改成\\ </strong><br>var re = /正则表达式/;<br>例如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var str = &quot;hello world&quot;;</span><br><span class="line">//js风格</span><br><span class="line">var re = new RegExp(&apos;H&apos;);//参数区分大小写</span><br><span class="line">alert(re.test(str));//检验str中是否有H  false</span><br><span class="line">// var re = new RegExp(&apos;H&apos;,&apos;i&apos;);//加上i忽略大小写 true</span><br><span class="line"> /*</span><br><span class="line">perl风格</span><br><span class="line">正则简写</span><br><span class="line">var re = /H/;</span><br><span class="line">var re = /H/i;</span><br><span class="line">*/</span><br></pre></td></tr></table></figure></p>
+<h2 id="正则表达式字母符号"><a href="#正则表达式字母符号" class="headerlink" title="正则表达式字母符号"></a>正则表达式字母符号</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">字母符号</th>
+<th style="text-align:left">代表意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">/g</td>
+<td style="text-align:left">global全局匹配</td>
+</tr>
+<tr>
+<td style="text-align:left">/i</td>
+<td style="text-align:left">ignore 忽略大小写</td>
+</tr>
+<tr>
+<td style="text-align:left">&#124;</td>
+<td style="text-align:left">“或”的意思</td>
+</tr>
+<tr>
+<td style="text-align:left">[]</td>
+<td style="text-align:left">定义匹配的字符范围</td>
+</tr>
+<tr>
+<td style="text-align:left">{}</td>
+<td style="text-align:left">一般用来表示匹配的长度</td>
+</tr>
+<tr>
+<td style="text-align:left">()</td>
+<td style="text-align:left">分组</td>
+</tr>
+<tr>
+<td style="text-align:left">[^]</td>
+<td style="text-align:left">“非”</td>
+</tr>
+<tr>
+<td style="text-align:left">^</td>
+<td style="text-align:left">行首</td>
+</tr>
+<tr>
+<td style="text-align:left">$</td>
+<td style="text-align:left">行尾</td>
+</tr>
+<tr>
+<td style="text-align:left">[abc]</td>
+<td style="text-align:left">a或者b或者c</td>
+</tr>
+<tr>
+<td style="text-align:left">[^a]</td>
+<td style="text-align:left">除了a以外</td>
+</tr>
+<tr>
+<td style="text-align:left">[^0-9a-z]</td>
+<td style="text-align:left">除了数字、字母以外</td>
+</tr>
+<tr>
+<td style="text-align:left">[\u4e00-\u9fa5]</td>
+<td style="text-align:left">所有汉字</td>
+</tr>
+</tbody>
+</table>
+<h3 id="预定义字符集：使用简化的字符，定义常用字符集"><a href="#预定义字符集：使用简化的字符，定义常用字符集" class="headerlink" title="预定义字符集：使用简化的字符，定义常用字符集"></a>预定义字符集：使用简化的字符，定义常用字符集</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">转义字符</th>
+<th style="text-align:left">代表意思</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">\d</td>
+<td style="text-align:left">digital 表示数字 0-9</td>
+<td style="text-align:left">/\d/等价于/[0-9]/</td>
+</tr>
+<tr>
+<td style="text-align:left">\D</td>
+<td style="text-align:left">除了0-9，也就是非数字</td>
+<td style="text-align:left">/\D/等价于/[^0-9]/</td>
+</tr>
+<tr>
+<td style="text-align:left">\w</td>
+<td style="text-align:left">匹配数字、字母、下划线</td>
+<td style="text-align:left">/\w/等价于/[0-9a-zA-Z]/</td>
+</tr>
+<tr>
+<td style="text-align:left">\W</td>
+<td style="text-align:left">匹配除了数字、字母、下划线</td>
+<td style="text-align:left">/\W/等价于/[^0-9a-zA-Z]/</td>
+</tr>
+<tr>
+<td style="text-align:left">\s</td>
+<td style="text-align:left">匹配空白字符</td>
+<td style="text-align:left">/\s/等价于/[\n\r\t\v\f]/</td>
+</tr>
+<tr>
+<td style="text-align:left">\S</td>
+<td style="text-align:left">除了空白以外的东西</td>
+<td style="text-align:left">/\S/等价于/[^\n\r\t\v\f]/</td>
+</tr>
+<tr>
+<td style="text-align:left">.</td>
+<td style="text-align:left">匹配除了回车和换行外的任何单个字符</td>
+<td style="text-align:left">/./等价于/[^\n\r\t\v\f]/</td>
+</tr>
+</tbody>
+</table>
+<h3 id="如果规则正文中出现特殊符号，用-转为原文"><a href="#如果规则正文中出现特殊符号，用-转为原文" class="headerlink" title="如果规则正文中出现特殊符号，用\转为原文"></a>如果规则正文中出现特殊符号，用\转为原文</h3><h2 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h2><p>什么是量词？出现的次数</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">量词符号</th>
+<th style="text-align:left">代表意思</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">{min,max}</td>
+<td style="text-align:left">最少min次，最多max次</td>
+<td style="text-align:left">/n{2,5}/</td>
+</tr>
+<tr>
+<td style="text-align:left">{min, }</td>
+<td style="text-align:left">最少min次，最多不限</td>
+<td style="text-align:left">/n{5,}/</td>
+</tr>
+<tr>
+<td style="text-align:left">{ ,max}</td>
+<td style="text-align:left">最少不限，最多max次</td>
+<td style="text-align:left">/n{,5}/</td>
+</tr>
+<tr>
+<td style="text-align:left">{x}</td>
+<td style="text-align:left">刚好x次</td>
+<td style="text-align:left">/n{x}/</td>
+</tr>
+<tr>
+<td style="text-align:left">?</td>
+<td style="text-align:left">{0,1}0次或1次 可有可无</td>
+<td style="text-align:left">/n?/</td>
+</tr>
+<tr>
+<td style="text-align:left">*</td>
+<td style="text-align:left">{0, }可有可无，不限制次数</td>
+<td style="text-align:left">/n*/</td>
+</tr>
+<tr>
+<td style="text-align:left">+</td>
+<td style="text-align:left">{1, }量词(许多)至少一个</td>
+<td style="text-align:left">/n+/</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常用正则的例子："><a href="#常用正则的例子：" class="headerlink" title="常用正则的例子："></a>常用正则的例子：</h2><p>校验邮箱：  <strong>/^\w+@[a-z0-9]+.[a-z]{2,4}$/</strong> 或 <strong>\w+@\w+([-]\w+)*(\.\w+)+</strong><br>去除空格：  <strong>/^\s+|\s+$/g</strong><br>匹配中文：  <strong>[\u4e00-\u9fa5]</strong><br>中文姓名：  <strong>[\u4e00-\u9fa5]{2-6}</strong><br>单词边界：  <strong>\b</strong><br>检验手机：  <strong>(\+86)?\s*1[345789]\d{9}</strong><br>检验身份证：<strong>\d{15}(\d{2}[0-9xX])?</strong></p>
+<h2 id="指定匹配位置"><a href="#指定匹配位置" class="headerlink" title="指定匹配位置"></a>指定匹配位置</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">重复字符</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">^</td>
+<td style="text-align:left">匹配字符串的开头</td>
+<td style="text-align:left">/^a/</td>
+</tr>
+<tr>
+<td style="text-align:left">$</td>
+<td style="text-align:left">匹配字符串的结尾</td>
+<td style="text-align:left">/a$/</td>
+</tr>
+<tr>
+<td style="text-align:left">\b</td>
+<td style="text-align:left">匹配单词的边界</td>
+<td style="text-align:left">/\bhis\b/</td>
+</tr>
+<tr>
+<td style="text-align:left">\B</td>
+<td style="text-align:left">匹配单词的非边界</td>
+<td style="text-align:left">/\Bhis\B/</td>
+</tr>
+<tr>
+<td style="text-align:left">?=X</td>
+<td style="text-align:left">匹配其后紧接x的字符串</td>
+<td style="text-align:left">/do(?=not)/</td>
+</tr>
+<tr>
+<td style="text-align:left">?!X</td>
+<td style="text-align:left">匹配其后没有紧接x的字符串</td>
+<td style="text-align:left">/do(?not)/</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong> ?=:预判，前一个字符之后，必须紧跟xx </strong></li>
+<li><strong> ?!:预判，前一个字符之后，必须不能跟xx </strong></li>
+</ul>
+<h2 id="JavaScript中regExp的test方法"><a href="#JavaScript中regExp的test方法" class="headerlink" title="JavaScript中regExp的test方法"></a>JavaScript中regExp的test方法</h2><p>test方法默认：只要找到就返回true<br>var boolean = regExp.test(“被检查的字符串”); 如果验证通过返回true；否则返回false<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//var regExp = /\w+@\w+([-]\w+)*(\.\w+)+/;</span><br><span class="line">var regExp = /^\w+@\w+([-]\w+)*(\.\w+)+$/;</span><br><span class="line">while(true)&#123;</span><br><span class="line">  var input = prompt(&quot;输入邮箱：&quot;);</span><br><span class="line">    if(regExp.test(input))&#123;</span><br><span class="line">      document.write(&quot;注册成功！&quot;)</span><br><span class="line">      break;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      alert(&quot;邮箱格式有误！&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>正则表达式前加^，后加$</strong>解决test默认匹配</p>
+<h2 id="JavaScript中regExp的exec-查找方法"><a href="#JavaScript中regExp的exec-查找方法" class="headerlink" title="JavaScript中regExp的exec()查找方法"></a>JavaScript中regExp的exec()查找方法</h2><p>var arr= regExp.exec(“被查找的内容”);<br>返回数组，但是有两个额外的属性：index、input;<br>在没有找到或者找完后返回<code>null</code>;<br><strong>arr[0]:找到的关键字内容</strong><br><strong>arr.index表示匹配项在字符串的位置</strong><br><strong>arr.input表示应用正则表达式的字符串</strong><br><strong>每次只能找一个，但是每次自动修改regExp的lastIndex属性！</strong><br><strong>regExp对象的lastIndex属性：表示下次开始匹配的位置！</strong><br><strong>regExp设置与不设置全局标志(g),每次也只会返回一个匹配项</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var str = &quot;cat, bat, sat, fat&quot;;</span><br><span class="line">var regExp = /.at/;</span><br><span class="line">var arr = regExp.exec(str);</span><br><span class="line">console.log(arr);</span><br><span class="line">console.log(regExp.lastIndex);</span><br><span class="line"></span><br><span class="line">var arr1 = regExp.exec(str);</span><br><span class="line">console.log(arr1);</span><br><span class="line">console.log(regExp.lastIndex);</span><br><span class="line">//增加全局变量并且需要多次调用，可放在循环中实现</span><br><span class="line">var regExp = /.at/g;</span><br><span class="line">var arr2 = regExp.exec(str);</span><br><span class="line">console.log(arr2);</span><br><span class="line">console.log(regExp.lastIndex);</span><br><span class="line"></span><br><span class="line">var arr3 = regExp.exec(str);</span><br><span class="line">console.log(arr3);</span><br><span class="line">console.log(regExp.lastIndex);</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2088736-3d8048d881ad00f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="输出结果"><br>使用循环：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var str = &quot;有时重要的东西总是迟来一步,但却一定会到,生活和爱情都是如此,程序当然也不例外.&quot;</span><br><span class="line">var regExp = /生活|程序/g;</span><br><span class="line">var arr = [];</span><br><span class="line">while((arr=regExp.exec(str))!=null)&#123;</span><br><span class="line">    //arr[0]:关键字的内容</span><br><span class="line">    //arr.index:关键字的位置</span><br><span class="line">    document.write(&quot;在位置&quot;+arr.index+&quot;发现：&quot;+arr[0]+&quot;&lt;br&gt;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="JavaScript中regExp的compile-方法"><a href="#JavaScript中regExp的compile-方法" class="headerlink" title="JavaScript中regExp的compile()方法"></a>JavaScript中regExp的compile()方法</h2><p>编译/重新编译正则表达式，将pattern转为内部格式，加快执行速度<br>一般程序引擎自动调用</p>
+<h2 id="贪婪模式和懒惰模式"><a href="#贪婪模式和懒惰模式" class="headerlink" title="贪婪模式和懒惰模式"></a>贪婪模式和懒惰模式</h2><p>贪婪模式：<code>.+</code>  <code>.*</code>  默认先匹配整个字符串，再缩小范围<br>兰多模式：<code>(.+?)</code> <code>(.*?)</code> 从第一个字符开始，向后扩展范围</p>
+<h2 id="RegExp-n"><a href="#RegExp-n" class="headerlink" title="RegExp.$n"></a>RegExp.$n</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var arr = []</span><br><span class="line">var str = &quot;&lt;a class=&apos;sy&apos; id=&apos;syy&apos; href=\&quot;www.syymo.cn\&quot; target=&apos;_blank&apos;&gt;&lt;/a&gt;&lt;a class=&apos;sy&apos; &apos; href=\&quot;syymo.cn\&quot; target=&apos;_blank&apos;&gt;&lt;/a&gt;&quot;</span><br><span class="line">var regExp = /&lt;a(.+?)href\s*=\s*[&apos;&quot;](.*?)[&apos;&quot;](.*?)&gt;/ig;</span><br><span class="line">while((arr=regExp.exec(str))!=null)&#123;</span><br><span class="line">    console.log(arr[0]);</span><br><span class="line">    console.log(RegExp.$2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从正则表达式匹配的内容中，取一部分：RegExp.$n<br>n:正则表达式中的第n个分组，其实就是第n个圆括号<br>强调：分组从1开始<br>必须通过RegExp类型，直接调用$n，不能使用对象</p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/09/24/React入门之JSX用法/" data-toggle="tooltip" data-placement="top"
+                           title="React入门之JSX用法">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/09/23/hello-world/" data-toggle="tooltip" data-placement="top"
+                           title="Hello World">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTUzNi8xMjA3Mg==">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是正则表达式？"><span class="toc-text">什么是正则表达式？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则能做什么？"><span class="toc-text">正则能做什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#何时使用字正则表达式？"><span class="toc-text">何时使用字正则表达式？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用正则"><span class="toc-text">使用正则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则表达式字母符号"><span class="toc-text">正则表达式字母符号</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#预定义字符集：使用简化的字符，定义常用字符集"><span class="toc-text">预定义字符集：使用简化的字符，定义常用字符集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如果规则正文中出现特殊符号，用-转为原文"><span class="toc-text">如果规则正文中出现特殊符号，用\转为原文</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#量词"><span class="toc-text">量词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用正则的例子："><span class="toc-text">常用正则的例子：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指定匹配位置"><span class="toc-text">指定匹配位置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript中regExp的test方法"><span class="toc-text">JavaScript中regExp的test方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript中regExp的exec-查找方法"><span class="toc-text">JavaScript中regExp的exec()查找方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript中regExp的compile-方法"><span class="toc-text">JavaScript中regExp的compile()方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#贪婪模式和懒惰模式"><span class="toc-text">贪婪模式和懒惰模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RegExp-n"><span class="toc-text">RegExp.$n</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#JavaScript"
+                           title="JavaScript">JavaScript</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.bugbo.xyz/">BugBo</a></li>
+                        
+                        <li><a href="http://dragonblog.club/">Dragon</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/syymoi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; syymo 2018
+                    <br>
+                    <span id="busuanzi_container_site_uv" style="font-size: 12px;">UV: <span id="busuanzi_value_site_uv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://syymo.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-108450504-1';
+    var _gaDomain = 'auto';
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<!-- <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script> -->
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://avatars2.githubusercontent.com/u/26571594?s=460&amp;v=4">
+</body>
+
+</html>
