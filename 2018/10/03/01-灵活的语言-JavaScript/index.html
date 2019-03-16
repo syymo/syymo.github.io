@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Github 上的个人博客">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="syymo" href="/atom.xml">
+    <title>
+        
+        01_灵活的语言 JavaScript｜syymo&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://syymo.github.io/2018/10/03/01-灵活的语言-JavaScript/">
+
+    <!-- Font-awesome Core CSS -->
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <!-- Animate Core CSS -->
+    <link rel="stylesheet" href="/css/animate.min.css">
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    syymo
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/archives/">archives</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://avatars2.githubusercontent.com/u/26571594?s=460&v=4">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://avatars2.githubusercontent.com/u/26571594?s=460&v=4')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>01_灵活的语言 JavaScript</h1>
+                    
+                    <span class="meta">
+                         作者 syymo
+                        <span>
+                          日期 2018-10-03
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#JavaScript设计模式"
+                           title="JavaScript设计模式">JavaScript设计模式</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            01_灵活的语言 JavaScript
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>开始我们遇到一些需求的时候都是直接<code>function</code>开始局。<br>例如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function CheckName () &#123;</span><br><span class="line">  // 验证名字</span><br><span class="line">&#125; </span><br><span class="line">function CheckEmail () &#123;</span><br><span class="line">  // 验证邮箱</span><br><span class="line">&#125;</span><br><span class="line">function CheckPassword () &#123;</span><br><span class="line">  // 验证密码</span><br><span class="line">&#125;</span><br><span class="line">......</span><br></pre></td></tr></table></figure></p>
+<h2 id="函数的另一种创建方式"><a href="#函数的另一种创建方式" class="headerlink" title="函数的另一种创建方式"></a>函数的另一种创建方式</h2><p>但是遇到团队开发时候问题就产生了，我们在创建<strong>函数</strong>的的时候创建了许许多多个全局变量。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var CheckName = function () &#123;</span><br><span class="line">  // 验证名字</span><br><span class="line">&#125; </span><br><span class="line">var CheckEmail = function () &#123;</span><br><span class="line">  // 验证邮箱</span><br><span class="line">&#125;</span><br><span class="line">var CheckPassword = function  () &#123;</span><br><span class="line">  // 验证密码</span><br><span class="line">&#125;</span><br><span class="line">......</span><br></pre></td></tr></table></figure></p>
+<p>这样写法和上面写法基本一样，只不过是这样写法在用的时候需要先声明而已。此时便创建了3个全局变量。<br>这样的写法功能能够实现但是在团队中就会影响他其他人，当别人也定义了此类方法时候就会出现覆盖。</p>
+<h2 id="用对象收编变量"><a href="#用对象收编变量" class="headerlink" title="用对象收编变量"></a>用对象收编变量</h2><p>此时我们就需要把这三个函数放在一个变量里，那么就到了<strong>对象</strong>上场的时候了，对象就是由属性和方法组成的。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var CheckObject = &#123;</span><br><span class="line">  checkName : function () &#123;</span><br><span class="line">    // 验证名字</span><br><span class="line">  &#125;,</span><br><span class="line">  checkEmail : function () &#123;</span><br><span class="line">    // 验证邮箱</span><br><span class="line">  &#125;,</span><br><span class="line">  checkPassword : function  () &#123;</span><br><span class="line">    // 验证密码</span><br><span class="line">  &#125;,</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在我们已经将所有函数作为了CheckObject的方法，我们只创建了一个全局变量，当使用的它们的时候也很简单了<code>CheckObject.checkName()</code>。<br>当我们使用<code>对象.方法</code>使用的时候也可以<code>对象.方法</code>给对象创建方法。</p>
+<h2 id="对象的另一种形式"><a href="#对象的另一种形式" class="headerlink" title="对象的另一种形式"></a>对象的另一种形式</h2><p>首先需要声明一个对象，下面的对象声明方式称之为<strong>无参构造函数</strong>创建对象。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var CheckObject = () &#123;&#125;</span><br><span class="line">CheckObject.checkName = function () &#123;</span><br><span class="line">  // 验证名字</span><br><span class="line">&#125; </span><br><span class="line">CheckObject.checkEmail = function () &#123;</span><br><span class="line">  // 验证邮箱</span><br><span class="line">&#125;</span><br><span class="line">CheckObject.checkPassword = function  () &#123;</span><br><span class="line">  // 验证密码</span><br><span class="line">&#125;</span><br><span class="line">......</span><br></pre></td></tr></table></figure></p>
+<p>这样和上面使用方式是一样的，比如<code>CheckOb.checkName()</code>，现在这样虽然是可以满足我们需求，但是这样别人使用我们的方法是就比较麻烦了，这个对象不能复制一份，也就是说当别人<code>new CheckObject</code>时，这些方法并不会被复制。就比如你买了一本<strong>《JavaScript设计模式》</strong>这本书，你朋友也想要，但是书只有一本。但是如果我们买一个打印机的话不会出现这样的情况了。</p>
+<h2 id="真假对象"><a href="#真假对象" class="headerlink" title="真假对象"></a>真假对象</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var CheckObject = &#123;</span><br><span class="line">  return &#123;  </span><br><span class="line">    checkName : function () &#123;</span><br><span class="line">      // 验证名字</span><br><span class="line">    &#125;, </span><br><span class="line">    checkEmail : function () &#123;</span><br><span class="line">      // 验证邮箱</span><br><span class="line">    &#125;,</span><br><span class="line">    checkPassword : function  () &#123;</span><br><span class="line">      // 验证密码</span><br><span class="line">    &#125;,</span><br><span class="line">    ......</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在可以使用：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var a = CheckObject();</span><br><span class="line">a.checkName();</span><br></pre></td></tr></table></figure></p>
+<p>实际上我们我们每次调用的时候都返回一个新的对象，每个人使用就不会出现冲突了。</p>
+<h2 id="类也可以"><a href="#类也可以" class="headerlink" title="类也可以"></a>类也可以</h2><p>虽然我们创建的对象满足了我们的需求，但是这并不是真正意义上类的创建方式，返回出来的对象本身与CheckObject对象无关，我们需要稍微改造。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var CheckObject = &#123;</span><br><span class="line">  this.checkName = function () &#123;</span><br><span class="line">    // 验证名字</span><br><span class="line">  &#125;</span><br><span class="line">  this.checkEmail = function () &#123;</span><br><span class="line">    // 验证邮箱</span><br><span class="line">  &#125;</span><br><span class="line">  this.checkPassword = function  () &#123;</span><br><span class="line">    // 验证密码</span><br><span class="line">  &#125;</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在这样的对象就可以看做是类了，既然是类就可以使用<code>new</code>来创建了。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var a = new CheckObject();</span><br><span class="line">a.checkName();</span><br></pre></td></tr></table></figure></p>
+<p>如果每个人都对类实例化（用类创建对象）我们每个人都会创建一套自己的方法了。</p>
+<h2 id="一个检测类"><a href="#一个检测类" class="headerlink" title="一个检测类"></a>一个检测类</h2><p>现在通过所有的方法放在函数内部了，通过this定义的，所以每一次通过new关键字创建新对象的时候，新创建的对象都会对类的this上的属性进行复制。所以这些方法都会有自己的一套方法，这样造成的消耗是很奢侈的，因此需要处理一下。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var CheckObject = function()&#123;&#125;;</span><br><span class="line">CheckObject.prototype.checkName = function() &#123;</span><br><span class="line">  // 验证名字</span><br><span class="line">&#125;</span><br><span class="line">CheckObject.prototype.checkEmail = function() &#123;</span><br><span class="line">  // 验证邮箱</span><br><span class="line">&#125;</span><br><span class="line">CheckObject.prototype.checkPassword = function() &#123;</span><br><span class="line">  // 验证密码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方式创建出来的对象所拥有的方法就是一个了，他们全都要依赖<code>prototype</code>原型依次寻找，而找到的方法都是一个，都绑定在<code>CheckObject</code>对象的原型上。现在需要将prototy写很多遍，因此可以这样写：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var CheckObject = function() &#123;&#125;</span><br><span class="line">CheckObject.prototype = &#123;</span><br><span class="line">  checkName : function() &#123;</span><br><span class="line">    // 验证姓名</span><br><span class="line">  &#125;,</span><br><span class="line">  checkEmail: function() &#123;</span><br><span class="line">    // 验证邮箱</span><br><span class="line">  &#125;,</span><br><span class="line">  checkPassword: function() &#123;</span><br><span class="line">    // 验证密码</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面两种方法不能混着使用，如果混着用，后面的方法就会覆盖前面<code>prototype</code>的方法。</p>
+<p>使用方法：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var a = new CheckObject();</span><br><span class="line">a.checkName();</span><br><span class="line">a.checkEmail();</span><br><span class="line">a.checkPassword();</span><br></pre></td></tr></table></figure></p>
+<h2 id="方法还可以这样用"><a href="#方法还可以这样用" class="headerlink" title="方法还可以这样用"></a>方法还可以这样用</h2><p>现在调用方法时，写了3遍，这种也是可以避免的，我们只需要在每一个方法末尾将当前对象返回，在JavaScript中this指向就是当前对象，所以可以直接返回。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var CheckObject = &#123;</span><br><span class="line">  checkName : function () &#123;</span><br><span class="line">    // 验证名字</span><br><span class="line">    return this;</span><br><span class="line">  &#125;,</span><br><span class="line">  checkEmail : function () &#123;</span><br><span class="line">    // 验证邮箱</span><br><span class="line">    return this;</span><br><span class="line">  &#125;,</span><br><span class="line">  checkPassword : function  () &#123;</span><br><span class="line">    // 验证密码</span><br><span class="line">    return this;</span><br><span class="line">  &#125;,</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在可以这样调用：</p>
+<p><code>CheckObject.checkName().checkEmail().checkPassword();</code></p>
+<p>可用同样的方式放到原型对象中。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var CheckObject = function() &#123;&#125;</span><br><span class="line">CheckObject.prototype = &#123;</span><br><span class="line">  checkName : function() &#123;</span><br><span class="line">    // 验证姓名</span><br><span class="line">    return this;</span><br><span class="line">  &#125;,</span><br><span class="line">  checkEmail: function() &#123;</span><br><span class="line">    // 验证邮箱</span><br><span class="line">    return this;</span><br><span class="line">  &#125;,</span><br><span class="line">  checkPassword: function() &#123;</span><br><span class="line">    // 验证密码</span><br><span class="line">    return this;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当使用的时候需要先创建一下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var a = new CheckObject();</span><br><span class="line">a.checkName().checkEmail().checkPassword();</span><br></pre></td></tr></table></figure></p>
+<h2 id="函数的祖先"><a href="#函数的祖先" class="headerlink" title="函数的祖先"></a>函数的祖先</h2><p>在prototype.js中对源对象(JavaScript语言提供的对象类，如Function、Array、Object等)的拓展，每个函数都可以添加其他方法。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Function.prototype.checkEmail = function() &#123;</span><br><span class="line">  // 验证邮箱</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样使用的时候就比较方便了，如果习惯函数的形式，可以这样写：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var f = function() &#123;&#125;;</span><br><span class="line">f.checkName();</span><br></pre></td></tr></table></figure>
+<p>但是这种写法其实大多数情况时不被允许的，这样就污染了原生对象Function，别人创建的函数也会被你创建的函数污染，造成不必要的开销，但是可以抽象出一个类来统一添加方法的功能方法。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Function.prototype.addMethod = function(name, fn) &#123;</span><br><span class="line">  this[name] = fn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样需要添加方法就可以这样：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var methods = function() &#123;&#125;;</span><br><span class="line">// 或者</span><br><span class="line">var methods = new Function();</span><br><span class="line"></span><br><span class="line">methods.addMethod(&apos;checkName&apos;, function() &#123;</span><br><span class="line">  // 验证姓名</span><br><span class="line">&#125;)</span><br><span class="line">methods.checkName();</span><br></pre></td></tr></table></figure>
+<h2 id="可以链式添加吗？"><a href="#可以链式添加吗？" class="headerlink" title="可以链式添加吗？"></a>可以链式添加吗？</h2><p>当然时可以的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Function.prototype.addMethod = function(name, fn) &#123;</span><br><span class="line">  this[name] = fn;</span><br><span class="line">  return this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在添加方法就是这样了 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var methods = function() &#123;&#125;;</span><br><span class="line">methods.addMethod(&apos;checkName&apos;, function() &#123;</span><br><span class="line">  // 验证姓名</span><br><span class="line">&#125;).addMethod(&apos;checkEmail&apos;, function() &#123;</span><br><span class="line">  // 验证邮箱</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>既然可以链式添加那么需要链式使用的时候就需要将<code>this</code>返回。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var methods = function() &#123;&#125;;</span><br><span class="line">methods.addMethod(&apos;checkName&apos;, function() &#123;</span><br><span class="line">  // 验证姓名</span><br><span class="line">&#125;).addMethod(&apos;checkEmail&apos;, function() &#123;</span><br><span class="line">  // 验证邮箱</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 使用</span><br><span class="line">methods.cbeckName().checkEmail();</span><br></pre></td></tr></table></figure>
+<h2 id="换一种方式使用方法"><a href="#换一种方式使用方法" class="headerlink" title="换一种方式使用方法"></a>换一种方式使用方法</h2><p>之前我们使用的函数方式使用，对于习惯使用类方式使用的小伙伴，就可以这样简单改一下了：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Functhion.prototype.addMethod = function(name, fn) &#123;</span><br><span class="line">  this.prototype[name] = fn;</span><br><span class="line">  return this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var Methods = function() &#123;&#125;;</span><br><span class="line">Methods.addMethods(&apos;checkName&apos;, function() &#123;</span><br><span class="line">  // 验证名字</span><br><span class="line">&#125;).addMethod(&apos;checkEmail&apos;, function() &#123;</span><br><span class="line">  // 验证邮箱</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>现在使用的时候就需要先<code>new</code>来创建对象。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var m = new Methods();</span><br><span class="line">m.checkEmail();</span><br></pre></td></tr></table></figure>
+<p>“JavaScript是一种灵活的语言，当然函数在其中扮演着一等公民。所以使用JavaScript，你可以编出更多优雅的艺术代码。”</p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/10/04/02-写的都是看到的-面向对象编程/" data-toggle="tooltip" data-placement="top"
+                           title="02_写的都是看到的 面向对象编程">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/10/03/webpack笔记/" data-toggle="tooltip" data-placement="top"
+                           title="webpack笔记">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTUzNi8xMjA3Mg==">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数的另一种创建方式"><span class="toc-text">函数的另一种创建方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用对象收编变量"><span class="toc-text">用对象收编变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象的另一种形式"><span class="toc-text">对象的另一种形式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#真假对象"><span class="toc-text">真假对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类也可以"><span class="toc-text">类也可以</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一个检测类"><span class="toc-text">一个检测类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法还可以这样用"><span class="toc-text">方法还可以这样用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数的祖先"><span class="toc-text">函数的祖先</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可以链式添加吗？"><span class="toc-text">可以链式添加吗？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#换一种方式使用方法"><span class="toc-text">换一种方式使用方法</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#JavaScript设计模式"
+                           title="JavaScript设计模式">JavaScript设计模式</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.bugbo.xyz/">BugBo</a></li>
+                        
+                        <li><a href="http://dragonblog.club/">Dragon</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/syymoi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/syymo">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; syymo 2019
+                    <br>
+                    <span id="busuanzi_container_site_uv" style="font-size: 12px;">UV: <span id="busuanzi_value_site_uv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://syymo.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-108450504-1';
+    var _gaDomain = 'auto';
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<!-- <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script> -->
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://avatars2.githubusercontent.com/u/26571594?s=460&amp;v=4">
+</body>
+
+</html>

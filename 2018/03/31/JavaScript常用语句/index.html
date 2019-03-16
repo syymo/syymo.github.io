@@ -207,13 +207,15 @@
 </code></pre><h3 id="数组位置方法：-ECMAScript5"><a href="#数组位置方法：-ECMAScript5" class="headerlink" title="数组位置方法：(ECMAScript5)"></a>数组位置方法：(ECMAScript5)</h3><p>Array.indexOf(search,fromindex); //search要查找的项(必须) fromindex查找起点(可选)</p>
 <p>Array.lastIndexOf(search,fromindex) //用法同indexOf 都返回查找项的位置</p>
 <pre><code>indexOf 从数组开头查找    lastIndexOf 从数组的末尾开始  没找到返回-1
-</code></pre><h3 id="数组迭代方法：-ECMAScript5"><a href="#数组迭代方法：-ECMAScript5" class="headerlink" title="数组迭代方法：(ECMAScript5)"></a>数组迭代方法：(ECMAScript5)</h3><p>Array.every()</p>
-<p>Array.filter()</p>
-<p>Array.forEach()</p>
-<p>Array.map()</p>
-<p>Array.some()</p>
-<h3 id="数组归并方法：-ECMAScript5"><a href="#数组归并方法：-ECMAScript5" class="headerlink" title="数组归并方法：(ECMAScript5)"></a>数组归并方法：(ECMAScript5)</h3><p>Array.reduce()</p>
+</code></pre><h3 id="数组迭代方法：-ECMAScript5"><a href="#数组迭代方法：-ECMAScript5" class="headerlink" title="数组迭代方法：(ECMAScript5)"></a>数组迭代方法：(ECMAScript5)</h3><p>Array.every()   // 对数组中的每一项运行给定函数，如果该函数对每一项都返回true，则返回true</p>
+<p>Array.filter()  // 对数组中的每一项运行给定函数，返回该函数会返回true的项组成的数组</p>
+<p>Array.forEach() // 对数组中的每一项运行给定函数。此方法无返回值，常用于便利</p>
+<p>Array.map() // 对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组</p>
+<p>Array.some()    // 对数字中的每一项运行给定函数，如果该函数如任意一项放回true，则放回true</p>
+<h3 id="数组归并方法：-ECMAScript5"><a href="#数组归并方法：-ECMAScript5" class="headerlink" title="数组归并方法：(ECMAScript5)"></a>数组归并方法：(ECMAScript5)</h3><p>Array.reduce()  </p>
 <p>Array.reduceRight()</p>
+<p>这两个方法都会迭代数组的所有项，然后构建一个返回值。其中<code>redue</code>从数组第一项开始，逐个遍历到最后一项。<code>reduceRight</code>从数组最后一项开始，逐个便利到第一项。</p>
+<p>两个方法都接受两个参数：一个在每一项上调用的函数和(可选的)作为归并基础的初始值。传给reduce和reduceRight的函数接受4个参数：前一个项、当前项、项的索引和数组对象。这个函数返回的任何值都会作为第一个参数自动传给下一项。第一次迭代发生在数组的第二项上，因此第一个参数是数组的第一项，第二个参数是数组的第二项。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> values = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">var</span> sum = values.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">prev, cur, index, array</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> prev + cur;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(sum);   <span class="comment">// 15</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><h3 id="字符串操作：String对象的所有方法都是返回一个全新的对象，而不是修改原始字符串。"><a href="#字符串操作：String对象的所有方法都是返回一个全新的对象，而不是修改原始字符串。" class="headerlink" title="字符串操作：String对象的所有方法都是返回一个全新的对象，而不是修改原始字符串。"></a>字符串操作：String对象的所有方法都是返回一个全新的对象，而不是修改原始字符串。</h3><p>var num = str.length;      字符个数</p>
 <h3 id="字符方法"><a href="#字符方法" class="headerlink" title="字符方法"></a>字符方法</h3><p>var char = str.charAt(index)        获取某个字符</p>
 <p>var code = str.charCodeAt(index)    获取某个字符指定位置字符的unicode编号</p>
@@ -448,7 +450,7 @@ var next = new Date(nextMs);
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; syymo 2018
+                    Copyright &copy; syymo 2019
                     <br>
                     <span id="busuanzi_container_site_uv" style="font-size: 12px;">UV: <span id="busuanzi_value_site_uv"></span> Times</span>
                     <br>
