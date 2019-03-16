@@ -45,20 +45,32 @@ Array.lastIndexOf(search,fromindex) //用法同indexOf 都返回查找项的位�
     indexOf 从数组开头查找    lastIndexOf 从数组的末尾开始  没找到返回-1
 
 ### 数组迭代方法：(ECMAScript5)
-Array.every()
+Array.every()   // 对数组中的每一项运行给定函数，如果该函数对每一项都返回true，则返回true
 
-Array.filter()
+Array.filter()  // 对数组中的每一项运行给定函数，返回该函数会返回true的项组成的数组
 
-Array.forEach()
+Array.forEach() // 对数组中的每一项运行给定函数。此方法无返回值，常用于便利
 
-Array.map()
+Array.map() // 对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组
 
-Array.some()
+Array.some()    // 对数字中的每一项运行给定函数，如果该函数如任意一项放回true，则放回true
 
 ### 数组归并方法：(ECMAScript5)
-Array.reduce()
+Array.reduce()  
 
 Array.reduceRight()
+
+这两个方法都会迭代数组的所有项，然后构建一个返回值。其中`redue`从数组第一项开始，逐个遍历到最后一项。`reduceRight`从数组最后一项开始，逐个便利到第一项。
+
+两个方法都接受两个参数：一个在每一项上调用的函数和(可选的)作为归并基础的初始值。传给reduce和reduceRight的函数接受4个参数：前一个项、当前项、项的索引和数组对象。这个函数返回的任何值都会作为第一个参数自动传给下一项。第一次迭代发生在数组的第二项上，因此第一个参数是数组的第一项，第二个参数是数组的第二项。
+```JavaScript
+var values = [1,2,3,4,5];
+var sum = values.reduce(function(prev, cur, index, array){
+    return prev + cur;
+})
+console.log(sum);   // 15
+```
+
 
 ## 字符串
 ### 字符串操作：String对象的所有方法都是返回一个全新的对象，而不是修改原始字符串。

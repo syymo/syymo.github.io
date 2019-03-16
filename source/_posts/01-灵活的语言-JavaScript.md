@@ -1,5 +1,5 @@
 ---
-title: 01_灵活的语言JavaScript
+title: 01_灵活的语言 JavaScript
 date: 2018-10-03 22:24:04
 tags: JavaScript设计模式
 ---
